@@ -26,3 +26,21 @@ Raw URLs (CORS-open, read by the blocks):
   Taylor row disappears, parties don't sum to total, or a cumulative count drops.
 - Carried over from `tbluegator/taylor-dec-ev-data` (2026 primary). See
   `claude/taylor-ev-tracker-migration.md` in the Claude project for the history.
+
+## Daily P13 graphic
+
+`share/render_daily.py` turns `p13.json` into a 1080×1080 post image. The
+"Daily P13 graphic" workflow runs it whenever `p13.json` changes and once each
+morning (so the countdown advances on quiet days), then commits:
+
+- `share/p13-today.png`: always today's image. Stable link:
+  https://raw.githubusercontent.com/TaylorFLDems/taylor-dec-scoreboard-data/main/share/p13-today.png
+- `share/daily/p13-YYYY-MM-DD.png`: one per day, for the record.
+
+It shows only what the public scoreboard shows (P13 ballots, the 600 goal,
+milestones, countdown). While the count is 0 it leads with the countdown
+instead. Stops after Nov 3. Test a date locally with
+`python share/render_daily.py --date 2026-10-27 --out test.png`.
+
+`share/p13-scoreboard-share.png` is the separate, fixed link-preview image for
+the page; its source is in the private ops repo (`scoreboard/share/`).

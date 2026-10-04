@@ -1,0 +1,56 @@
+name: Daily P13 graphic
+
+# Renders share/p13-today.png (and a dated copy in share/daily/) from p13.json.
+# Runs whenever the daily count updates p13.json, plus a fallback each morning
+# so the countdown still advances on days the count does not change.
+
+on:
+  push:
+    branches: [main]
+    paths: ['p13.json', 'share/render_daily.py', 'share/assets/**']
+  schedule:
+    # 14:41 UTC = 10:41 a.m. EDT (9:41 a.m. EST after Nov 1). Odd minute on
+    # purpose: GitHub drops scheduled runs at :00/:30 under load.
+    - cron: '41 14 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p13-graphic
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Playwright Chromium
+        run: |
+          pip install --quiet playwright==1.56.0
+          python -m playwright install --with-deps chromium
+
+      - name: Render
+        run: python share/render_daily.py
+
+      - name: Commit if the image changed
+        run: |
+          git config user.name  "scoreboard[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add share/p13-today.png share/daily/
+          if git diff --staged --quiet; then
+            echo "graphic unchanged"
+            exit 0
+          fi
+          git commit -m "P13 graphic $(TZ=America/New_York date +%F)"
+          for i in 1 2 3; do
+            git pull --rebase --quiet && git push && exit 0
+            sleep 10
+          done
+          exit 1
