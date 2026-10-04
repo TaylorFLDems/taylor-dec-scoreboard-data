@@ -1,0 +1,60 @@
+name: Daily EV/VBM pull
+
+on:
+  schedule:
+    # Times are UTC and do NOT follow daylight saving.
+    # 13:47 UTC = 9:47 a.m. ET, 16:19 UTC = 12:19 p.m. ET — correct through
+    # Nov 1 2026. After DST ends add an hour to both: '47 14' and '19 17'.
+    #
+    # The minutes are deliberately odd. GitHub's scheduled runs are best-effort:
+    # they are routinely delayed and are silently DROPPED under load, and the
+    # :00 / :30 slots are the most congested on the platform. The Aug 8 2026
+    # morning run scheduled at '30 13' never fired at all.
+    #
+    # Two firings a day is the safety net — if the morning one is dropped, the
+    # midday one catches it. scrape.py REPLACES a same-day entry rather than
+    # appending a duplicate, so running twice in a day is harmless.
+    - cron: '47 13 * * *'
+    - cron: '19 16 * * *'
+    # Third run so the morning pull still lands after the state's 9am publish
+    # once DST ends Nov 1 (13:47 UTC becomes 8:47 a.m. ET).
+    - cron: '47 14 * * *'
+  workflow_dispatch:        # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: write           # the only permission needed; uses the built-in
+                            # GITHUB_TOKEN, so there is no secret to store
+
+concurrency:
+  group: ev-pull
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install --quiet requests beautifulsoup4
+
+      - name: Verify the parser still works
+        run: python test_scrape.py
+
+      - name: Pull today's figures
+        run: python scrape.py
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name  "scoreboard[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add latest.json
+          if git diff --staged --quiet; then
+            echo "no change - the state has not republished yet"
+          else
+            git commit -m "EV/VBM data $(TZ=America/New_York date +%F)"
+            git push
+          fi

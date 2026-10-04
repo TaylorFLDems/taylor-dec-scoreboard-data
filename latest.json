@@ -1,0 +1,64 @@
+{
+ "county": "Taylor",
+ "election": "2026 Florida General",
+ "election_id": "49894",
+ "election_date": "2026-11-03",
+ "ev_start": "2026-10-24",
+ "ev_end": "2026-10-31",
+ "source_url": "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats",
+ "days": [
+  {
+   "date": "2026-10-04",
+   "compiled": "10/04/2026 8:04AM",
+   "compiled_state": "10/04/2026 8:04AM",
+   "taylor": {
+    "vbm_outstanding": {
+     "R": 506,
+     "D": 313,
+     "O": 12,
+     "NPA": 43,
+     "T": 874
+    },
+    "vbm_returned": {
+     "R": 12,
+     "D": 10,
+     "O": 1,
+     "NPA": 4,
+     "T": 27
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   },
+   "statewide": {
+    "vbm_outstanding": {
+     "R": 699719,
+     "D": 877512,
+     "O": 48373,
+     "NPA": 404138,
+     "T": 2029742
+    },
+    "vbm_returned": {
+     "R": 49996,
+     "D": 64909,
+     "O": 3663,
+     "NPA": 27470,
+     "T": 146038
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   }
+  }
+ ],
+ "updated_at": "2026-10-04T15:20:00-04:00",
+ "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run."
+}
