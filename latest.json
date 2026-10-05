@@ -57,8 +57,310 @@
      "T": 0
     }
    }
+  },
+  {
+   "date": "2026-10-05",
+   "compiled": "10/05/2026 8:04AM",
+   "compiled_state": "10/05/2026 8:04AM",
+   "taylor": {
+    "vbm_outstanding": {
+     "R": 506,
+     "D": 313,
+     "O": 12,
+     "NPA": 43,
+     "T": 874
+    },
+    "vbm_returned": {
+     "R": 12,
+     "D": 10,
+     "O": 1,
+     "NPA": 4,
+     "T": 27
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   },
+   "statewide": {
+    "vbm_outstanding": {
+     "R": 701441,
+     "D": 879690,
+     "O": 48579,
+     "NPA": 405497,
+     "T": 2035207
+    },
+    "vbm_returned": {
+     "R": 50021,
+     "D": 65072,
+     "O": 3668,
+     "NPA": 27498,
+     "T": 146259
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   }
   }
  ],
- "updated_at": "2026-10-04T15:20:00-04:00",
- "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run."
+ "updated_at": "2026-10-05T09:59:00-04:00",
+ "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
+ "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
+ "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
+ "tqv": {
+  "Summary": {
+   "TotalRegisteredVoters": 11739,
+   "ElectionName": "2026 General Election",
+   "ElectionDate": "11/03/2026",
+   "LastUpdatedTime": "2026-10-05T14:00:01.589191+00:00",
+   "CountyName": "TAYLOR",
+   "FvrsElectionNumber": 49894
+  },
+  "PrecinctSplit": {
+   "001": {
+    "Precinct": "001",
+    "Location": "001"
+   },
+   "001.3": {
+    "Precinct": "001",
+    "Location": "001"
+   },
+   "001.4": {
+    "Precinct": "001",
+    "Location": "001"
+   },
+   "002": {
+    "Precinct": "002",
+    "Location": "002"
+   },
+   "003": {
+    "Precinct": "003",
+    "Location": "003"
+   },
+   "004": {
+    "Precinct": "004",
+    "Location": "004"
+   },
+   "005": {
+    "Precinct": "005",
+    "Location": "005"
+   },
+   "006": {
+    "Precinct": "006",
+    "Location": "006"
+   },
+   "007": {
+    "Precinct": "007",
+    "Location": "007"
+   },
+   "008": {
+    "Precinct": "008",
+    "Location": "008"
+   },
+   "008.4": {
+    "Precinct": "008",
+    "Location": "008"
+   },
+   "008.5": {
+    "Precinct": "008",
+    "Location": "008"
+   },
+   "009": {
+    "Precinct": "009",
+    "Location": "009"
+   },
+   "010": {
+    "Precinct": "010",
+    "Location": "010"
+   },
+   "011": {
+    "Precinct": "011",
+    "Location": "011"
+   },
+   "012": {
+    "Precinct": "012",
+    "Location": "012"
+   },
+   "012.2": {
+    "Precinct": "012",
+    "Location": "012"
+   },
+   "012.3": {
+    "Precinct": "012",
+    "Location": "012"
+   },
+   "013": {
+    "Precinct": "013",
+    "Location": "013"
+   },
+   "013.1": {
+    "Precinct": "013",
+    "Location": "013"
+   },
+   "013.2": {
+    "Precinct": "013",
+    "Location": "013"
+   },
+   "013.3": {
+    "Precinct": "013",
+    "Location": "013"
+   },
+   "013.5": {
+    "Precinct": "013",
+    "Location": "013"
+   },
+   "014": {
+    "Precinct": "014",
+    "Location": "014"
+   }
+  },
+  "Location": {
+   "ElectionDay": {
+    "001": {
+     "Name": "1st United Methodist Ch",
+     "Address": "302 N Jefferson St, Perry, FL 32347"
+    },
+    "002": {
+     "Name": "Forest Capital Hall - Pct 2",
+     "Address": "203 Forest Park Dr, Perry, FL 32348"
+    },
+    "003": {
+     "Name": "Taylor Coastal Water & Sewer District",
+     "Address": "18820 Beach Rd, Perry, FL 32348"
+    },
+    "004": {
+     "Name": "Salem Baptist Church",
+     "Address": "10400 Fish Creek Rd, Salem, FL 32356"
+    },
+    "005": {
+     "Name": "Steinhatchee Comm Cntr",
+     "Address": "1013 S Riverside Dr, Steinhatchee, FL 32359"
+    },
+    "006": {
+     "Name": "Shady Grove Comm Center",
+     "Address": "3845 Alton Wentworth Rd, Greenville, FL 32331"
+    },
+    "007": {
+     "Name": "Boyd Methodist Church",
+     "Address": "2458 Boyd Rd, Perry, FL 32347"
+    },
+    "008": {
+     "Name": "New Home Baptist Ch-Old Fellowship Hall",
+     "Address": "405 E Hampton Springs Ave, Perry, FL 32347"
+    },
+    "009": {
+     "Name": "Forest Capital Hall - Pct 9",
+     "Address": "203 Forest Park Dr, Perry, FL 32348"
+    },
+    "010": {
+     "Name": "Lakeside Bapt Church",
+     "Address": "3111 Hwy 27 E, Perry, FL 32348"
+    },
+    "011": {
+     "Name": "Athena Baptist Church",
+     "Address": "10060 Josh Ezell Grade, Perry, FL 32348"
+    },
+    "012": {
+     "Name": "Perry Shrine Bldg",
+     "Address": "1050 Courtney Rd, Perry, FL 32347"
+    },
+    "013": {
+     "Name": "Jerkins Bldg",
+     "Address": "1201 Martin Luther King Ave, Perry, FL 32348"
+    },
+    "014": {
+     "Name": "Mt. Carmel Baptist Church",
+     "Address": "2975 Pisgah Rd, Perry, FL 32347"
+    }
+   },
+   "EarlyVoting": {
+    "SOE OFFICE": {
+     "Name": "Supervisor of Elections Office",
+     "Address": "433 U S 19 N, Perry, FL 32347"
+    }
+   }
+  },
+  "HideTypes": [],
+  "Turnout": {
+   "DateType": {
+    "09/28/2026": {
+     "Mail": 6
+    },
+    "09/29/2026": {
+     "Mail": 7
+    },
+    "09/30/2026": {
+     "Mail": 7
+    },
+    "10/01/2026": {
+     "Mail": 2
+    },
+    "10/02/2026": {
+     "Mail": 3
+    },
+    "10/03/2026": {
+     "Mail": 2
+    }
+   },
+   "PartyType": {
+    "DEM": {
+     "Mail": 10
+    },
+    "IND": {
+     "Mail": 1
+    },
+    "NPA": {
+     "Mail": 4
+    },
+    "REP": {
+     "Mail": 12
+    }
+   },
+   "LocationParty": {},
+   "PrecinctType": {
+    "001.3": {
+     "BallotTypeTotals": {
+      "Mail": 3
+     },
+     "EligibleVoters": 210
+    },
+    "001.4": {
+     "BallotTypeTotals": {
+      "Mail": 7
+     },
+     "EligibleVoters": 539
+    },
+    "002": {
+     "BallotTypeTotals": {
+      "Mail": 13
+     },
+     "EligibleVoters": 1543
+    },
+    "003": {
+     "BallotTypeTotals": {
+      "Mail": 4
+     },
+     "EligibleVoters": 737
+    }
+   },
+   "LocationDay": {}
+  }
+ },
+ "registration": {
+  "as_of": "2026-08-31",
+  "active": true,
+  "source": "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-county-and-party/",
+  "D": 2828,
+  "R": 7592,
+  "minor": 302,
+  "NPA": 977,
+  "T": 11699
+ }
 }
