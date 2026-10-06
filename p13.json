@@ -1,30 +1,30 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-04T17:53:29-04:00",
- "through": "2026-10-03",
+ "updated_at": "2026-10-06T09:21:05-04:00",
+ "through": "2026-10-05",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
-  "md5": "0169cda1d90298e42c8612875b9ea1dc",
-  "rows": 913,
-  "dem_rows": 328,
-  "through": "2026-10-03"
+  "md5": "964007a0c3c42c783bcc506ddcec5eeb",
+  "rows": 931,
+  "dem_rows": 333,
+  "through": "2026-10-05"
  },
  "evl_file": null,
  "county_dem": {
-  "mail_active": 323,
+  "mail_active": 328,
   "mail_cancelled": 5,
-  "mail_returned": 10,
+  "mail_returned": 11,
   "mail_outstanding": 313,
   "mail_outstanding_already_voted_early": 0,
   "chase": 313,
-  "status_unconfirmed": 0,
+  "status_unconfirmed": 4,
   "early_voted": 0,
   "double_votes": 0,
-  "cast_before_eday": 10
+  "cast_before_eday": 11
  },
  "precincts": {
   "013": {
-   "mail_active": 86,
+   "mail_active": 88,
    "mail_returned": 0,
    "mail_outstanding_chase": 86,
    "early_voted": 0,
@@ -42,11 +42,11 @@
    "dem_active_source": null
   },
   "001": {
-   "mail_active": 40,
-   "mail_returned": 5,
+   "mail_active": 42,
+   "mail_returned": 6,
    "mail_outstanding_chase": 35,
    "early_voted": 0,
-   "cast_before_eday": 5,
+   "cast_before_eday": 6,
    "dem_active": null,
    "dem_active_source": null
   },
@@ -60,7 +60,7 @@
    "dem_active_source": null
   },
   "007": {
-   "mail_active": 21,
+   "mail_active": 22,
    "mail_returned": 0,
    "mail_outstanding_chase": 21,
    "early_voted": 0,
@@ -75,6 +75,13 @@
    "p13": 0,
    "county": 10,
    "mail_active": 323,
+   "chase": 313
+  },
+  {
+   "date": "2026-10-05",
+   "p13": 0,
+   "county": 11,
+   "mail_active": 328,
    "chase": 313
   }
  ],
