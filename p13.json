@@ -1,34 +1,34 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-06T09:21:05-04:00",
- "through": "2026-10-05",
+ "updated_at": "2026-10-07T08:45:01-04:00",
+ "through": "2026-10-06",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
-  "md5": "964007a0c3c42c783bcc506ddcec5eeb",
-  "rows": 931,
-  "dem_rows": 333,
-  "through": "2026-10-05"
+  "md5": "dae17c39560966e58ad47f3c81c3c97b",
+  "rows": 939,
+  "dem_rows": 337,
+  "through": "2026-10-06"
  },
  "evl_file": null,
  "county_dem": {
-  "mail_active": 328,
+  "mail_active": 332,
   "mail_cancelled": 5,
-  "mail_returned": 11,
-  "mail_outstanding": 313,
+  "mail_returned": 21,
+  "mail_outstanding": 307,
   "mail_outstanding_already_voted_early": 0,
-  "chase": 313,
+  "chase": 307,
   "status_unconfirmed": 4,
   "early_voted": 0,
   "double_votes": 0,
-  "cast_before_eday": 11
+  "cast_before_eday": 21
  },
  "precincts": {
   "013": {
-   "mail_active": 88,
-   "mail_returned": 0,
-   "mail_outstanding_chase": 86,
+   "mail_active": 89,
+   "mail_returned": 1,
+   "mail_outstanding_chase": 87,
    "early_voted": 0,
-   "cast_before_eday": 0,
+   "cast_before_eday": 1,
    "dem_active": 836,
    "dem_active_source": "VAN, Sept 4, 2026 (Rev B; Grant B application)"
   },
@@ -42,29 +42,29 @@
    "dem_active_source": null
   },
   "001": {
-   "mail_active": 42,
+   "mail_active": 44,
    "mail_returned": 6,
-   "mail_outstanding_chase": 35,
+   "mail_outstanding_chase": 36,
    "early_voted": 0,
    "cast_before_eday": 6,
    "dem_active": null,
    "dem_active_source": null
   },
   "002": {
-   "mail_active": 34,
-   "mail_returned": 2,
-   "mail_outstanding_chase": 32,
+   "mail_active": 35,
+   "mail_returned": 4,
+   "mail_outstanding_chase": 30,
    "early_voted": 0,
-   "cast_before_eday": 2,
+   "cast_before_eday": 4,
    "dem_active": null,
    "dem_active_source": null
   },
   "007": {
    "mail_active": 22,
-   "mail_returned": 0,
-   "mail_outstanding_chase": 21,
+   "mail_returned": 4,
+   "mail_outstanding_chase": 18,
    "early_voted": 0,
-   "cast_before_eday": 0,
+   "cast_before_eday": 4,
    "dem_active": null,
    "dem_active_source": null
   }
@@ -83,6 +83,13 @@
    "county": 11,
    "mail_active": 328,
    "chase": 313
+  },
+  {
+   "date": "2026-10-06",
+   "p13": 1,
+   "county": 21,
+   "mail_active": 332,
+   "chase": 307
   }
  ],
  "note": "Aggregate counts from the DS-DE 145/147 files, which are confidential under s.101.62(2), F.S. No voter-level data is published."
