@@ -1,41 +1,41 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-07T08:45:01-04:00",
- "through": "2026-10-06",
+ "updated_at": "2026-10-08T09:17:32-04:00",
+ "through": "2026-10-07",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
-  "md5": "dae17c39560966e58ad47f3c81c3c97b",
-  "rows": 939,
-  "dem_rows": 337,
-  "through": "2026-10-06"
+  "md5": "df4a6c90e39a52419fb7705fb28f0869",
+  "rows": 956,
+  "dem_rows": 342,
+  "through": "2026-10-07"
  },
  "evl_file": null,
  "county_dem": {
-  "mail_active": 332,
+  "mail_active": 337,
   "mail_cancelled": 5,
-  "mail_returned": 21,
-  "mail_outstanding": 307,
+  "mail_returned": 30,
+  "mail_outstanding": 305,
   "mail_outstanding_already_voted_early": 0,
-  "chase": 307,
-  "status_unconfirmed": 4,
+  "chase": 305,
+  "status_unconfirmed": 2,
   "early_voted": 0,
   "double_votes": 0,
-  "cast_before_eday": 21
+  "cast_before_eday": 30
  },
  "precincts": {
   "013": {
-   "mail_active": 89,
-   "mail_returned": 1,
-   "mail_outstanding_chase": 87,
+   "mail_active": 91,
+   "mail_returned": 5,
+   "mail_outstanding_chase": 85,
    "early_voted": 0,
-   "cast_before_eday": 1,
+   "cast_before_eday": 5,
    "dem_active": 836,
    "dem_active_source": "VAN, Sept 4, 2026 (Rev B; Grant B application)"
   },
   "014": {
-   "mail_active": 40,
+   "mail_active": 42,
    "mail_returned": 0,
-   "mail_outstanding_chase": 40,
+   "mail_outstanding_chase": 42,
    "early_voted": 0,
    "cast_before_eday": 0,
    "dem_active": null,
@@ -43,10 +43,10 @@
   },
   "001": {
    "mail_active": 44,
-   "mail_returned": 6,
-   "mail_outstanding_chase": 36,
+   "mail_returned": 9,
+   "mail_outstanding_chase": 35,
    "early_voted": 0,
-   "cast_before_eday": 6,
+   "cast_before_eday": 9,
    "dem_active": null,
    "dem_active_source": null
   },
@@ -90,6 +90,13 @@
    "county": 21,
    "mail_active": 332,
    "chase": 307
+  },
+  {
+   "date": "2026-10-07",
+   "p13": 5,
+   "county": 30,
+   "mail_active": 337,
+   "chase": 305
   }
  ],
  "note": "Aggregate counts from the DS-DE 145/147 files, which are confidential under s.101.62(2), F.S. No voter-level data is published."
