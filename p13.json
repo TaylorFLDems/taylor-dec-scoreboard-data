@@ -1,43 +1,43 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-08T09:17:32-04:00",
- "through": "2026-10-07",
+ "updated_at": "2026-10-09T10:26:12-04:00",
+ "through": "2026-10-08",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
-  "md5": "df4a6c90e39a52419fb7705fb28f0869",
-  "rows": 956,
-  "dem_rows": 342,
-  "through": "2026-10-07"
+  "md5": "c7bdd722529ce1f73d93931991d79d19",
+  "rows": 964,
+  "dem_rows": 344,
+  "through": "2026-10-08"
  },
  "evl_file": null,
  "county_dem": {
-  "mail_active": 337,
+  "mail_active": 339,
   "mail_cancelled": 5,
-  "mail_returned": 30,
-  "mail_outstanding": 305,
+  "mail_returned": 40,
+  "mail_outstanding": 297,
   "mail_outstanding_already_voted_early": 0,
-  "chase": 305,
+  "chase": 297,
   "status_unconfirmed": 2,
   "early_voted": 0,
   "double_votes": 0,
-  "cast_before_eday": 30
+  "cast_before_eday": 40
  },
  "precincts": {
   "013": {
    "mail_active": 91,
-   "mail_returned": 5,
+   "mail_returned": 6,
    "mail_outstanding_chase": 85,
    "early_voted": 0,
-   "cast_before_eday": 5,
+   "cast_before_eday": 6,
    "dem_active": 836,
    "dem_active_source": "VAN, Sept 4, 2026 (Rev B; Grant B application)"
   },
   "014": {
    "mail_active": 42,
-   "mail_returned": 0,
-   "mail_outstanding_chase": 42,
+   "mail_returned": 4,
+   "mail_outstanding_chase": 38,
    "early_voted": 0,
-   "cast_before_eday": 0,
+   "cast_before_eday": 4,
    "dem_active": null,
    "dem_active_source": null
   },
@@ -52,10 +52,10 @@
   },
   "002": {
    "mail_active": 35,
-   "mail_returned": 4,
-   "mail_outstanding_chase": 30,
+   "mail_returned": 6,
+   "mail_outstanding_chase": 28,
    "early_voted": 0,
-   "cast_before_eday": 4,
+   "cast_before_eday": 6,
    "dem_active": null,
    "dem_active_source": null
   },
@@ -97,6 +97,13 @@
    "county": 30,
    "mail_active": 337,
    "chase": 305
+  },
+  {
+   "date": "2026-10-08",
+   "p13": 6,
+   "county": 40,
+   "mail_active": 339,
+   "chase": 297
   }
  ],
  "note": "Aggregate counts from the DS-DE 145/147 files, which are confidential under s.101.62(2), F.S. No voter-level data is published."
