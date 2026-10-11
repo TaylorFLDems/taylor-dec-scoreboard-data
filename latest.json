@@ -416,7 +416,7 @@
    }
   }
  ],
- "updated_at": "2026-10-11T10:57:13-04:00",
+ "updated_at": "2026-10-11T12:29:24-04:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
