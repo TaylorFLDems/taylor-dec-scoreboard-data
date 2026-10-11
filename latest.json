@@ -363,9 +363,60 @@
      "T": 0
     }
    }
+  },
+  {
+   "date": "2026-10-11",
+   "compiled": "10/09/2026 8:04AM",
+   "compiled_state": "10/11/2026 8:04AM",
+   "taylor": {
+    "vbm_outstanding": {
+     "R": 489,
+     "D": 297,
+     "O": 14,
+     "NPA": 44,
+     "T": 844
+    },
+    "vbm_returned": {
+     "R": 47,
+     "D": 40,
+     "O": 1,
+     "NPA": 12,
+     "T": 100
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   },
+   "statewide": {
+    "vbm_outstanding": {
+     "R": 599944,
+     "D": 762737,
+     "O": 43644,
+     "NPA": 364349,
+     "T": 1770674
+    },
+    "vbm_returned": {
+     "R": 180151,
+     "D": 215308,
+     "O": 12370,
+     "NPA": 93235,
+     "T": 501064
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   }
   }
  ],
- "updated_at": "2026-10-10T12:28:16-04:00",
+ "updated_at": "2026-10-11T09:54:18-04:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
