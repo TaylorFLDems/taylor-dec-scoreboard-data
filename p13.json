@@ -1,6 +1,6 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-13T10:42:32-04:00",
+ "updated_at": "2026-10-13T20:33:25-04:00",
  "through": "2026-10-12",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
@@ -20,7 +20,10 @@
   "status_unconfirmed": 4,
   "early_voted": 0,
   "double_votes": 0,
-  "cast_before_eday": 62
+  "cast_before_eday": 62,
+  "cure_flagged": 0,
+  "cure_cured": 0,
+  "cure_open": 0
  },
  "precincts": {
   "013": {
@@ -30,7 +33,10 @@
    "early_voted": 0,
    "cast_before_eday": 11,
    "dem_active": 836,
-   "dem_active_source": "VAN, Sept 4, 2026 (Rev B; Grant B application)"
+   "dem_active_source": "VAN, Sept 4, 2026 (Rev B; Grant B application)",
+   "cure_flagged": 0,
+   "cure_cured": 0,
+   "cure_open": 0
   },
   "014": {
    "mail_active": 43,
@@ -39,7 +45,10 @@
    "early_voted": 0,
    "cast_before_eday": 8,
    "dem_active": null,
-   "dem_active_source": null
+   "dem_active_source": null,
+   "cure_flagged": 0,
+   "cure_cured": 0,
+   "cure_open": 0
   },
   "001": {
    "mail_active": 44,
@@ -48,7 +57,10 @@
    "early_voted": 0,
    "cast_before_eday": 12,
    "dem_active": null,
-   "dem_active_source": null
+   "dem_active_source": null,
+   "cure_flagged": 0,
+   "cure_cured": 0,
+   "cure_open": 0
   },
   "002": {
    "mail_active": 35,
@@ -57,7 +69,10 @@
    "early_voted": 0,
    "cast_before_eday": 7,
    "dem_active": null,
-   "dem_active_source": null
+   "dem_active_source": null,
+   "cure_flagged": 0,
+   "cure_cured": 0,
+   "cure_open": 0
   },
   "007": {
    "mail_active": 22,
@@ -66,7 +81,10 @@
    "early_voted": 0,
    "cast_before_eday": 5,
    "dem_active": null,
-   "dem_active_source": null
+   "dem_active_source": null,
+   "cure_flagged": 0,
+   "cure_cured": 0,
+   "cure_open": 0
   }
  },
  "history": [
