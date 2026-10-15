@@ -1,6 +1,6 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-15T08:05:47-04:00",
+ "updated_at": "2026-10-15T11:30:07-04:00",
  "through": "2026-10-14",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
@@ -86,6 +86,66 @@
    "cure_cured": 0,
    "cure_open": 0
   }
+ },
+ "postcard": {
+  "households": 1039,
+  "since": "2026-10-03",
+  "delivered": "2026-10-13",
+  "deadline": "2026-10-22",
+  "daily": [
+   {
+    "date": "2026-10-03",
+    "card": 0,
+    "other": 2
+   },
+   {
+    "date": "2026-10-04",
+    "card": 1,
+    "other": 0
+   },
+   {
+    "date": "2026-10-05",
+    "card": 5,
+    "other": 0
+   },
+   {
+    "date": "2026-10-06",
+    "card": 3,
+    "other": 1
+   },
+   {
+    "date": "2026-10-07",
+    "card": 4,
+    "other": 0
+   },
+   {
+    "date": "2026-10-08",
+    "card": 1,
+    "other": 1
+   },
+   {
+    "date": "2026-10-09",
+    "card": 1,
+    "other": 0
+   },
+   {
+    "date": "2026-10-12",
+    "card": 1,
+    "other": 1
+   },
+   {
+    "date": "2026-10-13",
+    "card": 2,
+    "other": 0
+   },
+   {
+    "date": "2026-10-14",
+    "card": 9,
+    "other": 2
+   }
+  ],
+  "card_since_delivery": 11,
+  "card_households_since_delivery": 9
  },
  "history": [
   {
