@@ -567,9 +567,60 @@
      "T": 0
     }
    }
+  },
+  {
+   "date": "2026-10-15",
+   "compiled": "10/15/2026 8:04AM",
+   "compiled_state": "10/15/2026 8:04AM",
+   "taylor": {
+    "vbm_outstanding": {
+     "R": 439,
+     "D": 253,
+     "O": 13,
+     "NPA": 40,
+     "T": 745
+    },
+    "vbm_returned": {
+     "R": 117,
+     "D": 91,
+     "O": 3,
+     "NPA": 17,
+     "T": 228
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   },
+   "statewide": {
+    "vbm_outstanding": {
+     "R": 558919,
+     "D": 711112,
+     "O": 41821,
+     "NPA": 349118,
+     "T": 1660970
+    },
+    "vbm_returned": {
+     "R": 241826,
+     "D": 286787,
+     "O": 16423,
+     "NPA": 124403,
+     "T": 669439
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   }
   }
  ],
- "updated_at": "2026-10-14T12:45:30-04:00",
+ "updated_at": "2026-10-15T08:40:26-04:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -578,7 +629,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-10-14T16:40:01.4631076+00:00",
+   "LastUpdatedTime": "2026-10-15T12:40:01.208278+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
@@ -789,15 +840,15 @@
      "Mail": 27
     },
     "10/14/2026": {
-     "Mail": 18
+     "Mail": 53
     }
    },
    "PartyType": {
     "DEM": {
-     "Mail": 81
+     "Mail": 98
     },
     "IND": {
-     "Mail": 1
+     "Mail": 2
     },
     "LPF": {
      "Mail": 1
@@ -806,32 +857,32 @@
      "Mail": 17
     },
     "REP": {
-     "Mail": 108
+     "Mail": 125
     }
    },
    "LocationParty": {},
    "PrecinctType": {
     "001.3": {
      "BallotTypeTotals": {
-      "Mail": 9
+      "Mail": 12
      },
      "EligibleVoters": 207
     },
     "001.4": {
      "BallotTypeTotals": {
-      "Mail": 21
+      "Mail": 23
      },
-     "EligibleVoters": 538
+     "EligibleVoters": 537
     },
     "002": {
      "BallotTypeTotals": {
-      "Mail": 27
+      "Mail": 30
      },
-     "EligibleVoters": 1547
+     "EligibleVoters": 1548
     },
     "003": {
      "BallotTypeTotals": {
-      "Mail": 17
+      "Mail": 19
      },
      "EligibleVoters": 734
     },
@@ -849,13 +900,13 @@
     },
     "006": {
      "BallotTypeTotals": {
-      "Mail": 9
+      "Mail": 12
      },
      "EligibleVoters": 337
     },
     "007": {
      "BallotTypeTotals": {
-      "Mail": 22
+      "Mail": 23
      },
      "EligibleVoters": 1364
     },
@@ -867,19 +918,19 @@
     },
     "008.5": {
      "BallotTypeTotals": {
-      "Mail": 13
+      "Mail": 15
      },
      "EligibleVoters": 563
     },
     "009": {
      "BallotTypeTotals": {
-      "Mail": 3
+      "Mail": 6
      },
      "EligibleVoters": 466
     },
     "010": {
      "BallotTypeTotals": {
-      "Mail": 5
+      "Mail": 6
      },
      "EligibleVoters": 583
     },
@@ -889,33 +940,39 @@
      },
      "EligibleVoters": 466
     },
+    "012.2": {
+     "BallotTypeTotals": {
+      "Mail": 1
+     },
+     "EligibleVoters": 84
+    },
     "012.3": {
      "BallotTypeTotals": {
-      "Mail": 8
+      "Mail": 11
      },
      "EligibleVoters": 531
     },
     "013.1": {
      "BallotTypeTotals": {
-      "Mail": 6
+      "Mail": 10
      },
      "EligibleVoters": 703
     },
     "013.2": {
      "BallotTypeTotals": {
-      "Mail": 11
+      "Mail": 13
      },
      "EligibleVoters": 378
     },
     "013.5": {
      "BallotTypeTotals": {
-      "Mail": 2
+      "Mail": 3
      },
      "EligibleVoters": 246
     },
     "014": {
      "BallotTypeTotals": {
-      "Mail": 31
+      "Mail": 35
      },
      "EligibleVoters": 1702
     }
