@@ -78,30 +78,33 @@ TZ = ZoneInfo("America/New_York")
 # ---------------------------------------------------------------------------
 # Active registered voters by party, from the state's own registration report.
 #
-# Taylor is registered 7,496 R to 2,847 D. Side-by-side raw vote counts therefore
+# Taylor is registered 7,627 R to 2,826 D. Side-by-side raw vote counts therefore
 # say more about who lives here than about who is turning out, and every chart
 # reads as a rout. The dashboard divides each party's votes by its OWN active
 # registrations so the two are comparable. Florida primaries are closed, so this
 # denominator is the genuinely eligible universe, not a proxy.
 #
-# Source: Voter Registration - By County and Party
-#   https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/
-#     voter-registration-reports/voter-registration-by-county-and-party/
+# Source: 2026 General Election book closing (Oct 5, 2026), Party by County
+#   https://files.floridados.gov/media/711452/1-party-by-county.pdf
+# Matches the Taylor SOE's own book-closing totals (Dana Southerland, Oct 16)
+# exactly: 7,627 R / 2,826 D / 1,296 other / 11,749. The county feed's
+# TotalRegisteredVoters read 11,743 the same day.
 #
-# Refresh this when the state posts a new monthly file, and definitely at book
-# closing before the general. registration_check() below warns if it drifts far
-# from the county feed's own active-voter count.
+# This is the final denominator for the Nov 3 general: registration is closed,
+# so there is nothing newer to refresh to. (Previously: DOS monthly report,
+# Aug 31, 2026: 2,828 D / 7,592 R / 302 minor / 977 NPA / 11,699.)
+# registration_check() below warns if it drifts far from the county feed's own
+# active-voter count.
 # ---------------------------------------------------------------------------
 REGISTRATION = {
-    "as_of": "2026-08-31",
+    "as_of": "2026-10-05",
     "active": True,
-    "source": ("https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/"
-               "voter-registration-reports/voter-registration-by-county-and-party/"),
-    "D": 2828,
-    "R": 7592,
-    "minor": 302,
-    "NPA": 977,
-    "T": 11699,
+    "source": "https://files.floridados.gov/media/711452/1-party-by-county.pdf",
+    "D": 2826,
+    "R": 7627,
+    "minor": 314,
+    "NPA": 982,
+    "T": 11749,
 }
 
 # The primary's hand-counted backfill does not carry over: snapshots for the

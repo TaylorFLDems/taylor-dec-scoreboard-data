@@ -1038,13 +1038,13 @@
   }
  },
  "registration": {
-  "as_of": "2026-08-31",
+  "as_of": "2026-10-05",
   "active": true,
-  "source": "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-county-and-party/",
-  "D": 2828,
-  "R": 7592,
-  "minor": 302,
-  "NPA": 977,
-  "T": 11699
+  "source": "https://files.floridados.gov/media/711452/1-party-by-county.pdf",
+  "D": 2826,
+  "R": 7627,
+  "minor": 314,
+  "NPA": 982,
+  "T": 11749
  }
 }

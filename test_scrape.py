@@ -145,7 +145,7 @@ check("parts sum to the stated total",
 check("as_of looks like a date", _re.fullmatch(r"\d{4}-\d{2}-\d{2}", RG["as_of"]), RG["as_of"])
 # A denominator this far off would visibly skew every share on the dashboard.
 check("within 3% of the county's own active count",
-      abs(11699 - RG["T"]) / 11699 < 0.03, f"{abs(11699-RG['T'])/11699:.2%}")
+      abs(11743 - RG["T"]) / 11743 < 0.03, f"{abs(11743-RG['T'])/11743:.2%}")
 
 import io, contextlib
 def _warns(reg, ov):
@@ -153,7 +153,7 @@ def _warns(reg, ov):
     with contextlib.redirect_stdout(buf):
         registration_check(reg, ov)
     return "::warning::" in buf.getvalue()
-check("no warning at the real numbers", not _warns(RG, {"ActiveRegisteredVoters": 11699}))
+check("no warning at the real numbers", not _warns(RG, {"ActiveRegisteredVoters": 11743}))
 check("warns when the denominator drifts",
       _warns(RG, {"ActiveRegisteredVoters": 15000}))
 check("silent when the county feed is down", not _warns(RG, None))
