@@ -12,6 +12,18 @@ repo. Only the totals are published here.
 |---|---|---|
 | `latest.json` | GitHub Action, 3x daily | County party totals from the FL DOS PublicStats page (election 49894) plus a snapshot of the county Turnout Quick View feed (election 85) |
 | `p13.json` | DEC scheduled task, daily | Democratic ballots cast by precinct for 13, 14, 1, 2, 7, plus county chase counts |
+| `state_check.json` | "Hourly freshness check" Action, 8 a.m. to 7 p.m. ET | The state page's current "compiled" stamps vs. the ones in `latest.json`. Read by the dashboards' status badge. If the state is ahead, the same run does the full pull |
+
+### Why `state_check.json` exists
+
+The dashboards can't read the state PublicStats page themselves: it sends no
+`Access-Control-Allow-Origin` header, so browsers block it (tested from
+taylorfldems.org, Oct 16 2026). GitHub has no such limit, so the hourly check
+reads the page and publishes the answer here. The state stamps the Taylor row
+around 8:04 a.m. and re-stamps the statewide table around 11:01 a.m. on
+weekdays; Taylor does not re-report on weekends. A failed check records
+`ok: false` and keeps the last good stamps; it never goes red. The daily pull
+is the one that goes red on parser drift.
 
 Raw URLs (CORS-open, read by the blocks):
 

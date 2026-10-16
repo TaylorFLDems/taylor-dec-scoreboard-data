@@ -1,0 +1,78 @@
+name: Hourly freshness check
+
+# Reads the state PublicStats page's "compiled" stamps and records them in
+# state_check.json, which the dashboards read to show whether they are current.
+# The dashboards cannot read the state page themselves (no CORS header).
+#
+# If the state has posted something newer than latest.json holds, this run also
+# does the full pull (same steps as daily.yml), so the dashboard catches up on
+# its own within the hour instead of waiting for the next daily firing.
+
+on:
+  schedule:
+    # Hourly at :13, 12:13-23:13 UTC = 8:13 a.m.-7:13 p.m. EDT.
+    # After DST ends Nov 1 the same line runs 7:13 a.m.-6:13 p.m. EST; still
+    # covers the state's ~8 a.m. and ~11 a.m. posts. Odd minute on purpose:
+    # GitHub drops scheduled runs at :00/:30 under load.
+    - cron: '13 12-23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Same group as daily.yml, so a check and a pull never write latest.json at once.
+concurrency:
+  group: ev-pull
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install --quiet requests beautifulsoup4
+
+      - name: Test the checker
+        run: python test_check_state.py
+
+      - name: Check the state page
+        id: check
+        run: python check_state.py
+
+      - name: Catch up - verify the parser
+        if: steps.check.outputs.behind == 'true'
+        run: python test_scrape.py
+
+      - name: Catch up - pull today's figures
+        if: steps.check.outputs.behind == 'true'
+        run: python scrape.py
+
+      - name: Catch up - recompare
+        if: steps.check.outputs.behind == 'true'
+        run: python check_state.py --offline
+
+      - name: Commit
+        run: |
+          git config user.name  "scoreboard[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state_check.json latest.json
+          if git diff --staged --quiet; then
+            echo "nothing to commit"; exit 0
+          fi
+          if git diff --staged --quiet -- latest.json; then
+            msg="Freshness check $(TZ=America/New_York date '+%F %H:%M')"
+          else
+            msg="EV/VBM data $(TZ=America/New_York date +%F) (caught up by freshness check)"
+          fi
+          git commit -m "$msg"
+          # Other workflows push here too (daily pull, P13 count, daily graphic).
+          for i in 1 2 3; do
+            git pull --rebase --quiet && git push && exit 0
+            sleep $((i * 5))
+          done
+          echo "::error::could not push after 3 tries"; exit 1
