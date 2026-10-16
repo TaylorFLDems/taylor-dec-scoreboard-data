@@ -1,6 +1,6 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-16T08:34:26-04:00",
+ "updated_at": "2026-10-16T08:59:28-04:00",
  "through": "2026-10-15",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
@@ -150,7 +150,69 @@
    }
   ],
   "card_since_delivery": 15,
-  "card_households_since_delivery": 13
+  "card_households_since_delivery": 13,
+  "party_daily": [
+   {
+    "date": "2026-10-03",
+    "dem": 2,
+    "rep": 1
+   },
+   {
+    "date": "2026-10-04",
+    "dem": 1,
+    "rep": 2
+   },
+   {
+    "date": "2026-10-05",
+    "dem": 5,
+    "rep": 9
+   },
+   {
+    "date": "2026-10-06",
+    "dem": 4,
+    "rep": 3
+   },
+   {
+    "date": "2026-10-07",
+    "dem": 4,
+    "rep": 4
+   },
+   {
+    "date": "2026-10-08",
+    "dem": 2,
+    "rep": 6
+   },
+   {
+    "date": "2026-10-09",
+    "dem": 1,
+    "rep": 3
+   },
+   {
+    "date": "2026-10-12",
+    "dem": 2,
+    "rep": 7
+   },
+   {
+    "date": "2026-10-13",
+    "dem": 2,
+    "rep": 6
+   },
+   {
+    "date": "2026-10-14",
+    "dem": 11,
+    "rep": 10
+   },
+   {
+    "date": "2026-10-15",
+    "dem": 5,
+    "rep": 9
+   }
+  ],
+  "reg": {
+   "dem": 2828,
+   "rep": 7592
+  },
+  "reg_source": "DOS active registration, Aug 31, 2026"
  },
  "history": [
   {
