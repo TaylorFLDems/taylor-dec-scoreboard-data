@@ -1,0 +1,596 @@
+<!-- Taylor Dems scoreboard: Countywide turnout. Paste once; data updates itself. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.tdsb{--navy:#0A3161;--navy-900:#061f3e;--navy-100:#d6e0ec;--navy-50:#eef3f9;--red:#B31942;--red-800:#99173a;--red-100:#f4d6de;
+ --page:#F1F2F2;--card:#ffffff;--ink:#2D2926;--ink2:#3d3833;--ink3:#514b45;--muted:#6b645d;
+ --line:#e1ddd7;--track:#ece9e4;--other:#8a847c;--ok:#1b7a4b;--ok-bg:#e4f2ea;--warnc:#8a5a12;--warn-bg:#f8efdd;
+ --display:'Archivo','Arial Narrow',system-ui,sans-serif;--body:'Libre Franklin',system-ui,-apple-system,'Segoe UI',sans-serif;
+ --shadow-sm:0 1px 3px rgba(10,49,97,.10),0 1px 2px rgba(10,49,97,.06);
+ background:var(--page);color:var(--ink2);font-family:var(--body);
+ font-size:16px;line-height:1.45;padding:16px;border-radius:10px;max-width:1080px;margin:0 auto;box-sizing:border-box;text-align:left}
+.tdsb *{box-sizing:border-box;margin:0;padding:0;border:0;list-style:none;text-align:inherit;font-family:inherit;letter-spacing:normal;text-transform:none;background:none;box-shadow:none}
+.tdsb .hd{position:relative;overflow:hidden;background:var(--navy);color:#fff;border-radius:10px;padding:22px;margin-bottom:16px}
+.tdsb .hd .kick{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.tdsb .hd .kick::before{content:"";width:22px;height:3px;background:#fff;flex-shrink:0}
+.tdsb .hd h2{font-family:var(--display);font-weight:900;font-size:clamp(26px,4vw,34px);line-height:1.05;letter-spacing:-.02em;color:#fff;margin-top:10px}
+.tdsb .hd p{color:rgba(255,255,255,.86);font-size:15px;line-height:1.6;margin-top:10px;max-width:62ch}
+.tdsb .hd a{color:#fff;text-decoration:underline}
+.tdsb .hero{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:14px}
+.tdsb .hero .big{font-family:var(--display);font-size:clamp(44px,8vw,64px);font-weight:900;line-height:.95;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#fff}
+.tdsb .hero .of{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.82);padding-bottom:6px}
+.tdsb .hbar{height:10px;background:rgba(255,255,255,.2);border-radius:2px;margin-top:14px;overflow:hidden}
+.tdsb .hbar i{display:block;height:100%;background:#fff;border-radius:2px}
+.tdsb .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:16px}
+.tdsb .card{background:var(--card);border-radius:10px;padding:20px 22px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.tdsb .card h3{font-family:var(--display);font-size:17px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;line-height:1.15}
+.tdsb .card .cap{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5}
+.tdsb .mrow{margin-top:16px}
+.tdsb .mrow .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.tdsb .mrow .lab{font-size:15px;color:var(--ink2);font-weight:500}
+.tdsb .mrow .val{font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-.01em;color:var(--navy);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tdsb .mrow .val small{font-family:var(--body);font-size:14px;font-weight:500;letter-spacing:0;color:var(--muted)}
+.tdsb .bar{position:relative;height:8px;background:var(--track);border-radius:2px;margin-top:8px}
+.tdsb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--navy);border-radius:2px}
+.tdsb .bar b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.tdsb .mrow .sub,.tdsb .card>.sub{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+.tdsb .card>.sub{margin-top:12px}
+.tdsb .st{display:inline-flex;align-items:center;gap:4px;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1.1;padding:3px 9px;border-radius:999px;margin-left:8px;white-space:nowrap;vertical-align:2px}
+.tdsb .st.ok{background:var(--ok-bg);color:var(--ok)}.tdsb .st.behind{background:var(--red-100);color:var(--red-800)}.tdsb .st.wait{background:var(--track);color:var(--ink2)}
+.tdsb .sec{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:-.01em;color:var(--navy);margin:26px 0 12px}
+.tdsb .sec::before{content:"";width:22px;height:3px;background:var(--red);flex-shrink:0}
+.tdsb .card svg{margin-top:12px}
+.tdsb svg{display:block;width:100%;height:auto;max-width:none;border:0;overflow:visible}
+.tdsb svg text{font-family:var(--body);fill:var(--ink3)}
+.tdsb .foot{font-size:13px;color:var(--muted);margin-top:18px}
+.tdsb .foot a,.tdsb details a{color:var(--navy);text-decoration:underline}
+.tdsb details{margin-top:10px;font-size:13.5px;color:var(--ink3);line-height:1.6}
+.tdsb details summary{cursor:pointer;color:var(--navy);font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border-radius:4px}
+.tdsb details summary:focus-visible,.tdsb a:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(31,77,135,.45)}
+.tdsb details p{margin-top:8px}
+.tdsb .warn{background:var(--warn-bg);color:var(--warnc);border:1px solid #e9d3a6;border-left:4px solid #b8791a;border-radius:6px;padding:10px 12px;font-size:14px;margin-bottom:16px}
+.tdsb table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.tdsb th,.tdsb td{padding:6px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.tdsb th:first-child,.tdsb td:first-child{text-align:left}
+.tdsb th{color:var(--muted);font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.tdsb .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tdsb .chip{display:inline-flex;align-items:center;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;line-height:1.1;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;white-space:nowrap}
+.tdsb .chip.up{background:#fff;color:var(--navy)}
+.tdsb .mbar{position:relative;margin-top:16px;padding-bottom:22px}
+.tdsb .mbar .hbar{margin-top:0}
+.tdsb .mbar .tick{position:absolute;top:-3px;width:2px;height:16px;background:rgba(255,255,255,.45);margin-left:-1px}
+.tdsb .mbar .tick.hit{background:#fff}
+.tdsb .mbar .tick span{position:absolute;top:19px;left:50%;transform:translateX(-50%);font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.72);white-space:nowrap}
+.tdsb .mbar .tick.hit span{color:#fff}
+.tdsb .hd .next{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.04em;color:#fff;margin-top:6px}
+.tdsb .act{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:10px;box-shadow:var(--shadow-sm);padding:20px 22px;margin-bottom:16px}
+.tdsb .act h3{font-family:var(--display);font-weight:900;font-size:24px;letter-spacing:-.01em;line-height:1.1;color:var(--navy)}
+.tdsb .act p{font-size:15px;line-height:1.6;color:var(--ink2);margin-top:8px;max-width:60ch}
+.tdsb .act .row{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin-top:16px}
+.tdsb .act a.btn{display:inline-flex;align-items:center;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--red);padding:13px 22px;border-radius:6px;text-decoration:none;transition:background 120ms cubic-bezier(.2,0,0,1),transform 120ms cubic-bezier(.2,0,0,1)}
+.tdsb .act a.btn:hover{background:var(--red-800)}
+.tdsb .act a.btn:active{transform:translateY(1px)}
+.tdsb .act a.lnk{font-weight:600;font-size:15px;color:var(--navy);text-decoration:underline;text-underline-offset:3px}
+.tdsb .vote dl{margin-top:4px}
+.tdsb .vote dt{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:14px}
+.tdsb .vote dd{font-size:15px;line-height:1.5;color:var(--ink2);margin-top:3px}
+.tdsb .tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:13px;padding:6px 9px;border-radius:6px;opacity:0;transition:opacity 120ms cubic-bezier(.2,0,0,1);z-index:5;white-space:nowrap;box-shadow:0 4px 12px rgba(10,49,97,.10)}
+
+.tdsb .seg{display:inline-flex;border:1.5px solid var(--navy);border-radius:999px;overflow:hidden;margin-top:12px}
+.tdsb .seg button{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;line-height:1.1;padding:7px 13px;color:var(--navy);cursor:pointer}
+.tdsb .seg button+button{border-left:1.5px solid var(--navy)}
+.tdsb .seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.tdsb .seg button:focus-visible{outline:none;box-shadow:inset 0 0 0 3px rgba(31,77,135,.45)}
+
+.tdsb .fr{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-sm);padding:10px 14px;margin-bottom:12px}
+.tdsb .fr summary{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--body);font-size:15px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink);list-style:none}
+.tdsb .fr summary::-webkit-details-marker{display:none}
+.tdsb .fr summary .more{margin-left:auto;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.tdsb .fr[open] summary .more::after{content:" \25B4"}.tdsb .fr:not([open]) summary .more::after{content:" \25BE"}
+.tdsb .fr .dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto;display:inline-block}
+.tdsb .fr .ok{background:var(--ok)}.tdsb .fr .wait{background:#b8791a}.tdsb .fr .bad{background:var(--red)}
+.tdsb .fr ul{margin-top:8px;border-top:1px solid var(--line)}
+.tdsb .fr li{display:grid;grid-template-columns:11px 1fr;gap:4px 10px;align-items:baseline;padding:8px 0 2px;font-size:14px;line-height:1.5;color:var(--ink2)}
+.tdsb .fr li .dot{transform:translateY(1px)}
+.tdsb .fr li b{font-weight:600;color:var(--ink)}
+.tdsb .fr li .fix{grid-column:2;font-size:13.5px;color:var(--ink3)}
+.tdsb .fr li .fix::before{content:"Fix: ";font-weight:700;color:var(--red-800)}
+</style>
+<div class="tdsb" id="tdsb-cty"><p style="padding:16px">Loading the scoreboard&hellip;</p></div>
+<script>
+(function(){
+var MODE = "cty", DATA = "https://raw.githubusercontent.com/TaylorFLDems/taylor-dec-scoreboard-data/main/", SHEET = "", G = {"a_ballots": 1750, "a_onfile": 475, "a_returned": 400, "a_early": 600, "a_regs": 30, "b_ballots": 600, "b_before": 250};
+var root = document.getElementById('tdsb-' + MODE);
+function clog(){try{var c=window.console;if(c&&typeof c.log==='function')c.log.apply(c,arguments);}catch(e){}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function fmt(n){return n==null||isNaN(n)?'\u2013':Number(n).toLocaleString('en-US');}
+function raw(url){
+  var u = url + (url.indexOf('?')<0?'?':'&') + 'cb=' + Date.now();
+  var t = new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},12000);});
+  var f = function(){ try { return fetch(u,{cache:'no-store'}); } catch(e){ return fetch(u); } };
+  return Promise.race([f().catch(function(){return fetch(u);}), t]).then(function(r){
+    if(!r.ok) throw new Error(url+' '+r.status); return r.text(); });
+}
+function soft(url, parse){ if(!url) return Promise.resolve(null);
+  return raw(url).then(parse).catch(function(e){clog('scoreboard: optional source failed',url,String(e));return null;}); }
+function csv(text){
+  var rows=[],row=[],f='',q=false;
+  for(var i=0;i<text.length;i++){var c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i++;} else q=false; } else f+=c; }
+    else if(c==='"') q=true; else if(c===','){row.push(f);f='';}
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n')i++; row.push(f);rows.push(row);row=[];f=''; }
+    else f+=c; }
+  if(f!==''||row.length){row.push(f);rows.push(row);}
+  var h=rows.shift()||[], out={};
+  rows.forEach(function(r){ var o={}; h.forEach(function(k,j){o[k.trim()]=(r[j]||'').trim();});
+    if(o.key) out[o.key]={what:o.what,value:o.value===''?null:Number(o.value.replace(/,/g,'')),
+      goal:o.goal===''?null:Number(o.goal.replace(/,/g,'')),as_of:o.as_of}; });
+  return out;
+}
+
+/* ---- dates ---- */
+function today(){ var d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()); }
+function ymd(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
+function daysUntil(s){ return Math.round((ymd(s)-today())/864e5); }
+function nice(s){ if(!s) return ''; var d=/\//.test(s)?new Date(s):ymd(s);
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+function prevDay(iso){ var d=ymd(iso); d.setDate(d.getDate()-1); return d.toISOString().slice(0,10); }
+
+/* ---- pieces ---- */
+function status(v, goal, dueISO, startISO){
+  if(v==null) return '<span class="st wait">not reported</span>';
+  if(v>=goal) return '<span class="st ok">&#10003; goal met</span>';
+  if(!dueISO) return '';
+  var left = daysUntil(dueISO);
+  if(left<0) return '<span class="st behind">&#9888; missed</span>';
+  if(startISO && daysUntil(startISO)>0) return '<span class="st wait">'+(arguments[4]||'starts '+nice(startISO))+'</span>';
+  var need = Math.ceil((goal - v) / Math.max(1,left+1));
+  return '<span class="st wait">'+fmt(need)+'/day to go</span>';
+}
+function meter(label, v, goal, sub, st){
+  var w = goal ? Math.min(100, 100*(v||0)/goal) : 0;
+  return '<div class="mrow"><div class="top"><span class="lab">'+esc(label)+(st||'')+'</span>'+
+    '<span class="val">'+fmt(v)+(goal?' <small>of '+fmt(goal)+'</small>':'')+'</span></div>'+
+    (goal?'<div class="bar" role="img" aria-label="'+esc(label)+': '+fmt(v)+' of '+fmt(goal)+'"><i style="width:'+w.toFixed(1)+'%"></i></div>':'')+
+    (sub?'<div class="sub">'+sub+'</div>':'')+'</div>';
+}
+function sheetMeter(S, key, sub){
+  var r = S && S[key]; if(!r) return '';
+  var st = r.value==null ? '<span class="st wait">not reported</span>' :
+           (r.goal && r.value>=r.goal ? '<span class="st ok">&#10003; goal met</span>' : '');
+  return meter(r.what, r.value, r.goal, (sub||'') + (r.as_of?' As of '+esc(r.as_of)+'.':''), st);
+}
+function cureMeter(S, rej, cur, label){
+  var a=S&&S[rej], b=S&&S[cur]; if(!a||!b) return '';
+  if(!a.value) return '<div class="mrow"><div class="top"><span class="lab">'+esc(label)+'<span class="st wait">none yet</span></span><span class="val">0</span></div>'+
+    '<div class="sub">Goal: every one cured by 5 p.m. Nov 5.</div></div>';
+  var c=b.value||0, st = c>=a.value ? '<span class="st ok">&#10003; all cured</span>' : '<span class="st behind">'+fmt(a.value-c)+' still open</span>';
+  return meter(label+': cured', c, a.value, 'Goal: every one cured by 5 p.m. Nov 5.'+(b.as_of?' As of '+esc(b.as_of)+'.':''), st);
+}
+
+/* tooltip shared by charts */
+var tip;
+function tipAt(svg, html, evt){
+  if(!tip){ tip=document.createElement('div'); tip.className='tip'; root.style.position='relative'; root.appendChild(tip); }
+  var rb=root.getBoundingClientRect(); tip.innerHTML=html; tip.style.opacity=1;
+  var x=evt.clientX-rb.left+12, y=evt.clientY-rb.top-34;
+  tip.style.left=Math.min(x, rb.width-tip.offsetWidth-8)+'px'; tip.style.top=y+'px';
+}
+function tipOff(){ if(tip) tip.style.opacity=0; }
+function el(n,a){var e=document.createElementNS('http://www.w3.org/2000/svg',n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+function txt(x,y,s,o){o=o||{};var t=el('text',{x:x,y:y,'font-size':o.size||13,'text-anchor':o.anchor||'start'});
+  if(o.weight)t.setAttribute('font-weight',o.weight); if(o.fill)t.setAttribute('style','fill:'+o.fill);
+  t.textContent=s;return t;}
+function widthOf(svg){ return Math.max(300, Math.min(1100, Math.round(svg.getBoundingClientRect().width||600))); }
+
+/* Line: one actual series against a straight goal path. Single axis, count. */
+function paceChart(id, pts, goal, startISO, dueISO, unit, flat){
+  var svg=document.getElementById(id); if(!svg) return; svg.innerHTML='';
+  if(pts.length<2){ svg.setAttribute('viewBox','0 0 600 40'); svg.appendChild(txt(0,24,'The trend line starts after the second daily update.',{fill:'var(--muted)'})); return; }
+  var W=widthOf(svg), H=200, L=44, R=16, T=14, B=28;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  var t0=ymd(startISO).getTime(), t1=ymd(dueISO).getTime();
+  var X=function(iso){return L+(ymd(iso).getTime()-t0)/(t1-t0)*(W-L-R);};
+  var top=Math.max(goal, Math.max.apply(null,pts.map(function(p){return p.v;})));
+  var mag=Math.pow(10,Math.floor(Math.log10(top/4))), step=[1,1.5,2,2.5,3,5,7.5,10].map(function(m){return m*mag;}).filter(function(x){return x*4>=top;})[0];
+  var hi=step*4*1.04;
+  var Y=function(v){return T+(1-v/hi)*(H-T-B);};
+  for(var k=0;k<=4;k++){var v=step*k,y=Y(v);
+    svg.appendChild(el('line',{x1:L,x2:W-R,y1:y,y2:y,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(txt(L-8,y+4,fmt(v),{anchor:'end',size:12}));}
+  /* goal path: straight line from the first reading to the goal on the due date */
+  svg.appendChild(el('line',{x1:flat?L:X(pts[0].d),y1:flat?Y(goal):Y(pts[0].v),x2:X(dueISO),y2:Y(goal),stroke:'var(--other)','stroke-width':2}));
+  svg.appendChild(txt(X(dueISO),Y(goal)-8,'goal '+fmt(goal),{anchor:'end',size:12,weight:600,fill:'var(--ink2)'}));
+  var d=pts.map(function(p,i){return (i?'L':'M')+X(p.d).toFixed(1)+' '+Y(p.v).toFixed(1);}).join(' ');
+  svg.appendChild(el('path',{d:d,fill:'none',stroke:'var(--navy)','stroke-width':2.5,'stroke-linejoin':'round'}));
+  var last=pts[pts.length-1];
+  svg.appendChild(el('circle',{cx:X(last.d),cy:Y(last.v),r:4.5,fill:'var(--navy)',stroke:'var(--card)','stroke-width':2}));
+  svg.appendChild(txt(X(last.d)+8,Y(last.v)+4,fmt(last.v),{size:13,weight:700,fill:'var(--ink)'}));
+  [pts[0].d, dueISO].forEach(function(s,i){svg.appendChild(txt(X(s),H-8,nice(s),{anchor:i?'end':'start',size:12}));});
+  /* hover: nearest reading */
+  var hit=el('rect',{x:L,y:T,width:W-L-R,height:H-T-B,fill:'transparent'});
+  hit.addEventListener('mousemove',function(e){var r=svg.getBoundingClientRect(),mx=(e.clientX-r.left)*W/r.width,best=pts[0];
+    pts.forEach(function(p){if(Math.abs(X(p.d)-mx)<Math.abs(X(best.d)-mx))best=p;});
+    tipAt(svg,'<b>'+nice(best.d)+'</b> &middot; '+fmt(best.v)+' '+unit,e);});
+  hit.addEventListener('mouseleave',tipOff); svg.appendChild(hit);
+}
+
+/* Horizontal bars, one series: P13 in navy, the other four in gray. */
+function raceChart(id, rows, byRate){
+  var svg=document.getElementById(id); if(!svg) return; svg.innerHTML='';
+  var W=widthOf(svg), bh=22, gap=10, L=110, R=86, H=rows.length*(bh+gap);
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  var hi=Math.max.apply(null,rows.map(function(r){return byRate?r.rate:r.n;}).concat([byRate?0.01:1]));
+  rows.forEach(function(r,i){var y=i*(bh+gap), v=byRate?r.rate:r.n, w=Math.max(0,(W-L-R)*v/hi);
+    var me=r.p==='013';
+    svg.appendChild(txt(L-10,y+bh/2+5,'Precinct '+(+r.p),{anchor:'end',size:14,weight:me?700:500,fill:me?'var(--ink)':'var(--ink2)'}));
+    if(w>0.5){var b=el('rect',{x:L,y:y,width:w,height:bh,rx:4,fill:me?'var(--navy)':'var(--other)','data-w':w.toFixed(1)});
+      b.addEventListener('mousemove',function(e){tipAt(svg,'<b>Precinct '+(+r.p)+'</b> &middot; '+fmt(r.n)+' Democratic ballots'+(r.rate!=null?' &middot; '+(100*r.rate).toFixed(1)+'% of active Democrats':''),e);});
+      b.addEventListener('mouseleave',tipOff); svg.appendChild(b);}
+    svg.appendChild(txt(L+w+8,y+bh/2+5,byRate?(100*v).toFixed(1)+'%':fmt(v),{size:14,weight:me?700:500,fill:'var(--ink)'}));
+  });
+}
+
+/* ---- engagement pieces ---- */
+var EV_START='2026-10-24', EV_END='2026-10-31', EDAY='2026-11-03', MILES=[100,250,600];
+function plural(n,w){ return n+' '+w+(n===1?'':'s'); }
+function chips(P){
+  var c=[], hs=(P&&P.history)||[];
+  if(hs.length>1){ var a=hs[hs.length-2], b=hs[hs.length-1], d=(b.p13||0)-(a.p13||0);
+    if(d>0) c.push('<span class="chip up">+'+fmt(d)+' since '+nice(a.date)+'</span>'); }
+  var ev=daysUntil(EV_START), evEnd=daysUntil(EV_END), ed=daysUntil(EDAY);
+  if(ev>1) c.push('<span class="chip">'+plural(ev,'day')+' to early voting</span>');
+  else if(ev===1) c.push('<span class="chip">Early voting starts tomorrow</span>');
+  else if(evEnd>=0) c.push('<span class="chip">Early voting is open today, 8 AM to 5 PM</span>');
+  if(ed>1) c.push('<span class="chip">'+plural(ed,'day')+' to Election Day</span>');
+  else if(ed===1) c.push('<span class="chip">Election Day is tomorrow</span>');
+  else if(ed===0) c.push('<span class="chip">Election Day: polls open 7 AM to 7 PM</span>');
+  return c.length?'<div class="chips">'+c.join('')+'</div>':'';
+}
+function milestoneBar(v, top){
+  v=v||0; var w=Math.min(100,100*v/top);
+  var ticks=MILES.filter(function(m){return m<top;}).map(function(m){
+    return '<b class="tick'+(v>=m?' hit':'')+'" style="left:'+(100*m/top).toFixed(2)+'%"><span>'+fmt(m)+'</span></b>';}).join('');
+  var nxt=null; for(var i=0;i<MILES.length;i++){ if(v<MILES[i]){ nxt=MILES[i]; break; } }
+  return '<div class="mbar"><div class="hbar"><i style="width:'+w.toFixed(1)+'%"></i></div>'+ticks+'</div>'+
+    '<div class="next">'+(nxt?'Next milestone: '+fmt(nxt)+' ballots, '+fmt(nxt-v)+' to go.':'Goal reached. Every ballot from here adds to it.')+'</div>';
+}
+function actionPanel(){
+  return '<div class="act"><h3>Help move this number</h3>'+
+    '<p>Every Precinct 13 neighbor who votes shows up here. Make your plan, then bring a neighbor with you.</p>'+
+    '<div class="row"><a class="btn" href="https://www.taylorfldems.org/my-plan-to-vote">Make your plan to vote</a>'+
+    '<a class="lnk" href="https://www.taylorfldems.org/volunteer">Volunteer to drive or knock doors</a></div>'+
+    '<p>Need a ride to vote? Call or text the Taylor County Democrats at <a class="lnk" href="tel:+18502959352">850-295-9352</a>.</p></div>';
+}
+function whenWhere(){
+  return '<div class="card vote"><h3>When and where to vote</h3><dl>'+
+    '<dt>Early voting</dt><dd>Saturday, October 24 through Saturday, October 31, 8 AM to 5 PM, at the elections office, 433 N. US Hwy 19, Perry.</dd>'+
+    '<dt>Election Day</dt><dd>Tuesday, November 3, 7 AM to 7 PM. Precinct 13 votes at Jerkins.</dd>'+
+    '<dt>Mail ballots</dt><dd>Must be received by 7 PM on November 3. A postmark does not count.</dd></dl></div>';
+}
+/* one-time entrance: count up the big number, grow the bars. Skipped for reduced motion. */
+var animated=false;
+function animateIn(){
+  if(animated) return; animated=true;
+  try{ if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){ return; }
+  if(document.hidden || !window.requestAnimationFrame) return;
+  var big=root.querySelector('.hero .big[data-v]'), target=big?+big.getAttribute('data-v'):0;
+  var bars=[].slice.call(root.querySelectorAll('.hbar i, .bar i')).map(function(e){return {e:e,w:e.style.width};});
+  var rects=[].slice.call(root.querySelectorAll('svg rect[data-w]')).map(function(e){return {e:e,w:+e.getAttribute('data-w')};});
+  bars.forEach(function(b){b.e.style.width='0%';}); rects.forEach(function(r){r.e.setAttribute('width',0);});
+  var t0=null, D=800, done=false;
+  /* the true values always win: finish() runs at the end of the animation, and again on a
+     timer in case the browser pauses frames (background tab, covered window, power saving) */
+  function finish(){ if(done) return; done=true;
+    if(big && target>0) big.textContent=fmt(target); bars.forEach(function(b){b.e.style.width=b.w;}); rects.forEach(function(r){r.e.setAttribute('width',r.w);}); }
+  function step(ts){ if(done) return; if(t0===null) t0=ts; var k=Math.min(1,(ts-t0)/D), e=1-Math.pow(1-k,3);
+    if(big && target>0) big.textContent=fmt(Math.round(target*e));
+    bars.forEach(function(b){b.e.style.width=(parseFloat(b.w)*e).toFixed(2)+'%';});
+    rects.forEach(function(r){r.e.setAttribute('width',(r.w*e).toFixed(1));});
+    if(k<1) requestAnimationFrame(step); else finish();
+  }
+  requestAnimationFrame(step); setTimeout(finish, D+300);
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) finish(); });
+}
+
+
+/* ---- countywide turnout ---- */
+var REG_FALLBACK={as_of:'2026-10-05',D:2826,R:7627,minor:314,NPA:982,T:11749};
+var CMILES=[25,50,75], cmeasure='share';
+function edByParty(L){
+  var out={D:0,R:0,NPA:0,T:0}, pt=null; try{ pt=L.tqv.Turnout.PartyType; }catch(e){}
+  if(!pt) return out;
+  Object.keys(pt).forEach(function(k){ var v=+((pt[k]||{}).ElectionDay)||0; out.T+=v;
+    if(k==='DEM') out.D=v; else if(k==='REP') out.R=v; else if(k==='NPA') out.NPA=v; });
+  return out;
+}
+function countdown(){
+  var c=[], ev=daysUntil(EV_START), evEnd=daysUntil(EV_END), ed=daysUntil(EDAY);
+  if(ev>1) c.push('<span class="chip">'+plural(ev,'day')+' to early voting</span>');
+  else if(ev===1) c.push('<span class="chip">Early voting starts tomorrow</span>');
+  else if(evEnd>=0) c.push('<span class="chip">Early voting is open today, 8 AM to 5 PM</span>');
+  if(ed>1) c.push('<span class="chip">'+plural(ed,'day')+' to Election Day</span>');
+  else if(ed===1) c.push('<span class="chip">Election Day is tomorrow</span>');
+  else if(ed===0) c.push('<span class="chip">Election Day: polls open 7 AM to 7 PM</span>');
+  return c;
+}
+function partyChart(id, rows){
+  var svg=document.getElementById(id); if(!svg) return; svg.innerHTML='';
+  var share=cmeasure==='share', W=widthOf(svg), bh=24, gap=12, L=98, R=56, H=rows.length*(bh+gap);
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  var hi=Math.max.apply(null,rows.map(function(r){return share?r.pct:r.n;}).concat([share?1:1]));
+  rows.forEach(function(r,i){ var y=i*(bh+gap), v=share?r.pct:r.n, w=Math.max(0,(W-L-R)*v/hi);
+    svg.appendChild(txt(L-10,y+bh/2+5,r.label,{anchor:'end',size:14,weight:r.me?700:500,fill:r.me?'var(--ink)':'var(--ink2)'}));
+    if(w>0.5){ var b=el('rect',{x:L,y:y,width:w,height:bh,rx:4,fill:r.me?'var(--navy)':'var(--other)','data-w':w.toFixed(1)});
+      b.addEventListener('mousemove',function(e){tipAt(svg,'<b>'+esc(r.label)+'</b> &middot; '+fmt(r.n)+' ballots &middot; '+r.pct.toFixed(1)+'% of '+fmt(r.reg)+' registered',e);});
+      b.addEventListener('mouseleave',tipOff); svg.appendChild(b); }
+    svg.appendChild(txt(L+w+8,y+bh/2+5,share?v.toFixed(1)+'%':fmt(v),{size:14,weight:r.me?700:500,fill:'var(--ink)'}));
+  });
+}
+function county(L){
+  var reg=L.registration||REG_FALLBACK, d=L.days[L.days.length-1], t=d.taylor, asOf=prevDay(d.date), ed=edByParty(L);
+  function cast(k){ return (t.vbm_returned[k]||0)+(t.early_voted[k]||0)+(ed[k]||0); }
+  var total=cast('D'), pct=reg.D?100*total/reg.D:0, ret=t.vbm_returned.D, early=t.early_voted.D, out=t.vbm_outstanding.D;
+  var ratio=(reg.R/reg.D).toFixed(1);
+  var c=[];
+  if(L.days.length>1){ var a=L.days[L.days.length-2], ad=(a.taylor.vbm_returned.D||0)+(a.taylor.early_voted.D||0), bd=ret+early;
+    if(bd>ad) c.push('<span class="chip up">+'+fmt(bd-ad)+' since '+nice(prevDay(a.date))+'</span>'); }
+  c=c.concat(countdown());
+  var w=Math.min(100,pct), ticks=CMILES.map(function(m){return '<b class="tick'+(pct>=m?' hit':'')+'" style="left:'+m+'%"><span>'+m+'%</span></b>';}).join('');
+  var nxt=null; for(var i=0;i<CMILES.length;i++){ if(pct<CMILES[i]){ nxt=CMILES[i]; break; } }
+  var need=nxt?Math.max(0,Math.ceil(nxt/100*reg.D)-total):0;
+  var h=freshBadge(false)+'<div class="hd"><div class="kick">Taylor County &middot; November 3 election</div>'+
+    '<h2>Democratic ballots cast</h2>'+
+    '<div class="hero"><span class="big" data-v="'+total+'">'+fmt(total)+'</span><span class="of">'+pct.toFixed(1)+'% of Taylor Democrats</span></div>'+
+    '<div class="mbar"><div class="hbar"><i style="width:'+w.toFixed(2)+'%"></i></div>'+ticks+'</div>'+
+    '<div class="next">'+(nxt?'Next milestone: '+nxt+'% of Taylor Democrats, '+fmt(need)+' ballots to go.':'Past 75% of Taylor Democrats. Every ballot from here adds to it.')+'</div>'+
+    (c.length?'<div class="chips">'+c.join('')+'</div>':'')+
+    '<p>'+fmt(ret)+' by mail and '+fmt(early)+' early in person, through '+nice(asOf)+(ed.D?', plus '+fmt(ed.D)+' on Election Day so far':'')+'.</p></div>';
+  h+='<div class="act"><h3>Help move this number</h3>'+
+    '<p>Every Taylor County Democrat who votes shows up here. Make your plan, then bring a neighbor with you.</p>'+
+    '<div class="row"><a class="btn" href="https://www.taylorfldems.org/my-plan-to-vote">Make your plan to vote</a>'+
+    '<a class="lnk" href="https://www.taylorfldems.org/volunteer">Volunteer to drive or knock doors</a></div>'+
+    '<p>Need a ride to vote? Call or text the Taylor County Democrats at <a class="lnk" href="tel:+18502959352">850-295-9352</a>.</p></div>';
+  h+='<div class="grid">';
+  h+='<div class="card"><h3>Turnout by party</h3><p class="cap">Each party&rsquo;s ballots as a share of its own registered voters. Taylor is registered about '+ratio+' Republicans to every Democrat, so this is the fair way to compare turnout.</p>'+
+     '<div class="seg" role="group" aria-label="Measure"><button type="button" data-m="share" aria-pressed="'+(cmeasure==='share')+'">Share of registered</button><button type="button" data-m="counts" aria-pressed="'+(cmeasure==='counts')+'">Ballot counts</button></div>'+
+     '<svg id="tdsb-party" role="img" aria-label="Turnout by party"></svg></div>';
+  h+='<div class="card"><h3>Democratic mail ballots</h3><p class="cap">From the state&rsquo;s daily report.</p>'+
+     meter('Returned', ret, ret+out, null, '')+
+     '<div class="mrow"><div class="top"><span class="lab">Still out</span><span class="val">'+fmt(out)+'</span></div>'+
+     '<div class="sub">Have one? Sign the back of the envelope and get it to the elections office by 7 PM on November 3. A postmark does not count.</div></div></div>';
+  h+='<div class="card vote"><h3>When and where to vote</h3><dl>'+
+     '<dt>Early voting</dt><dd>Saturday, October 24 through Saturday, October 31, 8 AM to 5 PM, at the elections office, 433 N. US Hwy 19, Perry.</dd>'+
+     '<dt>Election Day</dt><dd>Tuesday, November 3, 7 AM to 7 PM, at your polling place. <a class="lnk" href="https://www.taylorfldems.org/where-to-vote">Find yours</a>.</dd>'+
+     '<dt>Mail ballots</dt><dd>Must be received by 7 PM on November 3. A postmark does not count.</dd></dl></div>';
+  h+='</div>';
+  h+='<p class="foot">Updated '+esc(d.compiled)+' (state file). Counts only. No voter is identified.</p>'+
+    '<details><summary>Where these numbers come from</summary>'+
+    '<p><b>Ballots:</b> Florida Department of State, <a href="https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats">county vote-by-mail and early voting report</a> (election 49894), published each morning through the day before. Election Day counts come from the Supervisor of Elections&rsquo; <a href="https://tqv.vrswebapps.com/?state=FL&amp;county=TAY&amp;election=85">live turnout feed</a>.</p>'+
+    '<p><b>Registered voters:</b> active registration by party, Florida Department of State, as of '+esc(nice(reg.as_of))+': '+fmt(reg.D)+' Democrats, '+fmt(reg.R)+' Republicans, '+fmt(reg.NPA)+' no party, '+fmt(reg.T)+' total.</p>'+
+    '</details>';
+  root.innerHTML=h;
+  var rows=[{label:'Democrats',k:'D',me:true},{label:'Republicans',k:'R'},{label:'No party',k:'NPA'},{label:'All voters',k:'T'}].map(function(r){
+    var n=cast(r.k), rg=reg[r.k]||0; return {label:r.label,me:r.me,n:n,reg:rg,pct:rg?100*n/rg:0}; });
+  partyChart('tdsb-party', rows);
+  [].slice.call(root.querySelectorAll('.seg button')).forEach(function(b){ b.addEventListener('click',function(){
+    cmeasure=b.getAttribute('data-m');
+    [].slice.call(root.querySelectorAll('.seg button')).forEach(function(x){x.setAttribute('aria-pressed', String(x===b));});
+    partyChart('tdsb-party', rows); }); });
+  animateIn();
+}
+
+
+/* ---- live county feed (every block except P13 public's badge) ---- */
+var TQV_LIVE = "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json", FR = {};
+function liveTqv(L, Q){
+  FR.live = false;
+  if(L && Q && Q.Summary && Q.Turnout && String(Q.Summary.FvrsElectionNumber)===String(L.election_id)){
+    L.tqv_saved = L.tqv; L.tqv = Q; FR.live = true; }
+}
+
+/* ---- status badge (County Chase, Countywide Turnout, P13 members) ---- */
+/* "10/16/2026 8:04AM" (the state's stamp) -> Date, or null */
+function pStamp(s){
+  var m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})\s*([AP])M$/i.exec(String(s||'').trim()); if(!m) return null;
+  var h = +m[4] % 12 + (/p/i.test(m[6]) ? 12 : 0);
+  return new Date(+m[3], +m[1]-1, +m[2], h, +m[5]);
+}
+function sameDay(a,b){ return a && b && a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+function clock(d){ var h=d.getHours(), m=('0'+d.getMinutes()).slice(-2);
+  return (h%12||12)+':'+m+(h<12?' a.m.':' p.m.'); }
+function when(d){ if(!d) return 'an unknown time'; var n=new Date(), y=new Date(n); y.setDate(n.getDate()-1);
+  if(sameDay(d,n)) return clock(d)+' today';
+  if(sameDay(d,y)) return clock(d)+' yesterday';
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+', '+clock(d); }
+function mins(d){ return Math.round((Date.now()-d.getTime())/6e4); }
+function ago(d){ var m=mins(d); return m<1?'just now':m===1?'1 minute ago':m<90?m+' minutes ago':when(d); }
+function isoDay(d){ return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+
+function stateRow(L, K, team){
+  var d=L.days[L.days.length-1], ours=pStamp(d.compiled), now=new Date(), hr=now.getHours()+now.getMinutes()/60;
+  var weekend = now.getDay()===0 || now.getDay()===6;
+  var chk = K && K.checked_at ? new Date(K.checked_at) : null;
+  var fresh = chk && !isNaN(chk) && (now-chk) < 3*36e5;
+  var FIX = 'Run "Daily EV/VBM pull" from the Actions tab of taylor-dec-scoreboard-data on GitHub.';
+  var r = {name:'State file'};
+  if(fresh && K.ok && K.behind && K.behind.county){
+    r.lvl='bad'; r.msg='<b>Behind.</b> The state posted a newer file ('+esc(when(pStamp(K.state.county_compiled)))+') than this page shows ('+esc(when(ours))+').';
+    r.fix='The hourly check should pull it on its next run. If this is still red an hour from now: '+FIX;
+  } else if(sameDay(ours, now)){
+    r.lvl='ok'; r.msg='<b>Current.</b> Compiled '+esc(clock(ours))+' today.'+(fresh&&K.ok?' Last checked '+esc(clock(chk))+'.':'');
+  } else if(fresh && K.ok){
+    if(weekend){ r.lvl='ok'; r.msg='<b>Current.</b> Taylor\'s latest file is from '+esc(when(ours))+'. The county does not re-report on weekends.'; }
+    else if(hr<8){ r.lvl='ok'; r.msg='<b>Current.</b> Today\'s file usually posts about 8 a.m.'; }
+    else { r.lvl='wait'; r.msg='<b>Waiting on the state.</b> Today\'s file hasn\'t posted yet'+(hr>=11?', which is later than usual':'')+'. Last checked '+esc(clock(chk))+'.'; }
+  } else {
+    var why = !K ? 'the hourly check hasn\'t reported yet' : !K.ok ? 'the last hourly check couldn\'t reach the state\'s page' : 'the hourly check last ran '+when(chk);
+    if(weekend || hr<8){ r.lvl='ok'; r.msg='<b>Current, as far as we can tell.</b> Showing the file from '+esc(when(ours))+'; '+esc(why)+'.'; }
+    else if(hr<11){ r.lvl='wait'; r.msg='<b>Waiting.</b> Today\'s file isn\'t in yet ('+esc(why)+').'; }
+    else { r.lvl='bad'; r.msg='<b>Not updated today.</b> Showing the file from '+esc(when(ours))+'; '+esc(why)+'.'; r.fix=FIX; }
+  }
+  if(!team) r.fix=null;
+  return r;
+}
+function feedRow(L, Q){
+  var r={name:'County live feed'}, t=null;
+  if(FR.live){ t=new Date(Q.Summary.LastUpdatedTime);
+    var m=mins(t);
+    if(m<=30){ r.lvl='ok'; r.msg='<b>Live.</b> Updated '+esc(clock(t))+', '+esc(ago(t))+'.'; }
+    else if(m<=180){ r.lvl='wait'; r.msg='<b>Slow.</b> The county\'s feed last refreshed '+esc(ago(t))+'. It normally refreshes every 10 minutes.'; }
+    else { r.lvl='bad'; r.msg='<b>Stalled.</b> The county\'s feed hasn\'t refreshed since '+esc(when(t))+'.'; }
+  } else {
+    try{ t=new Date(L.tqv.Summary.LastUpdatedTime); }catch(e){}
+    r.lvl='wait'; r.msg='<b>Couldn\'t reach the live feed.</b> Showing the copy saved '+esc(t&&!isNaN(t)?when(t):'earlier')+'. Refresh to try again.';
+  }
+  return r;
+}
+function fileRow(P){
+  var r={name:'Daily voter files'}, now=new Date(), hr=now.getHours(), y=new Date(now); y.setDate(now.getDate()-1);
+  var want=isoDay(y), need=[{k:'vbm_file',label:'mail-ballot file',f:'TAY_VBM_49894.txt'}];
+  if(isoDay(now) >= '2026-10-25') need.push({k:'evl_file',label:'early-voting file',f:'TAY_EVL_49894.txt'});
+  if(!P){ r.lvl='bad'; r.msg='<b>Couldn\'t load the precinct counts.</b> Refresh to try again.'; return r; }
+  var late=need.filter(function(n){ var x=P[n.k]; return !x || !x.through || x.through < want; });
+  var counted=P.updated_at?new Date(P.updated_at):null;
+  if(!late.length){ r.lvl='ok'; r.msg='<b>Current.</b> '+need.map(function(n){return 'The '+n.label+' runs through '+esc(nice(P[n.k].through));}).join('. ')+'.'+(counted?' Counted '+esc(when(counted))+'.':''); return r; }
+  r.lvl = hr<11 ? 'wait' : 'bad';
+  r.msg = '<b>'+(hr<11?'Today\'s file isn\'t uploaded yet.':'Today\'s file hasn\'t been uploaded.')+'</b> '+
+    late.map(function(n){ var x=P[n.k]; return 'The '+n.label+' '+(x&&x.through?'runs through '+esc(nice(x.through)):'hasn\'t been uploaded at all'); }).join('. ')+'.';
+  r.fix='Upload '+late.map(function(n){return n.f;}).join(' and ')+' to voterfiles/ in taylor-dec-ops, or use the Send to DEC button on the portal. The count runs by itself.';
+  return r;
+}
+/* team: show the voter-file row and "Fix:" lines. noState: drop the state row
+   (P13 numbers come from the voter files, not the state page). */
+function freshBadge(team, noState){
+  var L=FR.L; if(!L) return '';
+  var rows=noState?[]:[stateRow(L, FR.K, team)];
+  rows.push(feedRow(L, FR.Q));
+  if(team) rows.push(fileRow(FR.P));
+  var rank={ok:0,wait:1,bad:2}, worst=rows.reduce(function(a,r){return rank[r.lvl]>rank[a]?r.lvl:a;},'ok');
+  var head={ok:'Everything on this page is current',wait:'Waiting on an update',bad:'Something on this page is behind'}[worst];
+  return '<details class="fr"'+(worst!=='ok'?' open':'')+'><summary><span class="dot '+worst+'" aria-hidden="true"></span>'+head+'<span class="more">Details</span></summary><ul>'+
+    rows.map(function(r){ return '<li><span class="dot '+r.lvl+'" aria-hidden="true"></span><span><b>'+esc(r.name)+':</b> '+r.msg.replace(/\.\./g,'.')+'</span>'+(r.fix?'<span class="fix">'+esc(r.fix)+'</span>':'')+'</li>'; }).join('')+
+    '</ul></details>';
+}
+/* ---- the three dashboards ---- */
+function grantA(L, P, S){
+  var d=L.days[L.days.length-1], t=d.taylor, asOf=prevDay(d.date);
+  var onfile=t.vbm_outstanding.D+t.vbm_returned.D, ret=t.vbm_returned.D, early=t.early_voted.D, banked=ret+early;
+  var eday=null, Q=L.tqv&&L.tqv.Turnout&&L.tqv.Turnout.PartyType&&L.tqv.Turnout.PartyType.DEM;
+  if(Q&&Q.ElectionDay) eday=Q.ElectionDay;
+  var total=banked+(eday||0);
+  var chase = P && P.county_dem ? P.county_dem.chase : t.vbm_outstanding.D;
+  var hist=L.days.map(function(x){return {d:prevDay(x.date),v:x.taylor.vbm_outstanding.D+x.taylor.vbm_returned.D};});
+  var stale = daysUntil(d.date) < -1;
+  var h='';
+  h+='<div class="hd"><div class="kick">Members only &middot; Grant A &middot; countywide</div>'+
+     '<h2>Democratic ballots cast</h2>'+
+     '<div class="hero"><span class="big" data-v="'+(total||0)+'">'+fmt(total)+'</span><span class="of">of '+fmt(G.a_ballots)+' by Nov 3</span></div>'+
+     '<div class="hbar"><i style="width:'+Math.min(100,100*total/G.a_ballots).toFixed(1)+'%"></i></div>'+
+     '<p>'+fmt(ret)+' by mail and '+fmt(early)+' early in person, through '+nice(asOf)+(eday?', plus '+fmt(eday)+' on Election Day so far':'')+'. '+
+     daysUntil('2026-11-03')+' days to Election Day.</p></div>';
+  if(stale) h+='<div class="warn">The state figures are from '+nice(asOf)+'. Today\'s update has not landed yet.</div>';
+  h+='<div class="grid">';
+  h+='<div class="card"><h3>Mail ballots</h3><p class="cap">Democrats, from the state file. Requests close 5 p.m. Oct 22.</p>'+
+     meter('On file (requested and sent)', onfile, G.a_onfile, 'Need '+fmt(Math.max(0,G.a_onfile-onfile))+' more by Oct 22.', status(onfile,G.a_onfile,'2026-10-22'))+
+     meter('Returned and counted', ret, G.a_returned, (onfile?(100*ret/onfile).toFixed(1)+'% of ballots sent. ':'')+'Last day to return: Nov 3, 7 p.m.', status(ret,G.a_returned,'2026-11-03'))+
+     '</div>';
+  h+='<div class="card"><h3>Chase list</h3><p class="cap">Democratic mail ballots sent and not back yet'+
+     (P&&P.county_dem?', minus anyone who already voted early':'')+'.</p>'+
+     '<div class="mrow"><div class="top"><span class="lab">Ballots to chase</span><span class="val">'+fmt(chase)+'</span></div>'+
+     '<div class="sub">'+(P&&P.county_dem?'From the DS-DE 145/147 files through '+nice(P.through)+'.':'From the state totals; refines once the daily files are counted.')+'</div></div>'+
+     cureMeter(S,'a_rejected','a_cured','Mail ballots needing a cure')+
+     '</div>';
+  h+='<div class="card"><h3>Early voting</h3><p class="cap">Oct 24 to 31, SOE office on US-19.</p>'+
+     meter('Democrats voted early in person', early, G.a_early, 'The state counts a day behind.', status(early,G.a_early,'2026-10-31','2026-10-24'))+
+     '</div>';
+  h+='<div class="card"><h3>Outreach</h3><p class="cap">Hand counts from the scoreboard sheet.</p>'+
+     (S? sheetMeter(S,'a_mailer')+sheetMeter(S,'a_dropoff')+sheetMeter(S,'a_regs')+sheetMeter(S,'a_contacts')
+       : '<div class="sub">Hand counts are not connected yet.</div>')+'</div>';
+  h+='</div>';
+  h+='<div class="sec">Mail ballots on file, day by day</div><div class="card"><p class="cap">Democratic ballots on file against a straight path to '+fmt(G.a_onfile)+' by Oct 22.</p><svg id="tdsb-a-pace" role="img" aria-label="Mail ballots on file over time"></svg></div>';
+  h+=foot(L,P,S);
+  root.innerHTML=h;
+  paceChart('tdsb-a-pace', hist, G.a_onfile, hist[0].d, '2026-10-22', 'on file');
+  animateIn();
+}
+
+function p13(L, P, S, members){
+  var h='', pr=P&&P.precincts, me=pr&&pr['013'];
+  var edP=null; try{ edP=L.tqv.Turnout.LocationParty.ElectionDay['013'].DEM||null; }catch(e){}
+  var before=me?me.cast_before_eday:null, total=before==null?null:before+(edP||0);
+  h+='<div class="hd"><div class="kick">'+(members?'Members only &middot; Grant B &middot; ':'')+'Precinct 13 &middot; Jerkins</div>'+
+     '<h2>Precinct 13 Democratic ballots</h2>'+
+     '<div class="hero"><span class="big" data-v="'+(total||0)+'">'+fmt(total)+'</span><span class="of">of '+fmt(G.b_ballots)+' by Nov 3</span></div>'+
+     milestoneBar(total, G.b_ballots)+chips(P)+
+     '<p>'+(me?fmt(me.mail_returned)+' by mail and '+fmt(me.early_voted)+' early in person, through '+nice(P.through)+(edP?', plus '+fmt(edP)+' at Jerkins on Election Day':'')+'.'
+            :'Counts start with the first daily file.')+
+     (members?' Early voting: Oct 24 to 31 at the elections office. Election Day: Nov 3 at Jerkins.':'')+'</p></div>';
+  if(!members) h+=actionPanel();
+  var showRace = members || daysUntil(EV_START)<=0;
+  h+='<div class="grid">';
+  h+='<div class="card"><h3>Before Election Day</h3><p class="cap">Mail ballots and early votes, counted once each.</p>'+
+     meter('Cast before Election Day', before, G.b_before, 'Most of these come once early voting opens Oct 24.', status(before,G.b_before,'2026-11-02','2026-10-24','pace check from Oct 24'))+
+     (me&&me.dem_active&&total>0?'<div class="mrow"><div class="sub">'+fmt(total)+' is '+(100*total/me.dem_active).toFixed(1)+'% of Precinct 13\'s '+fmt(me.dem_active)+' active Democrats. '+fmt(G.b_ballots)+' would be '+Math.round(100*G.b_ballots/me.dem_active)+'%.</div></div>':'')+
+     '</div>';
+  var rows = pr ? ['013','014','001','002','007'].map(function(p){var x=pr[p]||{};
+       return {p:p,n:x.cast_before_eday||0,rate:x.dem_active?x.cast_before_eday/x.dem_active:null};}) : [];
+  var allRates = rows.length && rows.every(function(r){return r.rate!=null;});
+  rows.sort(function(a,b){return allRates?b.rate-a.rate:b.n-a.n;});
+  if(showRace) h+='<div class="card"><h3>The five big precincts</h3><p class="cap">Democratic ballots cast before Election Day'+(allRates?', as a share of each precinct\'s active Democrats':'')+'. Goal: Precinct 13 on top.</p>'+
+     (rows.length?'<svg id="tdsb-race" role="img" aria-label="Democratic ballots by precinct"></svg>':'<div class="sub">Starts with the first daily file.</div>')+'</div>';
+  if(!members) h+=whenWhere();
+  if(members){
+    h+='<div class="card"><h3>Mail ballots in 13</h3><p class="cap">From the DS-DE 145 file.</p>'+
+       (me?meter('Active requests', me.mail_active, null, null)+meter('Still to chase', me.mail_outstanding_chase, null, 'Sent, not back, and not already voted early.')
+          :'<div class="sub">Starts with the first daily file.</div>')+
+       cureMeter(S,'b_rejected','b_cured','Mail ballots needing a cure')+'</div>';
+    h+='<div class="card"><h3>Grant B goals</h3><p class="cap">Hand counts from the scoreboard sheet.</p>'+
+       (S? ['b_doors','b_postcards','b_ptv_cards','b_drivers','b_canvassers','b_regs','b_rides'].map(function(k){return sheetMeter(S,k);}).join('')
+         : '<div class="sub">Hand counts are not connected yet.</div>')+'</div>';
+  }
+  h+='</div>';
+  if(members && P && P.history && P.history.length>1)
+    h+='<div class="sec">Precinct 13, day by day</div><div class="card"><p class="cap">Cast before Election Day, with the goal of '+fmt(G.b_before)+' marked. Expect the line to climb fast once early voting opens Oct 24.</p><svg id="tdsb-b-pace" role="img" aria-label="Precinct 13 ballots over time"></svg></div>';
+  h+=foot(L,P,S,!members);
+  root.innerHTML=h;
+  if(showRace && rows.length) raceChart('tdsb-race', rows, allRates);
+  if(members && P && P.history && P.history.length>1)
+    paceChart('tdsb-b-pace', P.history.map(function(x){return {d:x.date,v:x.p13};}), G.b_before, P.history[0].date, '2026-11-02', 'ballots', true);
+  animateIn();
+}
+
+function foot(L,P,S,pub){
+  var d=L&&L.days[L.days.length-1];
+  return '<p class="foot">Updated '+(P?esc(nice(P.through))+' (precinct files), ':'')+(d?esc(d.compiled)+' (state file)':'')+'. '+
+    (pub?'Counts only. No voter is identified.':'')+'</p>'+
+    '<details><summary>Where these numbers come from</summary>'+
+    '<p><b>County totals:</b> Florida Department of State, <a href="https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats">county vote-by-mail and early voting report</a> (election 49894). Published each morning and covers through the day before.</p>'+
+    '<p><b>Precinct counts:</b> the state\'s daily mail-ballot and early-vote files for Taylor County, counted by the DEC. Only totals are published. A voter who appears in both files is counted once.</p>'+
+    '<p><b>Election Day:</b> the Supervisor of Elections\' <a href="https://tqv.vrswebapps.com/?state=FL&amp;county=TAY&amp;election=85">live turnout feed</a>.</p>'+
+    (pub?'':'<p><b>Hand counts:</b> the DEC scoreboard sheet, entered by the chair.</p>')+
+    '</details>';
+}
+
+function boot(){
+  Promise.all([
+    raw(DATA+'latest.json').then(JSON.parse),
+    soft(DATA+'p13.json', JSON.parse),
+    MODE==='p13pub' ? Promise.resolve(null) : soft(SHEET, csv),
+    soft(DATA+'state_check.json', JSON.parse),
+    soft(TQV_LIVE, JSON.parse)
+  ]).then(function(r){
+    FR={L:r[0],P:r[1],K:r[3],Q:r[4]}; liveTqv(r[0], r[4]);
+    if(MODE==='cty') county(r[0]);
+    else if(MODE==='a') grantA(r[0],r[1],r[2]);
+    else p13(r[0],r[1],r[2],MODE==='p13mem');
+  }).catch(function(e){
+    clog('scoreboard: load failed',String(e));
+    root.innerHTML='<div class="hd"><h2>Couldn\'t load today\'s figures</h2><p>Try refreshing. The data lives at '+
+      '<a href="'+DATA+'latest.json">the scoreboard data file</a>.</p></div>';
+  });
+}
+var tm; window.addEventListener('resize',function(){clearTimeout(tm);tm=setTimeout(boot,250);});
+try{ boot(); }catch(e){ clog('scoreboard: boot error',String(e)); }
+})();
+</script>
