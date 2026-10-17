@@ -722,7 +722,7 @@
    }
   }
  ],
- "updated_at": "2026-10-17T11:04:44-04:00",
+ "updated_at": "2026-10-17T12:39:46-04:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -731,7 +731,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-10-17T15:00:01.4481446+00:00",
+   "LastUpdatedTime": "2026-10-17T16:40:01.4658113+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
@@ -949,11 +949,14 @@
     },
     "10/16/2026": {
      "Mail": 16
+    },
+    "10/17/2026": {
+     "Mail": 28
     }
    },
    "PartyType": {
     "DEM": {
-     "Mail": 110
+     "Mail": 114
     },
     "IND": {
      "Mail": 2
@@ -962,35 +965,35 @@
      "Mail": 1
     },
     "NPA": {
-     "Mail": 17
+     "Mail": 21
     },
     "REP": {
-     "Mail": 133
+     "Mail": 153
     }
    },
    "LocationParty": {},
    "PrecinctType": {
     "001.3": {
      "BallotTypeTotals": {
-      "Mail": 12
+      "Mail": 13
      },
      "EligibleVoters": 207
     },
     "001.4": {
      "BallotTypeTotals": {
-      "Mail": 24
+      "Mail": 26
      },
      "EligibleVoters": 537
     },
     "002": {
      "BallotTypeTotals": {
-      "Mail": 36
+      "Mail": 40
      },
      "EligibleVoters": 1548
     },
     "003": {
      "BallotTypeTotals": {
-      "Mail": 23
+      "Mail": 26
      },
      "EligibleVoters": 734
     },
@@ -1002,7 +1005,7 @@
     },
     "005": {
      "BallotTypeTotals": {
-      "Mail": 14
+      "Mail": 20
      },
      "EligibleVoters": 997
     },
@@ -1014,7 +1017,7 @@
     },
     "007": {
      "BallotTypeTotals": {
-      "Mail": 25
+      "Mail": 27
      },
      "EligibleVoters": 1364
     },
@@ -1026,7 +1029,7 @@
     },
     "008.5": {
      "BallotTypeTotals": {
-      "Mail": 15
+      "Mail": 17
      },
      "EligibleVoters": 563
     },
@@ -1038,7 +1041,7 @@
     },
     "010": {
      "BallotTypeTotals": {
-      "Mail": 6
+      "Mail": 9
      },
      "EligibleVoters": 583
     },
@@ -1068,19 +1071,19 @@
     },
     "013.2": {
      "BallotTypeTotals": {
-      "Mail": 14
+      "Mail": 15
      },
      "EligibleVoters": 378
     },
     "013.5": {
      "BallotTypeTotals": {
-      "Mail": 4
+      "Mail": 5
      },
      "EligibleVoters": 246
     },
     "014": {
      "BallotTypeTotals": {
-      "Mail": 38
+      "Mail": 41
      },
      "EligibleVoters": 1702
     }
