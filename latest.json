@@ -771,9 +771,60 @@
      "T": 0
     }
    }
+  },
+  {
+   "date": "2026-10-19",
+   "compiled": "10/19/2026 8:04AM",
+   "compiled_state": "10/19/2026 2:01PM",
+   "taylor": {
+    "vbm_outstanding": {
+     "R": 419,
+     "D": 239,
+     "O": 13,
+     "NPA": 38,
+     "T": 709
+    },
+    "vbm_returned": {
+     "R": 165,
+     "D": 123,
+     "O": 3,
+     "NPA": 21,
+     "T": 312
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   },
+   "statewide": {
+    "vbm_outstanding": {
+     "R": 510140,
+     "D": 654298,
+     "O": 39065,
+     "NPA": 326308,
+     "T": 1529811
+    },
+    "vbm_returned": {
+     "R": 303299,
+     "D": 354148,
+     "O": 20440,
+     "NPA": 155962,
+     "T": 833849
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   }
   }
  ],
- "updated_at": "2026-10-18T12:40:32-04:00",
+ "updated_at": "2026-10-19T14:43:12-04:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -782,7 +833,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-10-18T16:40:01.5093258+00:00",
+   "LastUpdatedTime": "2026-10-19T18:40:01.2581347+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
