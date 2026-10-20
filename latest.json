@@ -875,7 +875,7 @@
    }
   }
  ],
- "updated_at": "2026-10-20T14:45:50-04:00",
+ "updated_at": "2026-10-20T15:59:51-04:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -884,7 +884,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-10-20T18:40:01.286635+00:00",
+   "LastUpdatedTime": "2026-10-20T20:00:01.4937965+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
