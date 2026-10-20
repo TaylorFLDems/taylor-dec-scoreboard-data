@@ -49,13 +49,18 @@ def build(p, today):
     count = me.get("cast_before_eday")
     if count is None:
         sys.exit("p13.json has no Precinct 13 count; not rendering.")
-    through = dt.date.fromisoformat(p["through"])
+    # Label by the day the state posted the file, not its last activity date, which
+    # lags on days the county logs no returns.
+    file_day = dt.date.fromisoformat(p.get("file_date") or p["through"])
 
     hist = [h for h in p.get("history", []) if h.get("p13") is not None]
     delta_html = ""
     if len(hist) >= 2 and hist[-1]["p13"] > hist[-2]["p13"]:
         d = hist[-1]["p13"] - hist[-2]["p13"]
-        delta_html = f'<span class="delta">+{d:,} since {nice(dt.date.fromisoformat(hist[-2]["date"]))}</span>'
+        prev = hist[-2]
+        since = (f'the {nice(dt.date.fromisoformat(prev["file_date"]))} file' if prev.get("file_date")
+                 else nice(dt.date.fromisoformat(prev["date"])))
+        delta_html = f'<span class="delta">+{d:,} since {since}</span>'
 
     if count > 0:
         hero = (f'<div class="big">{count:,}</div>'
@@ -124,7 +129,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 <div class="next">{html.escape(next_line)}</div>
 </div>
 <div class="foot"><div class="url"><small>Make your plan to vote</small>{PAGE}</div>
-<div class="asof">Ballots counted through {nice(through)}</div></div>
+<div class="asof">State file of {nice(file_day)}</div></div>
 <div class="stripe"></div></body></html>"""
 
 
