@@ -822,9 +822,60 @@
      "T": 0
     }
    }
+  },
+  {
+   "date": "2026-10-20",
+   "compiled": "10/20/2026 8:05AM",
+   "compiled_state": "10/20/2026 11:01AM",
+   "taylor": {
+    "vbm_outstanding": {
+     "R": 419,
+     "D": 239,
+     "O": 13,
+     "NPA": 38,
+     "T": 709
+    },
+    "vbm_returned": {
+     "R": 165,
+     "D": 123,
+     "O": 3,
+     "NPA": 21,
+     "T": 312
+    },
+    "early_voted": {
+     "R": 0,
+     "D": 0,
+     "O": 0,
+     "NPA": 0,
+     "T": 0
+    }
+   },
+   "statewide": {
+    "vbm_outstanding": {
+     "R": 484327,
+     "D": 623319,
+     "O": 38014,
+     "NPA": 315432,
+     "T": 1461092
+    },
+    "vbm_returned": {
+     "R": 340591,
+     "D": 394962,
+     "O": 22781,
+     "NPA": 175533,
+     "T": 933867
+    },
+    "early_voted": {
+     "R": 69280,
+     "D": 68650,
+     "O": 4234,
+     "NPA": 28851,
+     "T": 171015
+    }
+   }
   }
  ],
- "updated_at": "2026-10-19T17:02:48-04:00",
+ "updated_at": "2026-10-20T11:20:06-04:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -833,7 +884,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-10-19T21:00:01.7012727+00:00",
+   "LastUpdatedTime": "2026-10-20T15:20:01.6233195+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
@@ -1054,48 +1105,51 @@
     },
     "10/17/2026": {
      "Mail": 45
+    },
+    "10/20/2026": {
+     "Mail": 48
     }
    },
    "PartyType": {
     "DEM": {
-     "Mail": 123
+     "Mail": 137
     },
     "IND": {
-     "Mail": 2
+     "Mail": 4
     },
     "LPF": {
      "Mail": 1
     },
     "NPA": {
-     "Mail": 21
+     "Mail": 24
     },
     "REP": {
-     "Mail": 165
+     "Mail": 194
     }
    },
    "LocationParty": {},
    "PrecinctType": {
     "001.3": {
      "BallotTypeTotals": {
-      "Mail": 14
+      "Mail": 16
      },
      "EligibleVoters": 207
     },
     "001.4": {
      "BallotTypeTotals": {
-      "Mail": 27
+      "Mail": 33
      },
      "EligibleVoters": 537
     },
     "002": {
      "BallotTypeTotals": {
-      "Mail": 40
+      "Mail": 47
      },
      "EligibleVoters": 1548
     },
     "003": {
      "BallotTypeTotals": {
-      "Mail": 26
+      "Mail": 27
      },
      "EligibleVoters": 734
     },
@@ -1107,19 +1161,19 @@
     },
     "005": {
      "BallotTypeTotals": {
-      "Mail": 20
+      "Mail": 27
      },
      "EligibleVoters": 997
     },
     "006": {
      "BallotTypeTotals": {
-      "Mail": 13
+      "Mail": 14
      },
      "EligibleVoters": 337
     },
     "007": {
      "BallotTypeTotals": {
-      "Mail": 32
+      "Mail": 37
      },
      "EligibleVoters": 1364
     },
@@ -1131,13 +1185,13 @@
     },
     "008.5": {
      "BallotTypeTotals": {
-      "Mail": 17
+      "Mail": 19
      },
      "EligibleVoters": 563
     },
     "009": {
      "BallotTypeTotals": {
-      "Mail": 6
+      "Mail": 9
      },
      "EligibleVoters": 466
     },
@@ -1149,31 +1203,31 @@
     },
     "011": {
      "BallotTypeTotals": {
-      "Mail": 3
+      "Mail": 5
      },
      "EligibleVoters": 466
     },
     "012.2": {
      "BallotTypeTotals": {
-      "Mail": 1
+      "Mail": 3
      },
      "EligibleVoters": 84
     },
     "012.3": {
      "BallotTypeTotals": {
-      "Mail": 11
+      "Mail": 13
      },
      "EligibleVoters": 531
     },
     "013.1": {
      "BallotTypeTotals": {
-      "Mail": 16
+      "Mail": 18
      },
      "EligibleVoters": 703
     },
     "013.2": {
      "BallotTypeTotals": {
-      "Mail": 18
+      "Mail": 20
      },
      "EligibleVoters": 378
     },
@@ -1185,7 +1239,7 @@
     },
     "014": {
      "BallotTypeTotals": {
-      "Mail": 46
+      "Mail": 50
      },
      "EligibleVoters": 1702
     }
