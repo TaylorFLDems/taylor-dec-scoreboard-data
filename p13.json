@@ -1,38 +1,38 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-20T19:49:33-04:00",
- "through": "2026-10-19",
+ "updated_at": "2026-10-21T08:39:39-04:00",
+ "through": "2026-10-20",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
-  "md5": "85283997012172f424ba81c18828c304",
-  "rows": 1058,
-  "dem_rows": 379,
-  "through": "2026-10-19",
-  "file_date": "2026-10-20"
+  "md5": "b0ef49a54277be3e0d3a983eb31dd0b1",
+  "rows": 1080,
+  "dem_rows": 388,
+  "through": "2026-10-20",
+  "file_date": "2026-10-21"
  },
  "evl_file": null,
  "county_dem": {
-  "mail_active": 374,
+  "mail_active": 383,
   "mail_cancelled": 5,
-  "mail_returned": 123,
+  "mail_returned": 137,
   "mail_outstanding": 239,
   "mail_outstanding_already_voted_early": 0,
   "chase": 239,
-  "status_unconfirmed": 12,
+  "status_unconfirmed": 7,
   "early_voted": 0,
   "double_votes": 0,
-  "cast_before_eday": 123,
+  "cast_before_eday": 137,
   "cure_flagged": 3,
   "cure_cured": 0,
   "cure_open": 3
  },
  "precincts": {
   "013": {
-   "mail_active": 98,
-   "mail_returned": 37,
-   "mail_outstanding_chase": 57,
+   "mail_active": 99,
+   "mail_returned": 39,
+   "mail_outstanding_chase": 58,
    "early_voted": 0,
-   "cast_before_eday": 37,
+   "cast_before_eday": 39,
    "dem_active": 878,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 2,
@@ -40,11 +40,11 @@
    "cure_open": 2
   },
   "014": {
-   "mail_active": 45,
-   "mail_returned": 14,
-   "mail_outstanding_chase": 30,
+   "mail_active": 49,
+   "mail_returned": 15,
+   "mail_outstanding_chase": 33,
    "early_voted": 0,
-   "cast_before_eday": 14,
+   "cast_before_eday": 15,
    "dem_active": 291,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -52,11 +52,11 @@
    "cure_open": 0
   },
   "001": {
-   "mail_active": 45,
-   "mail_returned": 17,
-   "mail_outstanding_chase": 27,
+   "mail_active": 48,
+   "mail_returned": 19,
+   "mail_outstanding_chase": 28,
    "early_voted": 0,
-   "cast_before_eday": 17,
+   "cast_before_eday": 19,
    "dem_active": 267,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 1,
@@ -65,10 +65,10 @@
   },
   "002": {
    "mail_active": 43,
-   "mail_returned": 17,
-   "mail_outstanding_chase": 22,
+   "mail_returned": 18,
+   "mail_outstanding_chase": 23,
    "early_voted": 0,
-   "cast_before_eday": 17,
+   "cast_before_eday": 18,
    "dem_active": 247,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -76,11 +76,11 @@
    "cure_open": 0
   },
   "007": {
-   "mail_active": 25,
-   "mail_returned": 5,
+   "mail_active": 26,
+   "mail_returned": 6,
    "mail_outstanding_chase": 20,
    "early_voted": 0,
-   "cast_before_eday": 5,
+   "cast_before_eday": 6,
    "dem_active": 237,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -156,12 +156,17 @@
    },
    {
     "date": "2026-10-19",
-    "card": 6,
+    "card": 7,
     "other": 0
+   },
+   {
+    "date": "2026-10-20",
+    "card": 4,
+    "other": 4
    }
   ],
-  "card_since_delivery": 29,
-  "card_households_since_delivery": 25,
+  "card_since_delivery": 34,
+  "card_households_since_delivery": 30,
   "party_daily": [
    {
     "date": "2026-10-03",
@@ -225,8 +230,13 @@
    },
    {
     "date": "2026-10-19",
-    "dem": 6,
+    "dem": 7,
     "rep": 10
+   },
+   {
+    "date": "2026-10-20",
+    "dem": 8,
+    "rep": 12
    }
   ],
   "reg": {
@@ -235,7 +245,7 @@
   },
   "reg_source": "DOS book closing, Oct 5, 2026"
  },
- "file_date": "2026-10-20",
+ "file_date": "2026-10-21",
  "history": [
   {
    "date": "2026-10-03",
@@ -328,6 +338,14 @@
    "mail_active": 374,
    "chase": 239,
    "file_date": "2026-10-20"
+  },
+  {
+   "date": "2026-10-20",
+   "p13": 39,
+   "county": 137,
+   "mail_active": 383,
+   "chase": 239,
+   "file_date": "2026-10-21"
   }
  ],
  "note": "Aggregate counts from the DS-DE 145/147 files, which are confidential under s.101.62(2), F.S. No voter-level data is published."
