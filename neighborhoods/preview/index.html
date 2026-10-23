@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Perry neighborhood turnout scoreboard (preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&amp;family=Libre+Franklin:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F1F2F2}
+a{color:#143d72}a:hover{color:#0A3161}
+[hidden]{display:none !important}
+button:focus-visible{outline:3px solid #B31942;outline-offset:2px}
+</style>
+</head>
+<body>
+<div style="width: 100%; min-height: 100vh; background: #F1F2F2; color: #2D2926; font-family: 'Libre Franklin', system-ui, sans-serif; display: flex; flex-direction: column;">
+
+  <div style="background: #B31942; color: #FFFFFF; text-align: center; padding: 10px 16px; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.12em;">PREVIEW WITH SAMPLE NUMBERS. NOT REAL RESULTS.</div>
+
+  <header style="background: #FFFFFF; border-bottom: 1px solid #e1ddd7;">
+    <div style="max-width: 760px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+      <img src="logo-on-light.png" alt="Taylor Democratic Party" style="height: 44px; width: auto; display: block;">
+      <a href="https://taylorfldems.org/2026-elections" style="font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.04em; text-decoration: none; color: #0A3161;">MAKE YOUR PLAN TO VOTE</a>
+    </div>
+  </header>
+
+  <section style="background: #0A3161; color: #FFFFFF;">
+    <div style="max-width: 760px; margin: 0 auto; padding: 40px 16px 36px; display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: flex; gap: 6px; align-items: center;">
+        <span style="display: block; width: 28px; height: 6px; background: #FFFFFF;"></span>
+        <span style="display: block; width: 28px; height: 6px; background: #B31942;"></span>
+        <span style="font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.14em; margin-left: 6px;">TAYLOR DEMOCRATS · NEIGHBORHOOD SCOREBOARD</span>
+      </div>
+      <h1 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(34px, 7vw, 56px); line-height: 1.02; letter-spacing: -0.02em;">Perry neighbors are showing up.</h1>
+      <p style="margin: 0; font-size: 18px; line-height: 1.55; max-width: 600px;">Here is how many Democrats in each Perry neighborhood have already voted. Every neighborhood can move up the list. Check on a neighbor and help yours climb.</p>
+      <p style="margin: 0; font-size: 14px; color: #d6e0ec;">Updated Saturday, October 24th, 6 PM</p>
+    </div>
+  </section>
+
+  <main style="max-width: 760px; width: 100%; margin: 0 auto; padding: 24px 16px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px;">
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
+      <div style="background: #FFFFFF; border: 1px solid #e1ddd7; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 4px;">
+        <span style="font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 36px; line-height: 1; color: #0A3161;">22%</span>
+        <span style="font-size: 14px; color: #514b45;">of Perry Democrats have voted</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #e1ddd7; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 4px;">
+        <span style="font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 36px; line-height: 1; color: #0A3161;">27</span>
+        <span style="font-size: 14px; color: #514b45;">neighborhoods on the board</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #e1ddd7; border-top: 4px solid #B31942; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 4px;">
+        <span style="font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 36px; line-height: 1; color: #0A3161;">Oct 31</span>
+        <span style="font-size: 14px; color: #514b45;">last day of early voting</span>
+      </div>
+    </div>
+
+    <section style="background: #FFFFFF; border: 1px solid #e1ddd7; border-radius: 10px; padding: 20px 16px; display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 24px; color: #0A3161;">The map</h2>
+        <p style="margin: 0; font-size: 15px; color: #514b45; line-height: 1.5;">Darker means more neighbors have voted. Tap or hover a neighborhood to see its turnout. Zoom with the buttons, pinch, or Ctrl and scroll, then drag to move around.</p>
+      </div>
+      <div style="position: relative; border-radius: 8px; overflow: hidden; background: #D9D3C8; border: 1px solid #c9c2b6;">
+        <svg id="map" viewBox="130 10 460 470" role="img" aria-label="Map of 27 Perry neighborhoods shaded by the share of Democrats who have voted. Sample numbers. Use the list below to pick a neighborhood with a keyboard." style="width: 100%; height: auto; display: block; touch-action: pan-y; cursor: default; user-select: none;">
+          <rect id="ground" x="0" y="-100" width="720" height="700" fill="#D9D3C8"></rect>
+          <g stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round">
+            <path class="area" data-i="16" d="M308 227l12 -3l-10 -19l32 0l-10 -35l-1 -2l-30 0l-10 -44l-55 14l-3 -1l59 88l9 0l7 2z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="20" d="M350 376l4 -4l-15 -17l0 -2l40 -1l19 28l30 45l-27 0l-35 -39l-4 3l-9 2l0 -11l-3 -4zM335 444l2 -18l63 -1l14 21l-11 2l0 1l0 5l-49 0l-19 -10zM300 461l0 -17l34 0l-1 3l-12 13l-21 1z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="9" d="M474 383l9 0l1 -7l17 -1l1 -6l-55 -38l-34 -20l-3 7l7 6l6 9l9 3l-1 29l-4 -1l-7 -4l-4 1l-1 3l-8 -2l-1 4l-17 1l15 21l27 0l4 -2l2 2l12 1l0 36l15 -1l1 -41l9 0z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="10" d="M373 204l38 0l0 -15l16 12l2 3l1 -24l-2 1l1 -14l-37 0l-61 1l11 37l31 -1z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="13" d="M309 94l8 28l-4 -4l-22 6l-24 -103l18 0l2 -1l22 74zM136 39l0 -17l12 -2l6 1l1 18l-5 1l-14 -1zM192 112l1 -5l5 0l0 -12l2 0l3 0l13 19l-24 0l0 -2z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="15" d="M393 245l0 -9l-18 0l0 -32l36 0l0 -2l0 -13l16 12l2 3l0 18l3 0l1 38l-37 1l0 -13l-3 -1l0 -2z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="24" d="M423 260l10 0l0 64l-56 -38l-6 -6l0 -9l9 0l0 -6l10 0l0 -4l33 -1z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="12" d="M245 302l2 0l0 -13l9 -11l20 -2l11 -5l26 -1l0 5l-10 0l0 33l-4 0l-14 0l-1 16l-21 9l-1 -24l-15 6l0 -9l2 0l-1 -3l-3 -1z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="8" d="M228 214l18 -1l1 -53l-2 -4l47 69l9 15l-2 1l2 3l-1 5l-4 3l0 4l-11 0l0 -31l-26 1l-11 9l-20 -1l0 -20z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="26" d="M296 255l0 -3l5 -6l-2 -5l2 -1l12 16l0 4l31 0l0 25l4 0l0 4l-4 0l0 15l-8 0l-15 3l0 4l-8 3l0 -3l-6 0l0 -2l-4 0l0 -33l10 -1l0 -5l-23 1l4 -4l1 -9l3 -2l-2 -1z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="14" d="M356 257l1 4l19 0l0 -4l-6 0l2 -3l13 -8l8 -2l0 -8l-18 0l0 -12l0 -20l-33 1l3 10l-1 45l9 1l0 -4l3 0z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="6" d="M321 307l23 -3l-1 15l-7 0l0 12l6 0l-3 19l-4 0l-13 -14l-14 0l-24 0l0 -3l5 0l2 -2l0 -8l-7 2l1 -17l22 1l0 2l6 0l0 3l8 -3l0 -4z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="23" d="M404 388l27 0l4 -2l3 2l10 1l1 36l10 0l-8 4l-21 -1l-26 -40z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="11" d="M356 316l28 -2l0 -5l8 -1l0 -4l-18 0l1 -18l-6 -1l-25 4l0 12l-1 18l-7 0l0 12l12 0l1 -3l4 -1l0 -8l3 -3z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="18" d="M339 350l3 -19l6 0l1 -3l4 -1l0 -8l3 -2l9 13l16 -2l2 7l0 1l-13 1l9 15l-40 1l0 2l-4 -5l4 0zM406 361l1 1l0 4l-18 1l-8 -12l24 -1l1 7z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="3" d="M393 247l3 1l0 13l-6 0l0 4l-10 0l0 6l-9 0l0 9l6 5l-1 2l-7 -2l-21 4l0 -4l-4 0l0 -12l0 -13l9 1l0 -4l4 0l0 4l19 0l0 -4l-6 0l2 -3l14 -9l7 -1l0 3z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="7" d="M525 417l0 -12l13 0l0 -15l29 18l0 7l0 6l-5 -2l-4 3l0 -3l-20 0l-1 5l-12 1l0 -8zM576 453l1 -8l5 0l1 15l-1 1l-6 0l0 -8z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="1" d="M247 326l1 -11l2 19l13 -5l0 4l8 -3l0 6l12 -5l1 0l1 18l-29 0l0 6l10 0l0 11l-16 0l0 2l-3 0l0 -42z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="5" d="M339 355l15 17l-4 4l3 4l0 11l-14 1l0 -2l-7 1l-1 -4l8 -1l-1 -17l-12 1l-3 -3l-2 -32l18 20zM347 403l1 -6l5 1l-1 7l-5 0l0 -2zM338 397l0 -1l5 0l0 2l-5 -1z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="19" d="M311 205l31 0l3 8l0 14l-1 17l-8 0l0 -4l-4 0l0 -8l-8 0l-12 -20l-1 -7z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="0" d="M210 349l0 -13l-5 0l0 3l-3 0l0 7l-8 1l0 2l-3 0l0 -8l16 -7l-2 -6l41 -17l1 -1l0 5l-13 6l-1 4l-4 2l0 19l-19 7l0 -4zM17 418l17 -7l-8 9l-4 4l-5 -6z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="17" d="M324 241l4 -1l0 4l4 0l0 -12l-8 0l-4 -8l-11 4l-10 -3l-8 0l21 31l1 0l0 -8l11 0l0 -7z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="4" d="M313 256l0 -8l11 0l0 -8l4 0l0 4l4 0l0 -4l4 1l0 3l8 0l0 16l-31 0l0 -4z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="21" d="M287 417l1 -4l6 1l19 -2l1 9l-27 1l0 -5zM322 419l1 -12l6 0l-1 4l0 8l-6 0z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="25" d="M256 349l29 0l0 5l-29 1l0 -6zM271 334l0 -4l19 -7l1 1l0 7l-2 2l-5 0l0 -2l-13 5l0 -2z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="22" d="M259 310l4 -1l0 20l-13 5l0 -1l-2 -18l11 -5z" vector-effect="non-scaling-stroke"></path>
+            <path class="area" data-i="2" d="M250 370l0 -4l16 0l0 3l-1 1l-15 0z" vector-effect="non-scaling-stroke"></path>
+          </g>
+          <g fill="none" stroke="#2D2926" stroke-opacity="0.35" stroke-width="1" stroke-linecap="round" pointer-events="none" aria-hidden="true">
+            <path d="M339 355l5 -43l0 -51" vector-effect="non-scaling-stroke"></path>
+            <path d="M344 261l0 -49l-17 -56" vector-effect="non-scaling-stroke"></path>
+            <path d="M-1356 115l19 9l10 3l91 -3l69 16l226 0l85 -9l350 1l15 2l23 9l436 278l18 6l18 -3l302 -135l7 -1l0 29l5 15l82 92l11 16l58 124l21 80l49 82l14 15l56 43l89 99l36 52l56 64l28 31l91 90l8 13l29 69l154 250l52 60l215 271l100 202" vector-effect="non-scaling-stroke"></path>
+            <path d="M339 355l5 -45l0 -99l-59 -195l-51 -192l-24 -56l-76 -327l-9 -52l-9 -26l-10 -43" vector-effect="non-scaling-stroke"></path>
+            <path d="M605 435l-45 -32l-58 -34l-126 -82l-7 -2l-21 4l-34 -1" vector-effect="non-scaling-stroke"></path>
+            <path d="M423 318l-48 -32l-31 3" vector-effect="non-scaling-stroke"></path>
+            <path d="M408 434l-90 -103l-5 -17l0 -54" vector-effect="non-scaling-stroke"></path>
+            <path d="M313 260l-3 -6l-238 -354l-453 -579" vector-effect="non-scaling-stroke"></path>
+            <path d="M248 315l60 -26l36 0" vector-effect="non-scaling-stroke"></path>
+          </g>
+          <path id="hov" d="" fill="none" stroke="#F2B11B" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke" pointer-events="none" aria-hidden="true"></path>
+          <path id="sel" d="" fill="none" stroke="#B31942" stroke-width="3.5" stroke-linejoin="round" vector-effect="non-scaling-stroke" pointer-events="none" aria-hidden="true"></path>
+          <g id="roadlabels" font-size="7" font-family="Archivo, sans-serif" font-weight="600" fill="#2D2926" fill-opacity="0.75" pointer-events="none" aria-hidden="true">
+            <text x="352" y="168" transform="rotate(-73 352 168)">US 221 / Jefferson St</text>
+            <text x="186" y="352" transform="rotate(-24 186 352)">US 98</text>
+            <text x="476" y="356" transform="rotate(33 476 356)">US 27</text>
+            <text x="388" y="420" transform="rotate(49 388 420)">US 19</text>
+          </g>
+          <g id="nums" font-size="8.5" stroke-width="2.6" font-family="Archivo, sans-serif" font-weight="800" text-anchor="middle" dominant-baseline="middle" fill="#FFFFFF" stroke="#0A3161" paint-order="stroke" pointer-events="none" aria-hidden="true">
+            <text x="214" y="333">1</text>
+            <text x="257" y="345">2</text>
+            <text x="258" y="375">3</text>
+            <text x="378" y="265">4</text>
+            <text x="328" y="253">5</text>
+            <text x="343" y="378">6</text>
+            <text x="325" y="324">7</text>
+            <text x="549" y="413">8</text>
+            <text x="254" y="200">9</text>
+            <text x="440" y="368">10</text>
+            <text x="364" y="186">11</text>
+            <text x="367" y="307">12</text>
+            <text x="277" y="306">13</text>
+            <text x="288" y="60">14</text>
+            <text x="356" y="240">15</text>
+            <text x="400" y="222">16</text>
+            <text x="300" y="185">17</text>
+            <text x="314" y="236">18</text>
+            <text x="385" y="350">19</text>
+            <text x="334" y="216">20</text>
+            <text x="370" y="437">21</text>
+            <text x="300" y="417">22</text>
+            <text x="255" y="320">23</text>
+            <text x="432" y="404">24</text>
+            <text x="410" y="283">25</text>
+            <text x="279" y="333">26</text>
+            <text x="320" y="282">27</text>
+          </g>
+        </svg>
+        <div style="position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 6px;">
+          <button type="button" id="zin" aria-label="Zoom in" style="width: 44px; height: 44px; border: 1px solid #c9c2b6; border-radius: 8px; background: #FFFFFF; color: #0A3161; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"></path></svg>
+          </button>
+          <button type="button" id="zout" aria-label="Zoom out" style="width: 44px; height: 44px; border: 1px solid #c9c2b6; border-radius: 8px; background: #FFFFFF; color: #0A3161; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10h12"></path></svg>
+          </button>
+          <button type="button" id="zreset" aria-label="Show the whole map" style="width: 44px; height: 44px; border: 1px solid #c9c2b6; border-radius: 8px; background: #FFFFFF; color: #0A3161; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"></path></svg>
+          </button>
+        </div>
+        <div id="tip" hidden style="position: absolute; pointer-events: none; background: #FFFFFF; color: #2D2926; border: 1px solid #c9c2b6; border-radius: 8px; box-shadow: 0 6px 18px rgba(10,49,97,0.18); padding: 10px 12px; min-width: 170px; max-width: 240px; flex-direction: column; gap: 2px;">
+            <span data-f="name" style="font-weight: 700; font-size: 15px; line-height: 1.3;"></span>
+            <span style="font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 26px; line-height: 1.1; color: #0A3161;"><span data-f="share"></span> <span style="font-family: 'Libre Franklin', sans-serif; font-weight: 500; font-size: 13px; color: #514b45;">have voted</span></span>
+            <span style="font-size: 12px; color: #514b45;"><span data-f="pct"></span> · <span data-f="rank"></span></span>
+          </div>
+      </div>
+      <div aria-live="polite" style="display: flex; flex-direction: column;">
+        <div id="card" hidden>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 14px; border: 1px solid #e1ddd7; border-top: 4px solid #B31942; border-radius: 8px; background: #FFFFFF; flex-wrap: wrap;">
+            <span style="font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 15px; color: #FFFFFF; background: #0A3161; border-radius: 4px; min-width: 34px; text-align: center; padding: 4px 0;"><span data-f="num"></span></span>
+            <div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 200px; min-width: 0;">
+              <span style="font-weight: 700; font-size: 17px; color: #2D2926;"><span data-f="name"></span></span>
+              <span style="font-size: 13px; color: #514b45;"><span data-f="pct"></span> · <span data-f="rank"></span></span>
+            </div>
+            <span style="font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 32px; color: #0A3161; line-height: 1;"><span data-f="share"></span></span>
+            <button type="button" id="showall" style="min-height: 44px; padding: 0 16px; border: 1px solid #c9c2b6; border-radius: 6px; background: #FFFFFF; color: #0A3161; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.04em; cursor: pointer;">SHOW ALL</button>
+          </div>
+        </div>
+        <div id="nocard">
+          <p style="margin: 0; padding: 12px 14px; border: 1px dashed #c9c2b6; border-radius: 8px; font-size: 14px; color: #514b45;">Pick a neighborhood on the map or in the list to zoom in on it.</p>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; font-size: 13px; color: #514b45;">
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #C9D7E8; border: 1px solid #a9b9cc;"></span>Under 15%</span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #93B0D3;"></span>15 to 19%</span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #5A85BC;"></span>20 to 24%</span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #2B5A97;"></span>25 to 29%</span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #0A3161;"></span>30% and up</span>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #e1ddd7; border-radius: 10px; padding: 20px 16px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 24px; color: #0A3161;">The list</h2>
+        <p style="margin: 0; font-size: 15px; color: #514b45; line-height: 1.5;">Share of Democrats in each neighborhood who have voted so far, early or by mail. Tap a row to find it on the map.</p>
+      </div>
+      <ol id="list" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column;">
+        
+      </ol>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #e1ddd7; border-top: 4px solid #B31942; border-radius: 10px; padding: 20px 16px; display: flex; flex-direction: column; gap: 12px;">
+      <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 24px; color: #0A3161;">Haven't voted yet?</h2>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.55;">
+        <p style="margin: 0;"><strong>Early voting:</strong> October 24th to 31st, 8 AM to 5 PM, at the Supervisor of Elections office, 433 N US Hwy 19, Perry.</p>
+        <p style="margin: 0;"><strong>Election Day:</strong> Tuesday, November 3rd, at your precinct's polling place.</p>
+      </div>
+      <a href="https://taylorfldems.org/2026-elections" style="align-self: flex-start; background: #B31942; color: #FFFFFF; text-decoration: none; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: 0.04em; padding: 14px 22px; border-radius: 6px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center;">MAKE YOUR PLAN TO VOTE</a>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.6; color: #514b45;">
+      <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16px; color: #2D2926;">How we count</h3>
+      <p style="margin: 0;">Each number is the share of registered Democrats in that neighborhood who have voted so far. We only show percentages, and every neighborhood is big enough that no one household stands out.</p>
+      <p style="margin: 0;">Neighborhood lines are drawn by Taylor Democrats for this scoreboard. They are not precincts or official districts, and some cross precinct lines. Votes cast on Election Day are added after the county updates its records.</p>
+      <p style="margin: 0;">Source: daily voter files from the Taylor County Supervisor of Elections.</p>
+    </section>
+  </main>
+
+  <footer style="background: #0A3161; color: #FFFFFF;">
+    <div style="max-width: 760px; margin: 0 auto; padding: 28px 16px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+      <img src="logo-on-navy.png" alt="Taylor Democratic Party" style="height: 40px; width: auto; display: block;">
+      <a href="https://taylorfldems.org" style="color: #FFFFFF; font-weight: 600; font-size: 15px;">taylorfldems.org</a>
+    </div>
+  </footer>
+</div>
+<script>
+(function () {
+    const areas = [
+      ["98 West", [9, 14], 14], ["Belair", [13], 31], ["Beverly Estates", [13], 22],
+      ["Blair-Hine, Eastwood & Fairlawn", [1], 26], ["Calhoun & Hendry", [1, 12], 17],
+      ["Colonial Heights & Puckett", [13], 23], ["Dreamland", [13], 27], ["East Perry", [10], 20],
+      ["El Rancho", [12, 13, 14], 21], ["Glenridge & Pine Ridge", [8, 10], 29], ["Green Acres", [1, 12], 30],
+      ["Homehaven & Milldale", [8, 13], 13], ["Jerkins Heights & Westwood", [13], 18],
+      ["North Perry (US 221)", [14], 25], ["Original Town (East)", [1, 8, 12], 21],
+      ["Parkview & Myrtle", [1], 28], ["Perry Heights & Forest Heights", [12, 14], 24],
+      ["Perry Park & Wilcox", [12], 15], ["Pineland & Tippett", [8], 22], ["Quinndale & Brobston", [12], 19],
+      ["South Perry", [1, 2, 8, 9, 13], 12], ["Southwood & Quail Point", [13], 25], ["Spring Lake", [13], 16],
+      ["Taco Heights", [8, 10], 18], ["The Clark", [1], 26], ["Warner, Walnut & Folsom", [13], 19],
+      ["West Brook & Curls", [13], 33]
+    ];
+  const BOX = [[186,305,250,360],[247,315,285,368],[250,366,266,370],[344,244,396,289],[313,240,344,260],[321,335,354,405],[284,304,344,350],[525,390,583,461],[228,156,301,256],[389,311,502,425],[331,167,430,205],[336,285,392,331],[245,270,313,333],[136,20,317,124],[342,204,393,261],[375,189,433,261],[233,124,342,227],[291,224,332,256],[335,317,407,367],[311,205,345,244],[300,352,428,461],[287,407,329,422],[248,309,263,334],[404,386,459,429],[371,260,433,324],[256,323,291,355],[290,240,348,314]];
+  const D = ["M210 349l0 -13l-5 0l0 3l-3 0l0 7l-8 1l0 2l-3 0l0 -8l16 -7l-2 -6l41 -17l1 -1l0 5l-13 6l-1 4l-4 2l0 19l-19 7l0 -4zM17 418l17 -7l-8 9l-4 4l-5 -6z","M247 326l1 -11l2 19l13 -5l0 4l8 -3l0 6l12 -5l1 0l1 18l-29 0l0 6l10 0l0 11l-16 0l0 2l-3 0l0 -42z","M250 370l0 -4l16 0l0 3l-1 1l-15 0z","M393 247l3 1l0 13l-6 0l0 4l-10 0l0 6l-9 0l0 9l6 5l-1 2l-7 -2l-21 4l0 -4l-4 0l0 -12l0 -13l9 1l0 -4l4 0l0 4l19 0l0 -4l-6 0l2 -3l14 -9l7 -1l0 3z","M313 256l0 -8l11 0l0 -8l4 0l0 4l4 0l0 -4l4 1l0 3l8 0l0 16l-31 0l0 -4z","M339 355l15 17l-4 4l3 4l0 11l-14 1l0 -2l-7 1l-1 -4l8 -1l-1 -17l-12 1l-3 -3l-2 -32l18 20zM347 403l1 -6l5 1l-1 7l-5 0l0 -2zM338 397l0 -1l5 0l0 2l-5 -1z","M321 307l23 -3l-1 15l-7 0l0 12l6 0l-3 19l-4 0l-13 -14l-14 0l-24 0l0 -3l5 0l2 -2l0 -8l-7 2l1 -17l22 1l0 2l6 0l0 3l8 -3l0 -4z","M525 417l0 -12l13 0l0 -15l29 18l0 7l0 6l-5 -2l-4 3l0 -3l-20 0l-1 5l-12 1l0 -8zM576 453l1 -8l5 0l1 15l-1 1l-6 0l0 -8z","M228 214l18 -1l1 -53l-2 -4l47 69l9 15l-2 1l2 3l-1 5l-4 3l0 4l-11 0l0 -31l-26 1l-11 9l-20 -1l0 -20z","M474 383l9 0l1 -7l17 -1l1 -6l-55 -38l-34 -20l-3 7l7 6l6 9l9 3l-1 29l-4 -1l-7 -4l-4 1l-1 3l-8 -2l-1 4l-17 1l15 21l27 0l4 -2l2 2l12 1l0 36l15 -1l1 -41l9 0z","M373 204l38 0l0 -15l16 12l2 3l1 -24l-2 1l1 -14l-37 0l-61 1l11 37l31 -1z","M356 316l28 -2l0 -5l8 -1l0 -4l-18 0l1 -18l-6 -1l-25 4l0 12l-1 18l-7 0l0 12l12 0l1 -3l4 -1l0 -8l3 -3z","M245 302l2 0l0 -13l9 -11l20 -2l11 -5l26 -1l0 5l-10 0l0 33l-4 0l-14 0l-1 16l-21 9l-1 -24l-15 6l0 -9l2 0l-1 -3l-3 -1z","M309 94l8 28l-4 -4l-22 6l-24 -103l18 0l2 -1l22 74zM136 39l0 -17l12 -2l6 1l1 18l-5 1l-14 -1zM192 112l1 -5l5 0l0 -12l2 0l3 0l13 19l-24 0l0 -2z","M356 257l1 4l19 0l0 -4l-6 0l2 -3l13 -8l8 -2l0 -8l-18 0l0 -12l0 -20l-33 1l3 10l-1 45l9 1l0 -4l3 0z","M393 245l0 -9l-18 0l0 -32l36 0l0 -2l0 -13l16 12l2 3l0 18l3 0l1 38l-37 1l0 -13l-3 -1l0 -2z","M308 227l12 -3l-10 -19l32 0l-10 -35l-1 -2l-30 0l-10 -44l-55 14l-3 -1l59 88l9 0l7 2z","M324 241l4 -1l0 4l4 0l0 -12l-8 0l-4 -8l-11 4l-10 -3l-8 0l21 31l1 0l0 -8l11 0l0 -7z","M339 350l3 -19l6 0l1 -3l4 -1l0 -8l3 -2l9 13l16 -2l2 7l0 1l-13 1l9 15l-40 1l0 2l-4 -5l4 0zM406 361l1 1l0 4l-18 1l-8 -12l24 -1l1 7z","M311 205l31 0l3 8l0 14l-1 17l-8 0l0 -4l-4 0l0 -8l-8 0l-12 -20l-1 -7z","M350 376l4 -4l-15 -17l0 -2l40 -1l19 28l30 45l-27 0l-35 -39l-4 3l-9 2l0 -11l-3 -4zM335 444l2 -18l63 -1l14 21l-11 2l0 1l0 5l-49 0l-19 -10zM300 461l0 -17l34 0l-1 3l-12 13l-21 1z","M287 417l1 -4l6 1l19 -2l1 9l-27 1l0 -5zM322 419l1 -12l6 0l-1 4l0 8l-6 0z","M259 310l4 -1l0 20l-13 5l0 -1l-2 -18l11 -5z","M404 388l27 0l4 -2l3 2l10 1l1 36l10 0l-8 4l-21 -1l-26 -40z","M423 260l10 0l0 64l-56 -38l-6 -6l0 -9l9 0l0 -6l10 0l0 -4l33 -1z","M256 349l29 0l0 5l-29 1l0 -6zM271 334l0 -4l19 -7l1 1l0 7l-2 2l-5 0l0 -2l-13 5l0 -2z","M296 255l0 -3l5 -6l-2 -5l2 -1l12 16l0 4l31 0l0 25l4 0l0 4l-4 0l0 15l-8 0l-15 3l0 4l-8 3l0 -3l-6 0l0 -2l-4 0l0 -33l10 -1l0 -5l-23 1l4 -4l1 -9l3 -2l-2 -1z"];
+  const B = { x: 130, y: 10, w: 460, h: 470 };
+  const pcts = (ps) => ps.length === 1 ? "Precinct " + ps[0] : "Precincts " + ps.slice(0, -1).join(", ") + " and " + ps[ps.length - 1];
+  const ord = (n) => n + ((n % 100 >= 11 && n % 100 <= 13) ? "th" : ({ 1: "st", 2: "nd", 3: "rd" }[n % 10] || "th"));
+  const fill = (v) => v < 15 ? "#C9D7E8" : v < 20 ? "#93B0D3" : v < 25 ? "#5A85BC" : v < 30 ? "#2B5A97" : "#0A3161";
+  const sorted = areas.map((a, i) => i).sort((x, y) => areas[y][2] - areas[x][2] || areas[x][0].localeCompare(areas[y][0]));
+  const rank = []; sorted.forEach((i, k) => { rank[i] = k + 1; });
+  const info = (i) => ({ num: i + 1, name: areas[i][0], pct: pcts(areas[i][1]), share: areas[i][2] + "%", rank: "Ranks " + ord(rank[i]) + " of " + areas.length });
+
+  const svg = document.getElementById("map");
+  const paths = Array.from(svg.querySelectorAll("path.area"));
+  const $ = (id) => document.getElementById(id);
+  const tip = $("tip"), card = $("card"), nocard = $("nocard"), list = $("list");
+  const fillIn = (el, o) => el.querySelectorAll("[data-f]").forEach((n) => { n.textContent = o[n.dataset.f]; });
+  paths.forEach((p) => { p.setAttribute("fill", fill(areas[+p.dataset.i][2])); p.style.cursor = "pointer"; });
+
+  // list rows
+  const ROW = "<li style=\"border-bottom: 1px solid #ece9e4;\">\n            <button type=\"button\" aria-pressed=\"{{r.on}}\" style=\"width: 100%; display: grid; grid-template-columns: 34px minmax(0, 1fr) 52px; gap: 10px; align-items: center; padding: 10px 6px; min-height: 44px; border: 0; border-radius: 6px; background: {{r.bg}}; color: inherit; font: inherit; text-align: left; cursor: pointer;\">\n              <span style=\"font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 13px; color: #FFFFFF; background: #0A3161; border-radius: 4px; text-align: center; padding: 3px 0;\">{{r.num}}</span>\n              <span style=\"display: flex; flex-direction: column; gap: 6px; min-width: 0;\">\n                <span style=\"display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap;\">\n                  <span style=\"font-weight: 600; font-size: 16px; color: #2D2926;\">{{r.name}}</span>\n                  <span style=\"font-size: 12px; color: #6b645d;\">{{r.pct}}</span>\n                </span>\n                <span style=\"display: block; height: 10px; background: #eef3f9; border-radius: 999px; overflow: hidden;\">\n                  <span style=\"display: block; height: 10px; width: {{r.bar}}; background: #0A3161; border-radius: 999px;\"></span>\n                </span>\n              </span>\n              <span style=\"font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #0A3161; text-align: right;\">{{r.share}}</span>\n            </button>\n          </li>";
+  list.innerHTML = "";
+  const rowEls = [];
+  sorted.forEach((i) => {
+    const o = Object.assign(info(i), { bar: Math.round(areas[i][2] / 40 * 100) + "%", on: "false", bg: "transparent" });
+    const tmp = document.createElement("ol");
+    tmp.innerHTML = ROW.replace(/\{\{r\.(\w+)\}\}/g, (m, k) => k === "pick" ? "" : String(o[k]).replace(/&/g, "&amp;").replace(/</g, "&lt;"));
+    const li = tmp.firstElementChild; const btn = li.querySelector("button");
+    btn.removeAttribute("onClick"); btn.removeAttribute("onclick");
+    btn.addEventListener("click", () => select(i, true));
+    rowEls[i] = btn; list.appendChild(li);
+  });
+
+  const st = { vx: B.x, vy: B.y, vw: B.w, sel: -1, hov: -1 };
+  let drag = null, pinch = null, dragged = false; const ptrs = {};
+  function clampView(vx, vy, vw) {
+    vw = Math.max(B.w / 8, Math.min(B.w, vw)); const vh = vw * B.h / B.w;
+    return { vx: Math.max(B.x, Math.min(B.x + B.w - vw, vx)), vy: Math.max(B.y, Math.min(B.y + B.h - vh, vy)), vw };
+  }
+  function setView(v) { Object.assign(st, v); draw(); }
+  function toMap(cx, cy) { const r = svg.getBoundingClientRect(); const vh = st.vw * B.h / B.w;
+    return { x: st.vx + (cx - r.left) / r.width * st.vw, y: st.vy + (cy - r.top) / r.height * vh }; }
+  function zoomAt(px, py, vw) { const k = vw / st.vw; setView(clampView(px - (px - st.vx) * k, py - (py - st.vy) * k, vw)); }
+  function zoomCenter(f) { const vh = st.vw * B.h / B.w; zoomAt(st.vx + st.vw / 2, st.vy + vh / 2, st.vw / f); }
+  function fitBox(b) { const pad = 0.35, w = b[2] - b[0], h = b[3] - b[1];
+    const vw = Math.max(w * (1 + 2 * pad), h * (1 + 2 * pad) * B.w / B.h, B.w / 8);
+    return clampView((b[0] + b[2]) / 2 - vw / 2, (b[1] + b[3]) / 2 - (vw * B.h / B.w) / 2, vw); }
+  function select(i, fromList) { if (!fromList && dragged) return; Object.assign(st, fitBox(BOX[i]), { sel: i }); draw();
+    if (fromList) svg.scrollIntoView({ behavior: "smooth", block: "center" }); }
+  function draw() {
+    const z = B.w / st.vw, vh = st.vw * B.h / B.w;
+    svg.setAttribute("viewBox", [st.vx, st.vy, st.vw, vh].map((n) => Math.round(n * 100) / 100).join(" "));
+    svg.style.touchAction = z > 1.01 ? "none" : "pan-y";
+    svg.style.cursor = z > 1.01 ? "grab" : "default";
+    const upx = st.vw / (svg.clientWidth || 700);
+    $("nums").setAttribute("font-size", (12.5 * upx).toFixed(2)); $("nums").setAttribute("stroke-width", (3.6 * upx).toFixed(2));
+    $("roadlabels").setAttribute("font-size", (10 * upx).toFixed(2));
+    paths.forEach((p) => p.setAttribute("opacity", st.sel < 0 || st.sel === +p.dataset.i ? "1" : "0.45"));
+    $("hov").setAttribute("d", st.hov >= 0 ? D[st.hov] : "");
+    $("sel").setAttribute("d", st.sel >= 0 ? D[st.sel] : "");
+    if (st.sel >= 0) { fillIn(card, info(st.sel)); card.hidden = false; nocard.hidden = true; } else { card.hidden = true; nocard.hidden = false; }
+    rowEls.forEach((btn, i) => { btn.style.background = st.sel === i ? "#eef3f9" : "transparent"; btn.setAttribute("aria-pressed", st.sel === i ? "true" : "false"); });
+  }
+  function showTip(e) {
+    if (st.hov < 0) { tip.hidden = true; return; }
+    const r = svg.getBoundingClientRect(); const x = e.clientX - r.left, y = e.clientY - r.top;
+    fillIn(tip, info(st.hov)); tip.hidden = false; tip.style.display = "flex";
+    tip.style.left = Math.round(x) + "px"; tip.style.top = Math.round(Math.max(52, Math.min(r.height - 52, y))) + "px";
+    tip.style.transform = x > r.width * 0.55 ? "translate(calc(-100% - 14px), -50%)" : "translate(14px, -50%)";
+  }
+  function hideTip() { tip.hidden = true; tip.style.display = "none"; }
+
+  paths.forEach((p) => {
+    const i = +p.dataset.i;
+    p.addEventListener("click", () => select(i, false));
+    p.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse" && !(drag && drag.moved)) { st.hov = i; draw(); showTip(e); } });
+  });
+  $("ground").addEventListener("pointerenter", () => { if (st.hov !== -1) { st.hov = -1; draw(); hideTip(); } });
+  $("ground").addEventListener("click", () => { if (!dragged) { st.sel = -1; draw(); } });
+  $("zin").addEventListener("click", () => zoomCenter(1.6));
+  $("zout").addEventListener("click", () => zoomCenter(1 / 1.6));
+  $("zreset").addEventListener("click", () => setView({ vx: B.x, vy: B.y, vw: B.w }));
+  $("showall").addEventListener("click", () => setView({ sel: -1, vx: B.x, vy: B.y, vw: B.w }));
+  svg.addEventListener("wheel", (e) => { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault();
+    const p = toMap(e.clientX, e.clientY); zoomAt(p.x, p.y, st.vw * Math.exp(e.deltaY * 0.01)); }, { passive: false });
+  svg.addEventListener("pointerdown", (e) => {
+    ptrs[e.pointerId] = { x: e.clientX, y: e.clientY }; const ids = Object.keys(ptrs);
+    if (ids.length === 1) { dragged = false; drag = { x: e.clientX, y: e.clientY, vx: st.vx, vy: st.vy, moved: false }; }
+    else if (ids.length === 2) { const a = ptrs[ids[0]], b = ptrs[ids[1]]; const m = toMap((a.x + b.x) / 2, (a.y + b.y) / 2);
+      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, vw: st.vw, mx: m.x, my: m.y, vx: st.vx, vy: st.vy }; drag = null; dragged = true; }
+  });
+  svg.addEventListener("pointermove", (e) => {
+    if (ptrs[e.pointerId]) ptrs[e.pointerId] = { x: e.clientX, y: e.clientY };
+    const ids = Object.keys(ptrs), r = svg.getBoundingClientRect();
+    if (pinch && ids.length === 2) { const a = ptrs[ids[0]], b = ptrs[ids[1]]; const d = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+      const vw = pinch.vw * pinch.d / d, k = vw / pinch.vw; setView(clampView(pinch.mx - (pinch.mx - pinch.vx) * k, pinch.my - (pinch.my - pinch.vy) * k, vw)); return; }
+    if (drag) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!drag.moved && Math.abs(dx) + Math.abs(dy) > 5) drag.moved = true;
+      if (drag.moved) { dragged = true; const k = st.vw / r.width; st.hov = -1; hideTip();
+        setView(clampView(drag.vx - dx * k, drag.vy - dy * k, st.vw)); return; } }
+    if (e.pointerType === "mouse") showTip(e);
+  });
+  const up = (e) => { delete ptrs[e.pointerId]; if (Object.keys(ptrs).length < 2) pinch = null; if (!Object.keys(ptrs).length) drag = null; };
+  svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up);
+  svg.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") { for (const k in ptrs) delete ptrs[k]; drag = null; pinch = null; }
+    st.hov = -1; draw(); hideTip(); });
+  window.addEventListener("resize", draw);
+  hideTip(); draw();
+})();
+</script>
+</body>
+</html>
