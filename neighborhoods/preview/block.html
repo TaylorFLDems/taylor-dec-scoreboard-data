@@ -536,7 +536,9 @@
             </div>
             <span style="font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 32px; color: #0A3161; line-height: 1;"><span data-f="share"></span></span>
             <button type="button" id="tdnb-showall" style="min-height: 44px; padding: 0 16px; border: 1px solid #c9c2b6; border-radius: 6px; background: #FFFFFF; color: #0A3161; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.04em; cursor: pointer;">SHOW ALL</button>
+            <button type="button" id="tdnb-sharearea" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 6px; background: #0A3161; color: #FFFFFF; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.04em; cursor: pointer;">SHARE</button>
           </div>
+          <p id="tdnb-cardmsg" role="status" style="margin: 6px 0 0; font-size: 14px; color: #514b45; min-height: 1em;"></p>
         </div>
         <div id="tdnb-nocard">
           <p style="margin: 0; padding: 12px 14px; border: 1px dashed #c9c2b6; border-radius: 8px; font-size: 14px; color: #514b45;">Pick a neighborhood on the map or in the list to zoom in on it.</p>
@@ -559,6 +561,22 @@
       <ol id="tdnb-list" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column;">
         
       </ol>
+    </section>
+
+    <section id="tdnb-share" style="background: #0A3161; color: #FFFFFF; border-radius: 10px; padding: 20px 16px; display: flex; flex-direction: column; gap: 12px;">
+      <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 24px; color: #FFFFFF;">Share the scoreboard</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #FFFFFF;">Every share puts this map in front of more Perry neighbors. Copy our suggested post, then share it on Facebook or send it to a friend.</p>
+      <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 0.12em; color: #d6e0ec;">SUGGESTED POST</span>
+        <p id="tdnb-sharepost" style="margin: 0; font-size: 16px; line-height: 1.55; color: #FFFFFF;">Perry neighbors are showing up! 22% of Perry Democrats have already voted. Early voting is open through October 31st at the elections office on US 19. Check your neighborhood and help it climb.</p>
+        <button type="button" id="tdnb-sharecopypost" style="align-self: flex-start; min-height: 44px; padding: 0 16px; border: 1px solid rgba(255,255,255,0.6); border-radius: 6px; background: transparent; color: #FFFFFF; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.04em; cursor: pointer;">COPY THIS POST</button>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <a id="tdnb-sharefb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.taylorfldems.org%2F2026scoreboard" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 6px; background: #B31942; color: #FFFFFF; text-decoration: none; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.04em;">SHARE ON FACEBOOK</a>
+        <button type="button" id="tdnb-sharenative" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 6px; background: #FFFFFF; color: #0A3161; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.04em; cursor: pointer;">MORE WAYS TO SHARE</button>
+        <button type="button" id="tdnb-sharecopylink" style="min-height: 44px; padding: 0 18px; border: 1px solid rgba(255,255,255,0.6); border-radius: 6px; background: transparent; color: #FFFFFF; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.04em; cursor: pointer;">COPY LINK</button>
+      </div>
+      <p id="tdnb-sharemsg" role="status" style="margin: 0; font-size: 14px; color: #d6e0ec; min-height: 1em;"></p>
     </section>
 
     <section style="background: #FFFFFF; border: 1px solid #e1ddd7; border-top: 4px solid #B31942; border-radius: 10px; padding: 20px 16px; display: flex; flex-direction: column; gap: 12px;">
@@ -722,6 +740,44 @@ function start(ND) {
   svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up);
   svg.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") { for (const k in ptrs) delete ptrs[k]; drag = null; pinch = null; }
     st.hov = -1; draw(); hideTip(); });
+  // ---- sharing ----
+  const SHARE_URL = "https://www.taylorfldems.org/2026scoreboard";
+  const ymd = () => { const d = new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); };
+  function postText() {
+    const t = ymd(), pct = ($("perrypct").textContent || "").trim();
+    const lead = "Perry neighbors are showing up!" + (/^[1-9]\d*%$/.test(pct) ? " " + pct + " of Perry Democrats have already voted." : "");
+    const close = " Check your neighborhood and help it climb.";
+    if (t < 20261024) return lead + " Early voting opens Saturday, October 24th, at the elections office on US 19." + close;
+    if (t <= 20261031) return lead + " Early voting is open through Saturday, October 31st, 8 AM to 5 PM, at the elections office on US 19." + close;
+    if (t <= 20261102) return lead + " Election Day is Tuesday, November 3rd, 7 AM to 7 PM, at your polling place." + close;
+    if (t === 20261103) return lead + " Today is Election Day. Polls are open until 7 PM." + close;
+    return "";
+  }
+  function copy(text, el, ok, fail) {
+    const say = (m) => { if (el) el.textContent = m; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => say(ok), () => say(fail));
+    else say(fail);
+  }
+  function setPost() {
+    const p = postText();
+    $("sharepost").textContent = p;
+    $("sharepost").parentElement.style.display = p ? "" : "none";
+  }
+  if (!navigator.share) $("sharenative").style.display = "none";
+  $("sharecopypost").addEventListener("click", () => copy(postText() + "\n" + SHARE_URL, $("sharemsg"),
+    "Copied. Paste it into your Facebook post or a text.", "Press and hold the post above to copy it, then add this link: " + SHARE_URL));
+  $("sharecopylink").addEventListener("click", () => copy(SHARE_URL, $("sharemsg"),
+    "Link copied. Paste it in a post or a text.", "Copy this link: " + SHARE_URL));
+  $("sharenative").addEventListener("click", () => {
+    if (navigator.share) navigator.share({ title: "Perry Neighborhood Scoreboard", text: postText(), url: SHARE_URL }).catch(() => {});
+  });
+  $("sharearea").addEventListener("click", () => {
+    if (st.sel < 0) return;
+    const o = info(st.sel);
+    const text = "In " + o.name + ", " + o.share + " of Democrats have already voted. How is your neighborhood doing?";
+    if (navigator.share) navigator.share({ title: "Perry Neighborhood Scoreboard", text: text, url: SHARE_URL }).catch(() => {});
+    else copy(text + "\n" + SHARE_URL, $("cardmsg"), "Copied. Paste it into a post or a text.", "Copy this link: " + SHARE_URL);
+  });
   window.addEventListener("resize", () => draw());
   // county inset
   const BKV = Object.assign({}, ND.buckets);
@@ -751,7 +807,7 @@ function start(ND) {
     return d.toLocaleDateString("en-US", { weekday: "long" }) + ", " + d.toLocaleDateString("en-US", { month: "long" }) + " " + ORD(d.getDate()); };
   if (ND.through) $("updated").textContent = "Counts through " + longDate(ND.through);
   if (typeof ND.perry === "number") $("perrypct").textContent = ND.perry + "%";
-  hideTip(); draw();
+  hideTip(); draw(); setPost();
 }
 function fail(e){
   clog('neighborhoods: load failed', String(e));
