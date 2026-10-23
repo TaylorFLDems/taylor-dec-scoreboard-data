@@ -551,11 +551,11 @@ button:focus-visible{outline:3px solid #B31942;outline-offset:2px}
         </div>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; font-size: 13px; color: #514b45;">
-        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #C9D7E8; border: 1px solid #a9b9cc;"></span>Under 15%</span>
-        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #93B0D3;"></span>15 to 19%</span>
-        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #5A85BC;"></span>20 to 24%</span>
-        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #2B5A97;"></span>25 to 29%</span>
-        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #0A3161;"></span>30% and up</span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #C9D7E8; border: 1px solid #a9b9cc;"></span><span data-leg="1"></span></span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #93B0D3;"></span><span data-leg="2"></span></span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #5A85BC;"></span><span data-leg="3"></span></span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #2B5A97;"></span><span data-leg="4"></span></span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="display: block; width: 16px; height: 16px; border-radius: 3px; background: #0A3161;"></span><span data-leg="5"></span></span>
       </div>
     </section>
 
@@ -615,7 +615,12 @@ button:focus-visible{outline:3px solid #B31942;outline-offset:2px}
   const B = { x: 130, y: 10, w: 460, h: 470 };
   const pcts = (ps) => ps.length === 1 ? "Precinct " + ps[0] : "Precincts " + ps.slice(0, -1).join(", ") + " and " + ps[ps.length - 1];
   const ord = (n) => n + ((n % 100 >= 11 && n % 100 <= 13) ? "th" : ({ 1: "st", 2: "nd", 3: "rd" }[n % 10] || "th"));
-  const fill = (v) => v < 15 ? "#C9D7E8" : v < 20 ? "#93B0D3" : v < 25 ? "#5A85BC" : v < 30 ? "#2B5A97" : "#0A3161";
+  const SH = ["#C9D7E8", "#93B0D3", "#5A85BC", "#2B5A97", "#0A3161"];
+  const step = Math.max(1, Math.ceil(Math.max(...areas.map((a) => a[2])) / 5));
+  const fill = (v) => SH[Math.min(4, Math.floor(v / step))];
+  const rng = (lo, hi) => lo === hi ? lo + "%" : lo + " to " + hi + "%";
+  const LEG = [step === 1 ? "0%" : "Under " + step + "%", rng(step, 2 * step - 1), rng(2 * step, 3 * step - 1), rng(3 * step, 4 * step - 1), 4 * step + "% and up"];
+  document.querySelectorAll("[data-leg]").forEach((n) => { n.textContent = LEG[+n.dataset.leg - 1]; });
   const sorted = areas.map((a, i) => i).sort((x, y) => areas[y][2] - areas[x][2] || areas[x][0].localeCompare(areas[y][0]));
   const rank = []; sorted.forEach((i, k) => { rank[i] = k + 1; });
   const info = (i) => ({ num: i + 1, name: areas[i][0], pct: pcts(areas[i][1]), share: areas[i][2] + "%", rank: "Ranks " + ord(rank[i]) + " of " + areas.length });
