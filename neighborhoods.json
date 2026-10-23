@@ -1,0 +1,54 @@
+{
+ "election_id": "49894",
+ "updated_at": "2026-10-23T15:34:50-04:00",
+ "through": "2026-10-21",
+ "file_date": "2026-10-22",
+ "areas": {
+  "98 West": 0,
+  "Belair": 5,
+  "Beverly Estates": 2,
+  "Blair-Hine, Eastwood & Fairlawn": 5,
+  "Calhoun & Hendry": 0,
+  "Colonial Heights & Puckett": 9,
+  "Dreamland": 0,
+  "East Perry": 0,
+  "El Rancho": 0,
+  "Glenridge & Pine Ridge": 3,
+  "Green Acres": 4,
+  "Homehaven & Milldale": 3,
+  "Jerkins Heights & Westwood": 3,
+  "North Perry (US 221)": 0,
+  "Original Town (East)": 5,
+  "Parkview & Myrtle": 14,
+  "Perry Heights & Forest Heights": 7,
+  "Perry Park & Wilcox": 3,
+  "Pineland & Tippett": 7,
+  "Quinndale & Brobston": 2,
+  "South Perry": 5,
+  "Southwood & Quail Point": 2,
+  "Spring Lake": 0,
+  "Taco Heights": 0,
+  "The Clark": 6,
+  "Warner, Walnut & Folsom": 3,
+  "West Brook & Curls": 12
+ },
+ "perry": 5,
+ "buckets": {
+  "perry": 5,
+  "north": 4,
+  "southwest": 6,
+  "east": 2,
+  "coast": 12,
+  "south": 5
+ },
+ "county": 5,
+ "history": [
+  {
+   "date": "2026-10-21",
+   "perry": 5,
+   "county": 5
+  }
+ ],
+ "method": "Share of Democrats who have voted early or by mail (counted mail ballots). Neighborhoods: over active Democrats living there (SOE voter extract, Oct 16, 2026). County buckets: over active Democrats in those precincts at the Oct 5, 2026 book closing.",
+ "note": "Percentages only, from the DS-DE 145/147 files, which are confidential under s.101.62(2), F.S. No voter-level data is published."
+}
