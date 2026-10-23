@@ -35,7 +35,7 @@ button:focus-visible{outline:3px solid #B31942;outline-offset:2px}
       </div>
       <h1 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(34px, 7vw, 56px); line-height: 1.02; letter-spacing: -0.02em;">Perry neighbors are showing up.</h1>
       <p style="margin: 0; font-size: 18px; line-height: 1.55; max-width: 600px;">Here is how many Democrats in each Perry neighborhood have already voted. Every neighborhood can move up the list. Check on a neighbor and help yours climb.</p>
-      <p style="margin: 0; font-size: 14px; color: #d6e0ec;">Updated Saturday, October 24th, 6 PM</p>
+      <p id="updated" style="margin: 0; font-size: 14px; color: #d6e0ec;">Counts through Saturday, October 24th</p>
     </div>
   </section>
 
@@ -43,7 +43,7 @@ button:focus-visible{outline:3px solid #B31942;outline-offset:2px}
 
     <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
       <div style="background: #FFFFFF; border: 1px solid #e1ddd7; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 36px; line-height: 1; color: #0A3161;">22%</span>
+        <span id="perrypct" style="font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 36px; line-height: 1; color: #0A3161;">22%</span>
         <span style="font-size: 14px; color: #514b45;">of Perry Democrats have voted</span>
       </div>
       <div style="background: #FFFFFF; border: 1px solid #e1ddd7; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 4px;">
@@ -573,17 +573,18 @@ button:focus-visible{outline:3px solid #B31942;outline-offset:2px}
       <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 24px; color: #0A3161;">Haven't voted yet?</h2>
       <div style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.55;">
         <p style="margin: 0;"><strong>Early voting:</strong> October 24th to 31st, 8 AM to 5 PM, at the Supervisor of Elections office, 433 N US Hwy 19, Perry.</p>
-        <p style="margin: 0;"><strong>Election Day:</strong> Tuesday, November 3rd, at your precinct's polling place.</p>
+        <p style="margin: 0;"><strong>Election Day:</strong> Tuesday, November 3rd, 7 AM to 7 PM, at your precinct's polling place.</p>
+        <p style="margin: 0;"><strong>Have a mail ballot?</strong> Sign the envelope and get it back soon. It must reach the elections office by 7 PM on November 3rd. Postmarks do not count.</p>
       </div>
       <a href="https://taylorfldems.org/2026-elections" style="align-self: flex-start; background: #B31942; color: #FFFFFF; text-decoration: none; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: 0.04em; padding: 14px 22px; border-radius: 6px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center;">MAKE YOUR PLAN TO VOTE</a>
     </section>
 
     <section style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.6; color: #514b45;">
       <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16px; color: #2D2926;">How we count</h3>
-      <p style="margin: 0;">Each number is the share of registered Democrats in that neighborhood who have voted so far. We only show percentages, and every neighborhood is big enough that no one household stands out.</p>
-      <p style="margin: 0;">Neighborhood lines are drawn by Taylor Democrats for this scoreboard. They are not precincts or official districts, and some cross precinct lines. Votes cast on Election Day are added after the county updates its records.</p>
-      <p style="margin: 0;">The county map groups whole voting precincts into six parts of the county: Perry (precincts 1, 8, 12 and 13), North and West (6, 7 and 14), Hampton Springs and Southwest (2 and 9), East County (10 and 11), the Beaches (3), and Salem and Steinhatchee (4 and 5).</p>
-      <p style="margin: 0;">Source: daily voter files from the Taylor County Supervisor of Elections.</p>
+      <p style="margin: 0;">Each number is the share of a neighborhood's active registered Democrats who have voted so far, either early in person or by a mail ballot the county has counted. We show percentages only, never names or counts.</p>
+      <p style="margin: 0;">Neighborhood lines are drawn by Taylor Democrats for this scoreboard. They are not precincts or official districts, and some cross precinct lines. Election Day votes are not included.</p>
+      <p style="margin: 0;">The county map groups whole voting precincts into six parts of the county: Perry (precincts 1, 8, 12 and 13), North and West (6, 7 and 14), Hampton Springs and Southwest (2 and 9), East County (10 and 11), the Beaches (3), and Salem and Steinhatchee (4 and 5). Each part is compared with its active Democrats at the October 5th book closing.</p>
+      <p style="margin: 0;">Source: the daily early-voting and mail-ballot files from the Florida Division of Elections. We update this page as new files come in, usually each morning.</p>
     </section>
   </main>
 
