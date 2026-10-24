@@ -1030,7 +1030,7 @@
   {
    "date": "2026-10-24",
    "compiled": "10/24/2026 8:06AM",
-   "compiled_state": "10/24/2026 11:01AM",
+   "compiled_state": "10/24/2026 2:01PM",
    "taylor": {
     "vbm_outstanding": {
      "R": 353,
@@ -1056,30 +1056,30 @@
    },
    "statewide": {
     "vbm_outstanding": {
-     "R": 383824,
-     "D": 484905,
-     "O": 32349,
-     "NPA": 266636,
-     "T": 1167714
+     "R": 382654,
+     "D": 484094,
+     "O": 32279,
+     "NPA": 266232,
+     "T": 1165259
     },
     "vbm_returned": {
-     "R": 469900,
-     "D": 561525,
-     "O": 31637,
-     "NPA": 247389,
-     "T": 1310451
+     "R": 471245,
+     "D": 562479,
+     "O": 31715,
+     "NPA": 247905,
+     "T": 1313344
     },
     "early_voted": {
-     "R": 442762,
-     "D": 362723,
-     "O": 24754,
-     "NPA": 170819,
-     "T": 1001058
+     "R": 446330,
+     "D": 364370,
+     "O": 24929,
+     "NPA": 171955,
+     "T": 1007584
     }
    }
   }
  ],
- "updated_at": "2026-10-24T13:38:01-04:00",
+ "updated_at": "2026-10-24T14:47:23-04:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -1088,7 +1088,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-10-24T17:30:01.535751+00:00",
+   "LastUpdatedTime": "2026-10-24T18:40:01.637984+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
@@ -1323,7 +1323,7 @@
      "Mail": 64
     },
     "10/24/2026": {
-     "EarlyVoting": 197,
+     "EarlyVoting": 223,
      "Mail": 10,
      "Provisional": 1
     }
@@ -1336,22 +1336,22 @@
      "EarlyVoting": 1
     },
     "DEM": {
-     "EarlyVoting": 29,
+     "EarlyVoting": 32,
      "Mail": 199
     },
     "IND": {
-     "EarlyVoting": 2,
+     "EarlyVoting": 3,
      "Mail": 6
     },
     "LPF": {
      "Mail": 1
     },
     "NPA": {
-     "EarlyVoting": 11,
+     "EarlyVoting": 13,
      "Mail": 37
     },
     "REP": {
-     "EarlyVoting": 152,
+     "EarlyVoting": 172,
      "Mail": 311,
      "Provisional": 1
     }
@@ -1361,10 +1361,10 @@
      "SOE OFFICE": {
       "AMF": 2,
       "CSV": 1,
-      "DEM": 29,
-      "IND": 2,
-      "NPA": 11,
-      "REP": 153
+      "DEM": 32,
+      "IND": 3,
+      "NPA": 13,
+      "REP": 173
      }
     }
    },
@@ -1385,7 +1385,7 @@
     },
     "002": {
      "BallotTypeTotals": {
-      "EarlyVoting": 28,
+      "EarlyVoting": 32,
       "Mail": 67
      },
      "EligibleVoters": 1548
@@ -1420,35 +1420,35 @@
     },
     "007": {
      "BallotTypeTotals": {
-      "EarlyVoting": 32,
+      "EarlyVoting": 35,
       "Mail": 59
      },
      "EligibleVoters": 1364
     },
     "008": {
      "BallotTypeTotals": {
-      "EarlyVoting": 1,
+      "EarlyVoting": 3,
       "Mail": 2
      },
      "EligibleVoters": 38
     },
     "008.5": {
      "BallotTypeTotals": {
-      "EarlyVoting": 11,
+      "EarlyVoting": 17,
       "Mail": 28
      },
      "EligibleVoters": 563
     },
     "009": {
      "BallotTypeTotals": {
-      "EarlyVoting": 4,
+      "EarlyVoting": 5,
       "Mail": 16
      },
      "EligibleVoters": 466
     },
     "010": {
      "BallotTypeTotals": {
-      "EarlyVoting": 6,
+      "EarlyVoting": 8,
       "Mail": 21
      },
      "EligibleVoters": 583
@@ -1469,7 +1469,7 @@
     },
     "012.3": {
      "BallotTypeTotals": {
-      "EarlyVoting": 10,
+      "EarlyVoting": 13,
       "Mail": 18
      },
      "EligibleVoters": 531
@@ -1490,14 +1490,14 @@
     },
     "013.5": {
      "BallotTypeTotals": {
-      "EarlyVoting": 3,
+      "EarlyVoting": 6,
       "Mail": 5
      },
      "EligibleVoters": 246
     },
     "014": {
      "BallotTypeTotals": {
-      "EarlyVoting": 32,
+      "EarlyVoting": 34,
       "Mail": 72
      },
      "EligibleVoters": 1702
@@ -1509,10 +1509,10 @@
       "10/24/2026": {
        "AMF": 2,
        "CSV": 1,
-       "DEM": 29,
-       "IND": 2,
-       "NPA": 11,
-       "REP": 153
+       "DEM": 32,
+       "IND": 3,
+       "NPA": 13,
+       "REP": 173
       }
      }
     }
