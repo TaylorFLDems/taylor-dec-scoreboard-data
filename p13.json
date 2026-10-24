@@ -1,50 +1,50 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-23T16:04:44-04:00",
- "through": "2026-10-22",
+ "updated_at": "2026-10-24T08:21:07-04:00",
+ "through": "2026-10-23",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
-  "md5": "3ca8fbd84fd3c32534c4eaad4aa86fb0",
-  "rows": 1123,
-  "dem_rows": 401,
-  "through": "2026-10-22",
-  "file_date": "2026-10-23"
+  "md5": "b737d10a18d52ef31e471c36f011745a",
+  "rows": 1130,
+  "dem_rows": 404,
+  "through": "2026-10-23",
+  "file_date": "2026-10-24"
  },
  "evl_file": null,
  "county_dem": {
-  "mail_active": 396,
+  "mail_active": 399,
   "mail_cancelled": 5,
-  "mail_returned": 174,
-  "mail_outstanding": 210,
+  "mail_returned": 194,
+  "mail_outstanding": 197,
   "mail_outstanding_already_voted_early": 0,
-  "chase": 210,
-  "status_unconfirmed": 12,
+  "chase": 197,
+  "status_unconfirmed": 8,
   "early_voted": 0,
   "double_votes": 0,
-  "cast_before_eday": 174,
-  "cure_flagged": 3,
+  "cast_before_eday": 194,
+  "cure_flagged": 5,
   "cure_cured": 0,
-  "cure_open": 3
+  "cure_open": 5
  },
  "precincts": {
   "013": {
-   "mail_active": 106,
-   "mail_returned": 47,
+   "mail_active": 107,
+   "mail_returned": 51,
    "mail_outstanding_chase": 52,
    "early_voted": 0,
-   "cast_before_eday": 47,
+   "cast_before_eday": 51,
    "dem_active": 878,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
-   "cure_flagged": 2,
+   "cure_flagged": 4,
    "cure_cured": 0,
-   "cure_open": 2
+   "cure_open": 4
   },
   "014": {
    "mail_active": 50,
-   "mail_returned": 23,
-   "mail_outstanding_chase": 27,
+   "mail_returned": 24,
+   "mail_outstanding_chase": 26,
    "early_voted": 0,
-   "cast_before_eday": 23,
+   "cast_before_eday": 24,
    "dem_active": 291,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -53,10 +53,10 @@
   },
   "001": {
    "mail_active": 49,
-   "mail_returned": 21,
-   "mail_outstanding_chase": 27,
+   "mail_returned": 22,
+   "mail_outstanding_chase": 26,
    "early_voted": 0,
-   "cast_before_eday": 21,
+   "cast_before_eday": 22,
    "dem_active": 267,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 1,
@@ -65,10 +65,10 @@
   },
   "002": {
    "mail_active": 44,
-   "mail_returned": 20,
-   "mail_outstanding_chase": 22,
+   "mail_returned": 22,
+   "mail_outstanding_chase": 20,
    "early_voted": 0,
-   "cast_before_eday": 20,
+   "cast_before_eday": 22,
    "dem_active": 247,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -77,10 +77,10 @@
   },
   "007": {
    "mail_active": 27,
-   "mail_returned": 9,
-   "mail_outstanding_chase": 18,
+   "mail_returned": 14,
+   "mail_outstanding_chase": 13,
    "early_voted": 0,
-   "cast_before_eday": 9,
+   "cast_before_eday": 14,
    "dem_active": 237,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -171,12 +171,17 @@
    },
    {
     "date": "2026-10-22",
-    "card": 8,
+    "card": 9,
     "other": 0
+   },
+   {
+    "date": "2026-10-23",
+    "card": 1,
+    "other": 1
    }
   ],
-  "card_since_delivery": 46,
-  "card_households_since_delivery": 38,
+  "card_since_delivery": 48,
+  "card_households_since_delivery": 40,
   "party_daily": [
    {
     "date": "2026-10-03",
@@ -255,8 +260,13 @@
    },
    {
     "date": "2026-10-22",
-    "dem": 8,
+    "dem": 9,
     "rep": 13
+   },
+   {
+    "date": "2026-10-23",
+    "dem": 2,
+    "rep": 5
    }
   ],
   "reg": {
@@ -265,7 +275,7 @@
   },
   "reg_source": "DOS book closing, Oct 5, 2026"
  },
- "file_date": "2026-10-23",
+ "file_date": "2026-10-24",
  "history": [
   {
    "date": "2026-10-03",
@@ -382,6 +392,14 @@
    "mail_active": 396,
    "chase": 210,
    "file_date": "2026-10-23"
+  },
+  {
+   "date": "2026-10-23",
+   "p13": 51,
+   "county": 194,
+   "mail_active": 399,
+   "chase": 197,
+   "file_date": "2026-10-24"
   }
  ],
  "note": "Aggregate counts from the DS-DE 145/147 files, which are confidential under s.101.62(2), F.S. No voter-level data is published."
