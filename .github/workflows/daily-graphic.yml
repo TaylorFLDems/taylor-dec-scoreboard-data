@@ -25,7 +25,12 @@ jobs:
   render:
     runs-on: ubuntu-latest
     steps:
+      # Render from the newest p13.json on main, not the commit that started the
+      # run. Runs are queued one at a time (concurrency above), so a later run
+      # always has data at least as new as an earlier one.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
@@ -49,8 +54,12 @@ jobs:
             exit 0
           fi
           git commit -m "P13 graphic $(TZ=America/New_York date +%F)"
+          # If an earlier run already pushed today's image, the two PNGs conflict.
+          # -X theirs keeps this run's render (in a rebase, "theirs" is our commit),
+          # which is the newer one. Oct 26: without it the second run failed and
+          # the image stayed on the stale count.
           for i in 1 2 3; do
-            git pull --rebase --quiet && git push && exit 0
+            git pull --rebase -X theirs --quiet && git push && exit 0
             sleep 10
           done
           exit 1
