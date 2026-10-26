@@ -24,6 +24,9 @@ concurrency:
 jobs:
   render:
     runs-on: ubuntu-latest
+    # Oct 26: the Playwright install hung for 8+ minutes once. Normal runs take
+    # about 2, so fail fast instead of sitting for GitHub's 6-hour default.
+    timeout-minutes: 15
     steps:
       # Render from the newest p13.json on main, not the commit that started the
       # run. Runs are queued one at a time (concurrency above), so a later run
