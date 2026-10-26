@@ -56,3 +56,19 @@ instead. Stops after Nov 3. Test a date locally with
 
 `share/p13-scoreboard-share.png` is the separate, fixed link-preview image for
 the page; its source is in the private ops repo (`scoreboard/share/`).
+
+## Daily turnout graphic (Oct 26, 2026)
+
+`share/render_turnout.py` turns `neighborhoods.json` into a second 1080×1080
+post image: the share of Perry Democrats and Taylor County Democrats who have
+voted, the gain since the previous file, and the six county areas ranked (same
+names as the county map on /2026scoreboard). Percentages only, like the
+neighborhood page. The same "Daily P13 graphic" workflow renders it whenever
+`neighborhoods.json` changes and each morning, and commits:
+
+- `share/turnout-today.png`: always today's image. Stable link:
+  https://raw.githubusercontent.com/TaylorFLDems/taylor-dec-scoreboard-data/main/share/turnout-today.png
+- `share/daily/turnout-YYYY-MM-DD.png`: one per day, for the record.
+
+Stops after Nov 3. Test a date locally with
+`python share/render_turnout.py --date 2026-10-27 --out test.png`.
