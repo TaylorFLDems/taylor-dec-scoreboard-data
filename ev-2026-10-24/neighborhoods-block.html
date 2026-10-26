@@ -644,7 +644,9 @@ function start(ND) {
   document.querySelectorAll("[data-leg]").forEach((n) => { n.textContent = LEG[+n.dataset.leg - 1]; });
   const sorted = areas.map((a, i) => i).sort((x, y) => areas[y][2] - areas[x][2] || areas[x][0].localeCompare(areas[y][0]));
   const rank = []; sorted.forEach((i, k) => { rank[i] = k + 1; });
-  const info = (i) => ({ num: i + 1, name: areas[i][0], pct: pcts(areas[i][1]), share: areas[i][2] + "%", rank: "Ranks " + ord(rank[i]) + " of " + areas.length });
+  const LC = (k) => String.fromCharCode(65 + k);
+  const LTR = (i) => i < 26 ? LC(i) : LC(Math.floor(i / 26) - 1) + LC(i % 26);
+  const info = (i) => ({ num: LTR(i), name: areas[i][0], pct: pcts(areas[i][1]), share: areas[i][2] + "%", rank: "Ranks " + ord(rank[i]) + " of " + areas.length });
 
   const svg = document.getElementById("tdnb-map");
   const paths = Array.from(svg.querySelectorAll("path.area"));
@@ -808,6 +810,7 @@ function start(ND) {
   const closeCounty = () => { cwrap.hidden = true; svg.style.height = "auto"; $("countyinset").focus(); };
   $("countyclose").addEventListener("click", closeCounty);
   $("countyperrybox").addEventListener("click", closeCounty);
+  Array.from($("nums").querySelectorAll("text")).forEach((t) => { t.textContent = LTR(+t.textContent - 1); });
   const ORD = (n) => n + ((n % 100 >= 11 && n % 100 <= 13) ? "th" : ({ 1: "st", 2: "nd", 3: "rd" }[n % 10] || "th"));
   const longDate = (iso) => { const d = new Date(iso + "T12:00:00");
     return d.toLocaleDateString("en-US", { weekday: "long" }) + ", " + d.toLocaleDateString("en-US", { month: "long" }) + " " + ORD(d.getDate()); };
