@@ -77,11 +77,16 @@ SH = ["#C9D7E8", "#93B0D3", "#5A85BC", "#2B5A97", "#0A3161"]
 NUM_ON_LIGHT = 2  # steps 0 and 1 are light; their number badges get dark text
 
 
+def ltr(i):
+    """0 -> A ... 25 -> Z, 26 -> AA. Same as the scoreboard page (neighborhoods/build_block.py)."""
+    return chr(65 + i) if i < 26 else chr(64 + i // 26) + chr(65 + i % 26)
+
+
 def build_city(n, today, perry, file_day, g):
     """Perry image: the share, the neighborhood map shaded like the scoreboard page,
-    and the leading neighborhoods. Only the leaders are labeled on the map, with
-    letters in rank order (A = top). Oct 26, Trey: the page's 1 to 27 numbers
-    confused people on the image (read as counts or ranks)."""
+    and the leading neighborhoods. Every neighborhood carries the same letter as on
+    the scoreboard page: alphabetical by name, A to Z, then AA (Oct 26, Trey: the
+    old 1 to 27 numbers read as counts or ranks and confused people)."""
     areas = n.get("areas") or {}
     names = sorted(areas)  # map shapes and their #nums labels are in alphabetical order
     vals = [areas[k] if isinstance(areas[k], (int, float)) else 0 for k in names]
@@ -100,13 +105,12 @@ def build_city(n, today, perry, file_day, g):
            rng(3 * step, 4 * step - 1), f"{4 * step}% and up"]
     legend = "".join(f'<span><i style="background:{SH[k]}"></i>{html.escape(t)}</span>' for k, t in enumerate(leg))
     leaders = top_rows(areas, limit=8, keep=5)
-    letter = {k: "ABCDEFGH"[j] for j, (k, _) in enumerate(leaders)}
-    # Relabel the map: leaders get their letter, every other neighborhood's label goes.
+    letter = {k: ltr(i) for i, k in enumerate(names)}
+    # Relabel the map: the asset's labels are the old numbers, 1 to 27 in name order.
     for i, k in enumerate(names):
-        old = re.search(r'<text x="[0-9.]+" y="[0-9.]+">%d</text>' % (i + 1), svg)
+        old = re.search(r'(<text x="[0-9.]+" y="[0-9.]+">)%d(</text>)' % (i + 1), svg)
         assert old, f"map has no label for {k}"
-        svg = svg.replace(old.group(0), old.group(0).replace(f">{i + 1}<", f">{letter[k]}<") if k in letter else "", 1)
-    svg = svg.replace('<g id="nums" font-size="14"', '<g id="nums" font-size="17"', 1)
+        svg = svg.replace(old.group(0), old.group(1) + letter[k] + old.group(2), 1)
     rows = "".join(
         f'<div class="nb"><b class="badge{" dk" if shade(v) < NUM_ON_LIGHT else ""}" style="background:{SH[shade(v)]}">{letter[k]}</b>'
         f'<span class="nm">{html.escape(k)}</span><span class="v">{v:g}%</span></div>'
@@ -137,7 +141,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 .map svg{{display:block;width:100%;height:100%}}
 .sec{{font:700 19px Archivo;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8)}}
 .nb{{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;margin-top:14px}}
-.badge{{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:800 18px Archivo;color:#fff;border:2px solid rgba(255,255,255,.85)}}
+.badge{{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:800 17px Archivo;letter-spacing:-.02em;color:#fff;border:2px solid rgba(255,255,255,.85)}}
 .badge.dk{{color:#0A3161}}
 .nm{{font:500 21px/1.2 'Libre Franklin';color:#fff}}
 .v{{font:800 25px Archivo;text-align:right}}
@@ -157,7 +161,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 <div class="hero"><div class="big">{perry:g}<i>%</i></div><div><div class="lab">of Perry Democrats have voted</div>{delta}</div></div>
 <div class="main"><div class="map">{svg}<div class="leg"><span class="t">Share who have voted</span>{legend}</div></div>
 <div><div class="sec">Leading neighborhoods</div><div class="rows">{rows}</div>
-<p class="note">Letters show where they are on the map. Find all 27 neighborhoods on the scoreboard page.</p></div></div>
+<p class="note">Letters match the map and the scoreboard page, where you can find all 27 neighborhoods.</p></div></div>
 </div>
 <div class="foot"><div class="url"><small>Find your neighborhood</small>{PAGE}</div>
 <div class="asof">State file of {nice(file_day)}</div></div>

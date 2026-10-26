@@ -73,9 +73,9 @@ neighborhood page. The same "Daily P13 graphic" workflow renders it whenever
 A third image, the city one, comes from the same script and data: Perry's share,
 the neighborhood map shaded the same five steps as the page (outlines in
 `share/assets/perry-map.svg`, public shapes only), and the leading neighborhoods
-(up to 8, never splitting a tie), labeled on the map with letters in rank order,
-A for the top. Other neighborhoods are shaded but unlabeled. (Oct 26: the page's
-1 to 27 numbers confused people on the image.)
+(up to 8, never splitting a tie). Every neighborhood is lettered as on the
+scoreboard page: alphabetical by name, A to Z, then AA. (Oct 26: the old 1 to 27
+numbers confused people.)
 
 - `share/perry-today.png`: stable link
   https://raw.githubusercontent.com/TaylorFLDems/taylor-dec-scoreboard-data/main/share/perry-today.png
