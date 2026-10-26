@@ -70,8 +70,10 @@ neighborhood page. The same "Daily P13 graphic" workflow renders it whenever
   https://raw.githubusercontent.com/TaylorFLDems/taylor-dec-scoreboard-data/main/share/turnout-today.png
 - `share/daily/turnout-YYYY-MM-DD.png`: one per day, for the record.
 
-A third image, the city one, comes from the same script and data: Perry's share
-and its leading neighborhoods (up to 10, never splitting a tie).
+A third image, the city one, comes from the same script and data: Perry's share,
+the neighborhood map shaded the same five steps as the page (outlines in
+`share/assets/perry-map.svg`, public shapes only), and the leading neighborhoods
+keyed to the map's numbers (up to 8, never splitting a tie).
 
 - `share/perry-today.png`: stable link
   https://raw.githubusercontent.com/TaylorFLDems/taylor-dec-scoreboard-data/main/share/perry-today.png

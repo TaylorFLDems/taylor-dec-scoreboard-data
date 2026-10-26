@@ -3,7 +3,7 @@
 Two images, each with a dated copy in share/daily/ (today's date, Eastern) and a
 stable link:
   county  share/turnout-today.png  Perry and Taylor County, six county areas ranked
-  city    share/perry-today.png    Perry, its leading neighborhoods ranked
+  city    share/perry-today.png    Perry, the neighborhood map, leading neighborhoods
 1080x1080 for a Facebook or Instagram feed post. Same look as the P13 graphic (render_daily.py).
 
 Shows only what the public neighborhood scoreboard (/2026scoreboard) shows:
@@ -72,6 +72,89 @@ def top_rows(areas, limit=10, keep=6):
     return out[:limit]  # only bites if one tie group alone is longer than the list
 
 
+# Map shading: the neighborhood page's five steps (scoreboard/neighborhoods, Main.dc.html).
+SH = ["#C9D7E8", "#93B0D3", "#5A85BC", "#2B5A97", "#0A3161"]
+NUM_ON_LIGHT = 2  # steps 0 and 1 are light; their number badges get dark text
+
+
+def build_city(n, today, perry, file_day, g):
+    """Perry image: the share, the neighborhood map shaded like the scoreboard page,
+    and the leading neighborhoods keyed to the map's numbers."""
+    areas = n.get("areas") or {}
+    names = sorted(areas)  # map numbers = alphabetical order, as on the page
+    vals = [areas[k] if isinstance(areas[k], (int, float)) else 0 for k in names]
+    if len(names) != 27:
+        sys.exit(f"Expected the 27 Perry neighborhoods, got {len(names)}; not rendering.")
+    step = max(1, -(-max(vals) // 5))
+    shade = lambda v: min(4, int(v // step))
+    svg = (ASSETS / "perry-map.svg").read_text()
+    svg = svg[svg.index("<svg"):]
+    for i, v in enumerate(vals):
+        a = f'class="area" data-i="{i}"'
+        assert svg.count(a) == 1, f"map has no single shape for {names[i]}"
+        svg = svg.replace(a, f'{a} fill="{SH[shade(v)]}"')
+    rng = lambda lo, hi: f"{lo}%" if lo == hi else f"{lo} to {hi}%"
+    leg = ["0%" if step == 1 else f"Under {step}%", rng(step, 2 * step - 1), rng(2 * step, 3 * step - 1),
+           rng(3 * step, 4 * step - 1), f"{4 * step}% and up"]
+    legend = "".join(f'<span><i style="background:{SH[k]}"></i>{html.escape(t)}</span>' for k, t in enumerate(leg))
+    num = {k: i + 1 for i, k in enumerate(names)}
+    rows = "".join(
+        f'<div class="nb"><b class="badge{" dk" if shade(v) < NUM_ON_LIGHT else ""}" style="background:{SH[shade(v)]}">{num[k]}</b>'
+        f'<span class="nm">{html.escape(k)}</span><span class="v">{v:g}%</span></div>'
+        for k, v in top_rows(areas, limit=8, keep=5))
+    delta = f'<div class="delta">{html.escape(g)}</div>' if g else ''
+
+    return f"""<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{{font-family:Archivo;font-weight:700;src:url(fonts/archivo-latin-700-normal.woff2)}}
+@font-face{{font-family:Archivo;font-weight:800;src:url(fonts/archivo-latin-800-normal.woff2)}}
+@font-face{{font-family:Archivo;font-weight:900;src:url(fonts/archivo-latin-900-normal.woff2)}}
+@font-face{{font-family:'Libre Franklin';font-weight:400;src:url(fonts/libre-franklin-latin-400-normal.woff2)}}
+@font-face{{font-family:'Libre Franklin';font-weight:500;src:url(fonts/libre-franklin-latin-500-normal.woff2)}}
+*{{margin:0;padding:0;box-sizing:border-box}}
+html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hidden}}
+.c{{position:relative;width:1080px;height:1080px;padding:64px 72px 0;color:#fff}}
+.top{{display:flex;justify-content:space-between;align-items:center}}
+.logo{{height:84px;display:block}}
+.chip{{font:800 21px Archivo;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:#0A3161;padding:14px 22px;border-radius:999px}}
+.kick{{display:flex;align-items:center;gap:14px;margin-top:44px;font:700 22px Archivo;letter-spacing:.14em;text-transform:uppercase}}
+.kick:before{{content:"";width:38px;height:4px;background:#fff}}
+.hero{{display:flex;align-items:center;gap:30px;margin-top:14px}}
+.big{{font:900 132px/0.9 Archivo;letter-spacing:-.03em}}
+.big i{{font-style:normal;font-size:76px;letter-spacing:0;margin-left:2px}}
+.lab{{font:800 32px/1.15 Archivo}}
+.delta{{display:inline-block;font:800 19px Archivo;letter-spacing:.04em;text-transform:uppercase;background:#B31942;padding:9px 14px;border-radius:999px;margin-top:12px}}
+.main{{display:grid;grid-template-columns:520px 1fr;gap:32px;margin-top:26px}}
+.map{{position:relative;width:520px;height:531px;border-radius:10px;overflow:hidden;border:2px solid rgba(255,255,255,.85)}}
+.map svg{{display:block;width:100%;height:100%}}
+.sec{{font:700 19px Archivo;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8)}}
+.nb{{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;margin-top:14px}}
+.badge{{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:800 18px Archivo;color:#fff;border:2px solid rgba(255,255,255,.85)}}
+.badge.dk{{color:#0A3161}}
+.nm{{font:500 21px/1.2 'Libre Franklin';color:#fff}}
+.v{{font:800 25px Archivo;text-align:right}}
+.leg{{position:absolute;right:12px;top:12px;display:grid;gap:5px;padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.94);font:500 15px 'Libre Franklin';color:#2D2926}}
+.leg span{{display:flex;align-items:center;gap:8px}}
+.leg i{{width:20px;height:14px;border-radius:3px;border:1px solid rgba(10,49,97,.35)}}
+.leg .t{{font:700 12px Archivo;letter-spacing:.12em;text-transform:uppercase;color:#514b45;margin-bottom:2px}}
+.note{{margin-top:22px;font:500 18px/1.45 'Libre Franklin';color:rgba(255,255,255,.75);max-width:380px}}
+.foot{{position:absolute;left:72px;right:72px;bottom:58px;display:flex;justify-content:space-between;align-items:flex-end}}
+.url{{font:800 30px Archivo}}
+.url small{{display:block;font:700 18px Archivo;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:6px}}
+.asof{{font:500 20px 'Libre Franklin';color:rgba(255,255,255,.7);text-align:right}}
+.stripe{{position:absolute;left:0;right:0;bottom:0;height:20px;background-image:repeating-linear-gradient(120deg,#061f3e 0,#061f3e 14px,#B31942 14px,#B31942 28px,#fff 28px,#fff 42px)}}
+</style></head><body><div class="c">
+<div class="top"><img class="logo" src="logo-white.png" alt=""><div class="chip">{html.escape(chip_text(today))}</div></div>
+<div class="kick">Perry Neighborhood Scoreboard</div>
+<div class="hero"><div class="big">{perry:g}<i>%</i></div><div><div class="lab">of Perry Democrats have voted</div>{delta}</div></div>
+<div class="main"><div class="map">{svg}<div class="leg"><span class="t">Share who have voted</span>{legend}</div></div>
+<div><div class="sec">Leading neighborhoods</div><div class="rows">{rows}</div>
+<p class="note">Numbers match the map. All 27 neighborhoods are on the scoreboard page.</p></div></div>
+</div>
+<div class="foot"><div class="url"><small>Find your neighborhood</small>{PAGE}</div>
+<div class="asof">State file of {nice(file_day)}</div></div>
+<div class="stripe"></div></body></html>"""
+
+
 def build(n, today, kind="county"):
     perry, county, bk = n.get("perry"), n.get("county"), n.get("buckets") or {}
     if not isinstance(perry, (int, float)) or not isinstance(county, (int, float)):
@@ -85,14 +168,11 @@ def build(n, today, kind="county"):
                 + (f'<div class="delta">{html.escape(g)}</div>' if g else '') + '</div>')
 
     if kind == "city":
-        rows = [(name, v, False) for name, v in top_rows(n.get("areas") or {})]
-        kick, sec = "Perry Neighborhood Scoreboard", "Leading neighborhoods"
-        stats = f'<div class="stats one">{stat(perry, "Perry", gain(hist, "perry"))}</div>'
-    else:
-        rows = sorted(((AREAS[k], bk[k], k == "perry") for k in AREAS if isinstance(bk.get(k), (int, float))),
-                      key=lambda r: (-r[1], r[0]))
-        kick, sec = "Taylor Democrats are voting", "Across the county"
-        stats = f'<div class="stats">{stat(perry, "Perry", gain(hist, "perry"))}{stat(county, "Taylor County", gain(hist, "county"))}</div>'
+        return build_city(n, today, perry, file_day, gain(hist, "perry"))
+    rows = sorted(((AREAS[k], bk[k], k == "perry") for k in AREAS if isinstance(bk.get(k), (int, float))),
+                  key=lambda r: (-r[1], r[0]))
+    kick, sec = "Taylor Democrats are voting", "Across the county"
+    stats = f'<div class="stats">{stat(perry, "Perry", gain(hist, "perry"))}{stat(county, "Taylor County", gain(hist, "county"))}</div>'
     if not rows:
         sys.exit("neighborhoods.json has no areas; not rendering.")
     top = max([r[1] for r in rows] + [1])
@@ -129,20 +209,12 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 .v{{font:800 25px Archivo;text-align:right}}
 .row.me .nm{{font-family:Archivo;font-weight:800;color:#fff}}
 .row.me .tr i{{background:#fff}}
-/* city image: one stat beside its label, more rows */
-.stats.one{{grid-template-columns:auto 1fr;align-items:center;gap:36px}}
-.stats.one .st{{display:contents}}
-.stats.one .big{{grid-row:1/3}}
-.stats.one .lab{{margin-top:0;align-self:end;max-width:none}}
-.stats.one .delta{{align-self:start;justify-self:start}}
-.city .sec{{margin-top:34px}}
-.city .row{{grid-template-columns:440px 1fr 84px;height:39px}}
 .foot{{position:absolute;left:72px;right:72px;bottom:58px;display:flex;justify-content:space-between;align-items:flex-end}}
 .url{{font:800 30px Archivo}}
 .url small{{display:block;font:700 18px Archivo;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:6px}}
 .asof{{font:500 20px 'Libre Franklin';color:rgba(255,255,255,.7);text-align:right}}
 .stripe{{position:absolute;left:0;right:0;bottom:0;height:20px;background-image:repeating-linear-gradient(120deg,#061f3e 0,#061f3e 14px,#B31942 14px,#B31942 28px,#fff 28px,#fff 42px)}}
-</style></head><body class="{kind}"><div class="c">
+</style></head><body><div class="c">
 <div class="top"><img class="logo" src="logo-white.png" alt=""><div class="chip">{html.escape(chip_text(today))}</div></div>
 <div class="kick">{kick}</div>
 {stats}
@@ -173,10 +245,12 @@ def render(n, today, kind, out):
             # into the footer.
             bad = pg.evaluate("""() => {
               const out = [...document.querySelectorAll('.c *, .foot *')]
+                .filter(e => !e.closest('svg'))  // map shapes run past the map frame on purpose; it clips them
                 .filter(e => { const r = e.getBoundingClientRect(); return r.width && (r.right > 1081 || r.bottom > 1081); })
                 .map(e => e.className || e.tagName);
-              const rows = document.querySelector('.rows'), foot = document.querySelector('.foot');
-              if (rows && foot && rows.getBoundingClientRect().bottom > foot.getBoundingClientRect().top - 24) out.push('rows overlap footer');
+              const foot = document.querySelector('.foot');
+              for (const sel of ['.rows', '.leg', '.map']) { const e = document.querySelector(sel);
+                if (e && foot && e.getBoundingClientRect().bottom > foot.getBoundingClientRect().top - 24) out.push(sel + ' overlaps footer'); }
               return out; }""")
             if bad:
                 sys.exit(f"{kind}: layout problem: {bad}")
