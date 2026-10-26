@@ -9,6 +9,14 @@ name: Hourly freshness check
 # its own within the hour instead of waiting for the next daily firing.
 
 on:
+  # GitHub runs the hourly schedule below only every 3 hours or so, and the first
+  # morning run often lands around noon (Oct 19 to 26). So also check whenever the
+  # morning voter-file count lands here (p13.json, pushed by the ops repo's
+  # "P13 count on upload" with its own token, which does start workflows). The
+  # state posts its file around 8 a.m., before the upload.
+  push:
+    branches: [main]
+    paths: ['p13.json']
   schedule:
     # Hourly at :13, 12:13-23:13 UTC = 8:13 a.m.-7:13 p.m. EDT.
     # After DST ends Nov 1 the same line runs 7:13 a.m.-6:13 p.m. EST; still
