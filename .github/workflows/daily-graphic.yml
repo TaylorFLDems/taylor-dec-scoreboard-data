@@ -24,9 +24,9 @@ concurrency:
 jobs:
   render:
     runs-on: ubuntu-latest
-    # Oct 26: the Playwright install hung for 8+ minutes once. Normal runs take
-    # about 2, so fail fast instead of sitting for GitHub's 6-hour default.
-    timeout-minutes: 15
+    # A normal run takes under a minute. Stop a stuck one well before GitHub's
+    # 6-hour default.
+    timeout-minutes: 25
     steps:
       # Render from the newest p13.json on main, not the commit that started the
       # run. Runs are queued one at a time (concurrency above), so a later run
@@ -42,7 +42,14 @@ jobs:
       - name: Install Playwright Chromium
         run: |
           pip install --quiet playwright==1.56.0
-          python -m playwright install --with-deps chromium
+          python -m playwright install chromium
+          # GitHub's Ubuntu image already has Chromium's system libraries, so skip
+          # the apt step (--with-deps) unless the browser won't start without it.
+          # That apt step is what took 8 to 13 minutes on some Oct 26 runs.
+          if ! python -c "from playwright.sync_api import sync_playwright as s; p=s().start(); p.chromium.launch().close(); p.stop()"; then
+            echo "Chromium needs system packages; installing them"
+            python -m playwright install-deps chromium
+          fi
 
       - name: Render
         run: python share/render_daily.py
