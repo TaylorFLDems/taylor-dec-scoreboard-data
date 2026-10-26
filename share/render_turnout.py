@@ -12,7 +12,7 @@ county areas and the Perry neighborhoods. Percentages only, no counts, no voter 
 
 Usage:  python share/render_turnout.py [--date YYYY-MM-DD] [--kind city|county --out FILE]   (testing)
 """
-import argparse, datetime as dt, html, json, shutil, sys
+import argparse, datetime as dt, html, json, re, shutil, sys
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -79,9 +79,11 @@ NUM_ON_LIGHT = 2  # steps 0 and 1 are light; their number badges get dark text
 
 def build_city(n, today, perry, file_day, g):
     """Perry image: the share, the neighborhood map shaded like the scoreboard page,
-    and the leading neighborhoods keyed to the map's numbers."""
+    and the leading neighborhoods. Only the leaders are labeled on the map, with
+    letters in rank order (A = top). Oct 26, Trey: the page's 1 to 27 numbers
+    confused people on the image (read as counts or ranks)."""
     areas = n.get("areas") or {}
-    names = sorted(areas)  # map numbers = alphabetical order, as on the page
+    names = sorted(areas)  # map shapes and their #nums labels are in alphabetical order
     vals = [areas[k] if isinstance(areas[k], (int, float)) else 0 for k in names]
     if len(names) != 27:
         sys.exit(f"Expected the 27 Perry neighborhoods, got {len(names)}; not rendering.")
@@ -97,11 +99,18 @@ def build_city(n, today, perry, file_day, g):
     leg = ["0%" if step == 1 else f"Under {step}%", rng(step, 2 * step - 1), rng(2 * step, 3 * step - 1),
            rng(3 * step, 4 * step - 1), f"{4 * step}% and up"]
     legend = "".join(f'<span><i style="background:{SH[k]}"></i>{html.escape(t)}</span>' for k, t in enumerate(leg))
-    num = {k: i + 1 for i, k in enumerate(names)}
+    leaders = top_rows(areas, limit=8, keep=5)
+    letter = {k: "ABCDEFGH"[j] for j, (k, _) in enumerate(leaders)}
+    # Relabel the map: leaders get their letter, every other neighborhood's label goes.
+    for i, k in enumerate(names):
+        old = re.search(r'<text x="[0-9.]+" y="[0-9.]+">%d</text>' % (i + 1), svg)
+        assert old, f"map has no label for {k}"
+        svg = svg.replace(old.group(0), old.group(0).replace(f">{i + 1}<", f">{letter[k]}<") if k in letter else "", 1)
+    svg = svg.replace('<g id="nums" font-size="14"', '<g id="nums" font-size="17"', 1)
     rows = "".join(
-        f'<div class="nb"><b class="badge{" dk" if shade(v) < NUM_ON_LIGHT else ""}" style="background:{SH[shade(v)]}">{num[k]}</b>'
+        f'<div class="nb"><b class="badge{" dk" if shade(v) < NUM_ON_LIGHT else ""}" style="background:{SH[shade(v)]}">{letter[k]}</b>'
         f'<span class="nm">{html.escape(k)}</span><span class="v">{v:g}%</span></div>'
-        for k, v in top_rows(areas, limit=8, keep=5))
+        for k, v in leaders)
     delta = f'<div class="delta">{html.escape(g)}</div>' if g else ''
 
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>
@@ -148,7 +157,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 <div class="hero"><div class="big">{perry:g}<i>%</i></div><div><div class="lab">of Perry Democrats have voted</div>{delta}</div></div>
 <div class="main"><div class="map">{svg}<div class="leg"><span class="t">Share who have voted</span>{legend}</div></div>
 <div><div class="sec">Leading neighborhoods</div><div class="rows">{rows}</div>
-<p class="note">Numbers match the map. All 27 neighborhoods are on the scoreboard page.</p></div></div>
+<p class="note">Letters show where they are on the map. Find all 27 neighborhoods on the scoreboard page.</p></div></div>
 </div>
 <div class="foot"><div class="url"><small>Find your neighborhood</small>{PAGE}</div>
 <div class="asof">State file of {nice(file_day)}</div></div>
