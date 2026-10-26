@@ -44,15 +44,15 @@ jobs:
       - name: Render
         run: python share/render_daily.py
 
-      # Perry and county shares from neighborhoods.json (percentages only).
-      - name: Render turnout graphic
+      # Perry/county and Perry-neighborhood images from neighborhoods.json (percentages only).
+      - name: Render turnout graphics
         run: python share/render_turnout.py
 
       - name: Commit if the image changed
         run: |
           git config user.name  "scoreboard[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add share/p13-today.png share/turnout-today.png share/daily/
+          git add share/p13-today.png share/turnout-today.png share/perry-today.png share/daily/
           if git diff --staged --quiet; then
             echo "graphic unchanged"
             exit 0

@@ -70,5 +70,12 @@ neighborhood page. The same "Daily P13 graphic" workflow renders it whenever
   https://raw.githubusercontent.com/TaylorFLDems/taylor-dec-scoreboard-data/main/share/turnout-today.png
 - `share/daily/turnout-YYYY-MM-DD.png`: one per day, for the record.
 
+A third image, the city one, comes from the same script and data: Perry's share
+and its leading neighborhoods (up to 10, never splitting a tie).
+
+- `share/perry-today.png`: stable link
+  https://raw.githubusercontent.com/TaylorFLDems/taylor-dec-scoreboard-data/main/share/perry-today.png
+- `share/daily/perry-YYYY-MM-DD.png`: one per day.
+
 Stops after Nov 3. Test a date locally with
-`python share/render_turnout.py --date 2026-10-27 --out test.png`.
+`python share/render_turnout.py --date 2026-10-27 --kind city --out test.png`.
