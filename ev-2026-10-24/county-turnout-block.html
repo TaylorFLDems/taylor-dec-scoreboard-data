@@ -81,6 +81,16 @@
 .tdsb .seg button+button{border-left:1.5px solid var(--navy)}
 .tdsb .seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
 .tdsb .seg button:focus-visible{outline:none;box-shadow:inset 0 0 0 3px rgba(31,77,135,.45)}
+.tdsb{--mail:#93B0D3}
+.tdsb .act.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:22px 32px;align-items:start}
+.tdsb .act.two>div>h3:first-child{margin-top:0}
+.tdsb .act .daily h4{font-family:var(--display);font-size:17px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;line-height:1.15}
+.tdsb .act .daily .cap{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.5;max-width:none}
+.tdsb .act .daily svg{margin-top:8px}
+.tdsb .act .lg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:13.5px;color:var(--ink2)}
+.tdsb .act .lg span{display:inline-flex;align-items:center;gap:6px}
+.tdsb .act .lg i{width:12px;height:12px;border-radius:3px;display:inline-block}
+@media (max-width:760px){.tdsb .act.two{grid-template-columns:minmax(0,1fr)}}
 
 .tdsb .fr{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-sm);padding:10px 14px;margin-bottom:12px}
 .tdsb .fr summary{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--body);font-size:15px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink);list-style:none}
@@ -335,14 +345,65 @@ function partyChart(id, rows){
     svg.appendChild(txt(L+w+8,y+bh/2+5,share?v.toFixed(1)+'%':fmt(v),{size:14,weight:r.me?700:500,fill:'var(--ink)'}));
   });
 }
+/* Democratic ballots by day, Oct 24 to Nov 3 (Oct 27, Trey). In person: the county
+   feed's LocationDay early votes for each date (live for today), plus Election Day
+   on Nov 3; falls back to state-report differences if the feed has no day data.
+   Mail: the day-over-day change in the state's returned count, dated to the day the
+   newer report covers through. Today has no mail yet; it lands with tomorrow's report. */
+function feedKey(iso){ var p=iso.split('-'); return p[1]+'/'+p[2]+'/'+p[0]; }
+function dayData(L, ed){
+  var out=[], dd=ymd(EV_START), end=ymd(EDAY), today=isoDay(new Date());
+  var loc=null; try{ loc=L.tqv.Turnout.LocationDay.EarlyVoting; }catch(e){}
+  var mail={}, st={}, D=L.days;
+  for(var i=1;i<D.length;i++){ var cov=prevDay(D[i].date), pt=D[i-1].taylor, ct=D[i].taylor;
+    mail[cov]=(mail[cov]||0)+Math.max(0,(ct.vbm_returned.D||0)-(pt.vbm_returned.D||0));
+    st[cov]=Math.max(0,(ct.early_voted.D||0)-(pt.early_voted.D||0)); }
+  for(; dd<=end; dd.setDate(dd.getDate()+1)){ var iso=isoDay(dd), inp=null;
+    if(loc){ var k=feedKey(iso), n=0, seen=false; Object.keys(loc).forEach(function(s){ var x=loc[s][k]; if(x){ seen=true; n+=+x.DEM||0; } });
+      inp = seen ? n : (iso<=today ? 0 : null); }
+    else inp = st[iso]!=null ? st[iso] : null;
+    if(iso===EDAY && iso<=today) inp=(inp||0)+(ed.D||0);
+    out.push({d:iso, inp:iso<=today?(inp||0):null, mail:mail[iso]!=null?mail[iso]:null, today:iso===today, future:iso>today}); }
+  return out;
+}
+function dayChart(id, L, ed){
+  var svg=document.getElementById(id); if(!svg) return; svg.innerHTML='';
+  var days=dayData(L, ed), W=widthOf(svg), H=210, Lm=8, R=8, T=24, B=40, n=days.length;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  var top=Math.max(10, Math.max.apply(null, days.map(function(r){return (r.inp||0)+(r.mail||0);})));
+  var Y=function(v){return T+(1-v/top)*(H-T-B);}, slot=(W-Lm-R)/n, bw=Math.max(8,Math.min(30,slot-8));
+  svg.appendChild(el('line',{x1:Lm,x2:W-R,y1:Y(0),y2:Y(0),stroke:'var(--line)','stroke-width':1}));
+  var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  days.forEach(function(r,i){
+    var x=Lm+i*slot+(slot-bw)/2, cx=Lm+i*slot+slot/2, a=r.inp||0, b=r.mail||0, tot=a+b;
+    if(r.future){ svg.appendChild(el('rect',{x:x,y:Y(0)-3,width:bw,height:3,rx:1.5,fill:'var(--track)'})); }
+    else {
+      if(a>0) svg.appendChild(el('rect',{x:x,y:Y(a),width:bw,height:Y(0)-Y(a),fill:'var(--navy)','data-h':1}));
+      if(b>0) svg.appendChild(el('rect',{x:x,y:Y(a+b),width:bw,height:Math.max(1,Y(a)-Y(a+b)-(a>0?1.5:0)),fill:'var(--mail)'}));
+      svg.appendChild(txt(cx,Y(tot)-6,fmt(tot),{anchor:'middle',size:12,weight:700,fill:'var(--ink)'}));
+      if(r.today) svg.appendChild(txt(cx,Y(tot)-19,'so far',{anchor:'middle',size:10.5,fill:'var(--muted)'})); }
+    var dt=ymd(r.d), ed0=r.d===EDAY;
+    svg.appendChild(txt(cx,H-22,WD[dt.getDay()],{anchor:'middle',size:11,weight:ed0||r.today?700:500,fill:ed0?'var(--red)':r.today?'var(--ink)':'var(--ink3)'}));
+    svg.appendChild(txt(cx,H-8,ed0?'Nov 3':(dt.getDate()===1||i===0?nice(r.d):String(dt.getDate())),{anchor:'middle',size:11,weight:ed0||r.today?700:500,fill:ed0?'var(--red)':r.today?'var(--ink)':'var(--ink3)'}));
+    var hit=el('rect',{x:Lm+i*slot,y:T-20,width:slot,height:H-T-B+20,fill:'transparent'});
+    hit.addEventListener('mousemove',function(e){ var lab='<b>'+(ed0?'Election Day, ':'')+dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+'</b> &middot; ';
+      tipAt(svg, lab+(r.future?'still to come':fmt(a)+' in person'+(r.mail!=null?' &middot; '+fmt(b)+' by mail':' &middot; mail added tomorrow')+(r.today?' (so far)':'')), e); });
+    hit.addEventListener('mouseleave',tipOff); svg.appendChild(hit);
+  });
+  var done=days.filter(function(r){return !r.future;}), sum=done.reduce(function(s,r){return s+(r.inp||0)+(r.mail||0);},0);
+  svg.setAttribute('aria-label','Democratic ballots cast each day from October 24 to November 3. '+fmt(sum)+' so far since early voting opened.');
+}
 function county(L){
   var reg=L.registration||REG_FALLBACK, d=L.days[L.days.length-1], t=d.taylor, asOf=prevDay(d.date), ed=edByParty(L), EV=earlyNow(L,t);
   function cast(k){ return (t.vbm_returned[k]||0)+(EV.n[k]||0)+(ed[k]||0); }
   var total=cast('D'), pct=reg.D?100*total/reg.D:0, ret=t.vbm_returned.D, early=EV.n.D, out=t.vbm_outstanding.D;
   var ratio=(reg.R/reg.D).toFixed(1);
   var c=[];
-  if(L.days.length>1){ var a=L.days[L.days.length-2], ad=(a.taylor.vbm_returned.D||0)+(a.taylor.early_voted.D||0), bd=ret+EV.st.D;
-    if(bd>ad) c.push('<span class="chip up">+'+fmt(bd-ad)+' since '+nice(prevDay(a.date))+'</span>'); }
+  /* Gain between the two newest state reports = ballots from the day the newer one
+     covers through. Oct 27, Trey: "since Oct 25" read as two days; name the day. */
+  if(L.days.length>1){ var a=L.days[L.days.length-2], ad=(a.taylor.vbm_returned.D||0)+(a.taylor.early_voted.D||0), bd=(t.vbm_returned.D||0)+(t.early_voted.D||0);
+    if(bd>ad){ var thru=prevDay(d.date), span=Math.round((ymd(d.date)-ymd(a.date))/864e5), yd=new Date(); yd.setDate(yd.getDate()-1);
+      c.push('<span class="chip up">+'+fmt(bd-ad)+' '+(span!==1?'since '+nice(prevDay(a.date)):thru===isoDay(yd)?'yesterday':'on '+nice(thru))+'</span>'); } }
   var lc=liveChip(EV, asOf); if(lc) c.push(lc);
   c=c.concat(countdown());
   var w=Math.min(100,pct), ticks=CMILES.map(function(m){return '<b class="tick'+(pct>=m?' hit':'')+'" style="left:'+m+'%"><span>'+m+'%</span></b>';}).join('');
@@ -355,11 +416,15 @@ function county(L){
     '<div class="next">'+(nxt?'Next milestone: '+nxt+'% of Taylor Democrats, '+fmt(need)+' ballots to go.':'Past 75% of Taylor Democrats. Every ballot from here adds to it.')+'</div>'+
     (c.length?'<div class="chips">'+c.join('')+'</div>':'')+
     '<p>'+mixLine(ret,asOf,early,EV,ed.D)+'</p></div>';
-  h+='<div class="act"><h3>Help move this number</h3>'+
+  h+='<div class="act two"><div><h3>Help move this number</h3>'+
     '<p>Every Taylor County Democrat who votes shows up here. Make your plan, then bring a neighbor with you.</p>'+
     '<div class="row"><a class="btn" href="https://www.taylorfldems.org/my-plan-to-vote">Make your plan to vote</a>'+
     '<a class="lnk" href="https://www.taylorfldems.org/volunteer">Volunteer to drive or knock doors</a></div>'+
-    '<p>Need a ride to vote? Call or text the Taylor County Democrats at <a class="lnk" href="tel:+18502959352">850-295-9352</a>.</p></div>';
+    '<p>Need a ride to vote? Call or text the Taylor County Democrats at <a class="lnk" href="tel:+18502959352">850-295-9352</a>.</p></div>'+
+    '<div class="daily"><h4>Democrats voting each day</h4><p class="cap">Early voting October 24 to 31, then Election Day, November 3 (in red).</p>'+
+    '<div class="lg" aria-hidden="true"><span><i style="background:var(--navy)"></i>In person</span><span><i style="background:var(--mail)"></i>By mail</span></div>'+
+    '<svg id="tdsb-days" role="img" aria-label="Democratic ballots cast each day"></svg>'+
+    '<p class="cap">In-person votes come from the elections office&rsquo;s running count. Mail ballots are added the next morning from the state report.</p></div></div>';
   h+='<div class="grid">';
   h+='<div class="card"><h3>Turnout by party</h3><p class="cap">Each party&rsquo;s ballots as a share of its own registered voters. Taylor is registered about '+ratio+' Republicans to every Democrat, so this is the fair way to compare turnout.</p>'+
      '<div class="seg" role="group" aria-label="Measure"><button type="button" data-m="share" aria-pressed="'+(cmeasure==='share')+'">Share of registered</button><button type="button" data-m="counts" aria-pressed="'+(cmeasure==='counts')+'">Ballot counts</button></div>'+
@@ -383,6 +448,7 @@ function county(L){
   var rows=[{label:'Democrats',k:'D',me:true},{label:'Republicans',k:'R'},{label:'No party',k:'NPA'},{label:'All voters',k:'T'}].map(function(r){
     var n=cast(r.k), rg=reg[r.k]||0; return {label:r.label,me:r.me,n:n,reg:rg,pct:rg?100*n/rg:0}; });
   partyChart('tdsb-party', rows);
+  dayChart('tdsb-days', L, ed);
   [].slice.call(root.querySelectorAll('.seg button')).forEach(function(b){ b.addEventListener('click',function(){
     cmeasure=b.getAttribute('data-m');
     [].slice.call(root.querySelectorAll('.seg button')).forEach(function(x){x.setAttribute('aria-pressed', String(x===b));});
