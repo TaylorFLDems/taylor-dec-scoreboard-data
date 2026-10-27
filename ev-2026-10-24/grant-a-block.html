@@ -97,6 +97,11 @@
 .tdsb .fr li b{font-weight:600;color:var(--ink)}
 .tdsb .fr li .fix{grid-column:2;font-size:13.5px;color:var(--ink3)}
 .tdsb .fr li .fix::before{content:"Fix: ";font-weight:700;color:var(--red-800)}
+
+.tdsb .dlg{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:13.5px;color:var(--ink2)}
+.tdsb .dlg span{display:inline-flex;align-items:center;gap:7px}
+.tdsb .dlg svg{margin:0;width:26px;height:12px}
+.tdsb td small{color:var(--muted);font-size:12px}
 </style>
 <style>.tdsb-x{display:flex;flex-wrap:wrap;align-items:center;gap:8px;max-width:1080px;margin:30px auto 6px;padding:0 16px;box-sizing:border-box}.tdsb-x span{font-family:'Archivo','Arial Narrow',system-ui,sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6b645d;margin-right:4px}.tdsb-x a{display:inline-flex;align-items:center;font-family:'Archivo','Arial Narrow',system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;line-height:1.1;padding:6px 12px;border-radius:999px;border:1.5px solid #0A3161;color:#0A3161;background:transparent;text-decoration:none;transition:background 120ms cubic-bezier(.2,0,0,1),color 120ms cubic-bezier(.2,0,0,1)}.tdsb-x a:hover{background:#0A3161;color:#fff}.tdsb-x a:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(31,77,135,.45)}.tdsb-x a[aria-current]{background:#0A3161;color:#fff;cursor:default}@media (max-width:560px){.tdsb-x{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px;padding-bottom:2px}.tdsb-x::-webkit-scrollbar{display:none}.tdsb-x span{display:none}.tdsb-x a{flex:0 0 auto;font-size:11px;padding:6px 10px;letter-spacing:.04em}}</style>
 <nav class="tdsb-x" aria-label="Scoreboard pages"><span>Scoreboards</span><a aria-current="page">County Chase</a><a href="https://www.taylorfldems.org/2026-general-p13">Precinct 13 Tracker</a><a href="https://www.taylorfldems.org/2026-general-turnout">Countywide turnout</a></nav>
@@ -550,6 +555,99 @@ function liveChip(EV, asOf){
   var y=new Date(); y.setDate(y.getDate()-1);
   return '<span class="chip up">+'+fmt(d)+' early '+(asOf===isoDay(y)?'today':'since '+nice(asOf))+'</span>';
 }
+
+/* ---- daily turnout by party (County Chase only) ---- */
+var DP_REG_FALLBACK={as_of:'2026-10-05',D:2826,R:7627,minor:314,NPA:982,T:11749};
+var DP_SER=[{k:'D',label:'Democrats',color:'var(--navy)',shape:'circle'},
+            {k:'R',label:'Republicans',color:'var(--red)',shape:'diamond',dash:'6 4'},
+            {k:'O',label:'Everyone else',color:'var(--other)',shape:'square',dash:'2 3'}];
+function dpKey(iso){ var p=iso.split('-'); return p[1]+'/'+p[2]+'/'+p[0]; }
+function dpDays(L){
+  var reg=L.registration||DP_REG_FALLBACK, den={D:reg.D, R:reg.R, O:(reg.minor||0)+(reg.NPA||0)};
+  var out=[], dd=ymd(EV_START), end=ymd(EDAY), today=isoDay(new Date()), D=L.days;
+  var loc=null, ped=null; try{ loc=L.tqv.Turnout.LocationDay.EarlyVoting; ped=L.tqv.Turnout.PartyType; }catch(e){}
+  function grp(t,f){ var x=t[f]||{}; return {D:x.D||0, R:x.R||0, O:(x.O||0)+(x.NPA||0)}; }
+  function diff(a,b){ return {D:Math.max(0,b.D-a.D), R:Math.max(0,b.R-a.R), O:Math.max(0,b.O-a.O)}; }
+  var mail={}, st={};
+  for(var i=1;i<D.length;i++){ var cov=prevDay(D[i].date);
+    mail[cov]=diff(grp(D[i-1].taylor,'vbm_returned'), grp(D[i].taylor,'vbm_returned'));
+    st[cov]=diff(grp(D[i-1].taylor,'early_voted'), grp(D[i].taylor,'early_voted')); }
+  for(; dd<=end; dd.setDate(dd.getDate()+1)){
+    var iso=isoDay(dd), inp=null;
+    if(iso<=today){
+      if(loc){ inp={D:0,R:0,O:0}; var k=dpKey(iso);
+        Object.keys(loc).forEach(function(s){ var x=loc[s][k]||{};
+          Object.keys(x).forEach(function(p){ var g=p==='DEM'?'D':p==='REP'?'R':'O'; inp[g]+=+x[p]||0; }); }); }
+      else inp=st[iso]?{D:st[iso].D,R:st[iso].R,O:st[iso].O}:{D:0,R:0,O:0};
+      if(iso===EDAY && ped) Object.keys(ped).forEach(function(p){
+        var v=+((ped[p]||{}).ElectionDay)||0, g=p==='DEM'?'D':p==='REP'?'R':'O'; inp[g]+=v; });
+    }
+    var m=mail[iso]||null, r={d:iso, today:iso===today, future:iso>today, n:{}, pct:{}};
+    DP_SER.forEach(function(sr){ var n=inp?(inp[sr.k]+(m?m[sr.k]:0)):null;
+      r.n[sr.k]=n; r.pct[sr.k]=(n==null||!den[sr.k])?null:100*n/den[sr.k]; });
+    out.push(r); }
+  return {days:out, den:den, reg:reg};
+}
+function dpMark(sr, x, y, hollow){
+  var a={fill:hollow?'var(--card)':sr.color, stroke:sr.color, 'stroke-width':2};
+  if(sr.shape==='circle'){ a.cx=x; a.cy=y; a.r=4.5; return el('circle',a); }
+  a.x=x-4; a.y=y-4; a.width=8; a.height=8;
+  if(sr.shape==='diamond') a.transform='rotate(45 '+x+' '+y+')';
+  return el('rect',a);
+}
+function dpSwatch(sr){
+  var m=sr.shape==='circle'?'<circle cx="13" cy="6" r="4" fill="'+sr.color+'"/>':
+        '<rect x="9" y="2" width="8" height="8" fill="'+sr.color+'"'+(sr.shape==='diamond'?' transform="rotate(45 13 6)"':'')+'/>';
+  return '<svg viewBox="0 0 26 12" aria-hidden="true"><line x1="0" x2="26" y1="6" y2="6" stroke="'+sr.color+'" stroke-width="2.5"'+
+    (sr.dash?' stroke-dasharray="'+sr.dash+'"':'')+'/>'+m+'</svg>';
+}
+function dayPartySection(L){
+  var X=dpDays(L), done=X.days.filter(function(r){return !r.future;});
+  var rows=done.slice().reverse().map(function(r){
+    return '<tr><td>'+nice(r.d)+(r.today?' (so far)':'')+'</td>'+DP_SER.map(function(sr){
+      return '<td>'+(r.pct[sr.k]==null?'&ndash;':r.pct[sr.k].toFixed(1)+'%')+' <small>('+fmt(r.n[sr.k])+')</small></td>'; }).join('')+'</tr>'; }).join('');
+  return '<div class="sec">Turnout by party, day by day</div><div class="card">'+
+    '<p class="cap">Share of each group&rsquo;s registered voters who voted that day, in person or by a mail ballot received that day. '+
+    'Each party is divided by its own registration, so the lines compare fairly in a county registered '+(X.den.R/X.den.D).toFixed(1)+' Republicans to every Democrat.</p>'+
+    '<div class="dlg">'+DP_SER.map(function(sr){ return '<span>'+dpSwatch(sr)+esc(sr.label)+' ('+fmt(X.den[sr.k])+' registered)</span>'; }).join('')+'</div>'+
+    '<svg id="tdsb-a-days" role="img" aria-label="Share of Democrats, Republicans and everyone else voting each day, October 24 to November 3"></svg>'+
+    '<details><summary>Show as a table</summary><table><thead><tr><th>Day</th>'+
+    DP_SER.map(function(sr){return '<th>'+esc(sr.label)+'</th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></details>'+
+    '<div class="sub">In person from the elections office&rsquo;s running count, so today updates through the day. '+
+    'Mail ballots are added the next morning from the state report, so today&rsquo;s point is in person only (hollow marker). '+
+    'Registration: Florida Department of State, active voters as of '+esc(nice(X.reg.as_of))+'. Everyone else is no party plus minor parties.</div></div>';
+}
+function dayPartyChart(id, L){
+  var svg=document.getElementById(id); if(!svg) return; svg.innerHTML='';
+  var X=dpDays(L), days=X.days, W=widthOf(svg), H=230, Lm=40, R=14, T=16, B=40, n=days.length;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  var top=0; days.forEach(function(r){ DP_SER.forEach(function(sr){ if(r.pct[sr.k]!=null) top=Math.max(top,r.pct[sr.k]); }); });
+  var step=top<=2?0.5:top<=5?1:top<=10?2:5, hi=Math.max(step*2, Math.ceil(top/step)*step);
+  var Y=function(v){return T+(1-v/hi)*(H-T-B);}, slot=(W-Lm-R)/n, Xc=function(i){return Lm+i*slot+slot/2;};
+  for(var v=0; v<=hi+1e-9; v+=step){ var y=Y(v);
+    svg.appendChild(el('line',{x1:Lm,x2:W-R,y1:y,y2:y,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(txt(Lm-6,y+4,(Math.round(v*10)/10)+'%',{anchor:'end',size:11})); }
+  var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  days.forEach(function(r,i){ var dt=ymd(r.d), ed=r.d===EDAY, c=ed?'var(--red)':r.today?'var(--ink)':'var(--ink3)', w=(ed||r.today)?700:500;
+    svg.appendChild(txt(Xc(i),H-22,WD[dt.getDay()],{anchor:'middle',size:11,weight:w,fill:c}));
+    svg.appendChild(txt(Xc(i),H-8,ed?'Nov 3':((dt.getDate()===1||i===0)?nice(r.d):String(dt.getDate())),{anchor:'middle',size:11,weight:w,fill:c})); });
+  DP_SER.slice().reverse().forEach(function(sr){
+    var pts=[]; days.forEach(function(r,i){ if(r.pct[sr.k]!=null) pts.push({i:i,v:r.pct[sr.k],today:r.today}); });
+    if(!pts.length) return;
+    var a={d:pts.map(function(p,j){return (j?'L':'M')+Xc(p.i).toFixed(1)+' '+Y(p.v).toFixed(1);}).join(' '),
+           fill:'none',stroke:sr.color,'stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round'};
+    if(sr.dash) a['stroke-dasharray']=sr.dash;
+    svg.appendChild(el('path',a));
+    pts.forEach(function(p){ svg.appendChild(dpMark(sr, Xc(p.i), Y(p.v), p.today)); });
+  });
+  days.forEach(function(r,i){
+    var hit=el('rect',{x:Lm+i*slot,y:T,width:slot,height:H-T-B,fill:'transparent'});
+    hit.addEventListener('mousemove',function(e){
+      var lab='<b>'+(r.d===EDAY?'Election Day, ':'')+ymd(r.d).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+(r.today?' (so far)':'')+'</b>';
+      tipAt(svg, r.future ? lab+' &middot; still to come' :
+        lab+DP_SER.map(function(sr){ return ' &middot; '+sr.label.split(' ')[0]+' '+r.pct[sr.k].toFixed(1)+'% ('+fmt(r.n[sr.k])+')'; }).join(''), e); });
+    hit.addEventListener('mouseleave',tipOff); svg.appendChild(hit); });
+}
 /* ---- the three dashboards ---- */
 function grantA(L, P, S){
   var d=L.days[L.days.length-1], t=d.taylor, asOf=prevDay(d.date);
@@ -584,6 +682,7 @@ function grantA(L, P, S){
      (S? sheetMeter(S,'a_mailer')+sheetMeter(S,'a_dropoff')+sheetMeter(S,'a_regs')+sheetMeter(S,'a_contacts')
        : '<div class="sub">Hand counts are not connected yet.</div>')+'</div>';
   h+='</div>';
+  h+=dayPartySection(L);
   h+='<div class="sec">Mail ballots on file, day by day</div><div class="card"><p class="cap">Democratic ballots on file against a straight path to '+fmt(G.a_onfile)+' by Oct 22.</p><svg id="tdsb-a-pace" role="img" aria-label="Mail ballots on file over time"></svg></div>';
   h+=cardSection(P);
   h+=foot(L,P,S);
@@ -591,6 +690,7 @@ function grantA(L, P, S){
   paceChart('tdsb-a-pace', hist, G.a_onfile, hist[0].d, '2026-10-22', 'on file');
   cardChart(P);
   partyChart(P);
+  dayPartyChart('tdsb-a-days', L);
   animateIn();
 }
 
