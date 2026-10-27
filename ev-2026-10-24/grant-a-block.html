@@ -543,9 +543,33 @@ function earlyNow(L, t){
   if(n.T<st.T || n.D<st.D) return {live:false,n:st,st:st};
   return {live:true,n:n,st:st,at:(at&&!isNaN(at))?at:null};
 }
-function liveNote(EV){ return (EV.live && daysUntil('2026-10-24')<=0 && daysUntil('2026-11-03')>=0) ?
-  ' In-person votes come from the elections office\'s running count, which updates through the day.' : ''; }
-function mixLine(ret, asOf, early, EV, eday){
+/* Mail returns, live (Oct 27, 2026, Trey). The county logs mail ballots as they
+   arrive; the state report and voter file can lag a day or more (Oct 27: state 206
+   Democratic returns, county 239). Same rule as early votes: the county's count
+   replaces the state's, never added to it, and only when it is at least as far
+   along. "Still out" then becomes an estimate: the state's outstanding count minus
+   the ballots the county has logged since. */
+function mailNow(L, t){
+  var r=t.vbm_returned||{}, o=t.vbm_outstanding||{};
+  var st={D:r.D||0,R:r.R||0,NPA:r.NPA||0,T:r.T||0}, out={D:o.D||0,R:o.R||0,NPA:o.NPA||0,T:o.T||0};
+  var pt=null, at=null;
+  try{ if(String(L.tqv.Summary.FvrsElectionNumber)===String(L.election_id)){ pt=L.tqv.Turnout.PartyType; at=new Date(L.tqv.Summary.LastUpdatedTime); } }catch(x){}
+  var no={live:false,n:st,st:st,out:out,gain:0};
+  if(!pt) return no;
+  var n={D:0,R:0,NPA:0,T:0};
+  Object.keys(pt).forEach(function(k){ var v=+((pt[k]||{}).Mail)||0; n.T+=v;
+    if(k==='DEM') n.D=v; else if(k==='REP') n.R=v; else if(k==='NPA') n.NPA=v; });
+  if(n.T<st.T || n.D<st.D || (n.T===st.T && n.D===st.D)) return no;
+  var est={}; ['D','R','NPA','T'].forEach(function(k){ est[k]=Math.max(0,out[k]-(n[k]-st[k])); });
+  return {live:true,n:n,st:st,out:est,gain:n.D-st.D,at:(at&&!isNaN(at))?at:null};
+}
+function liveNote(EV, MAIL){ var on=daysUntil('2026-10-24')<=0 && daysUntil('2026-11-03')>=0;
+  if(MAIL && MAIL.live) return ' Both come from the elections office\'s running count, which updates through the day.';
+  return (EV.live && on) ? ' In-person votes come from the elections office\'s running count, which updates through the day.' : ''; }
+function mixLine(ret, asOf, early, EV, eday, MAIL){
+  var at=(MAIL&&MAIL.live&&MAIL.at)||EV.at;
+  if(MAIL && MAIL.live) return fmt(ret)+' by mail and '+fmt(early)+' early in person'+(eday?', plus '+fmt(eday)+' on Election Day':'')+
+    (at?' as of '+when(at):' so far')+'.'+liveNote(EV, MAIL);
   if(!EV.live) return fmt(ret)+' by mail and '+fmt(early)+' early in person, through '+nice(asOf)+(eday?', plus '+fmt(eday)+' on Election Day so far':'')+'.'+evNote();
   return fmt(ret)+' by mail through '+nice(asOf)+', and '+fmt(early)+' early in person'+(eday?' and '+fmt(eday)+' on Election Day':'')+
     (EV.at?' as of '+when(EV.at):' so far')+'.'+liveNote(EV);
@@ -673,7 +697,7 @@ function dayPartyChart(id, L){
 /* ---- the three dashboards ---- */
 function grantA(L, P, S){
   var d=L.days[L.days.length-1], t=d.taylor, asOf=prevDay(d.date);
-  var EV=earlyNow(L,t), onfile=t.vbm_outstanding.D+t.vbm_returned.D, ret=t.vbm_returned.D, early=EV.n.D, banked=ret+early;
+  var EV=earlyNow(L,t), MAIL=mailNow(L,t), onfile=t.vbm_outstanding.D+t.vbm_returned.D, ret=MAIL.n.D, early=EV.n.D, banked=ret+early;
   var eday=null, Q=L.tqv&&L.tqv.Turnout&&L.tqv.Turnout.PartyType&&L.tqv.Turnout.PartyType.DEM;
   if(Q&&Q.ElectionDay) eday=Q.ElectionDay;
   var total=banked+(eday||0);
@@ -684,17 +708,17 @@ function grantA(L, P, S){
      '<h2>Democratic ballots cast</h2>'+
      '<div class="hero"><span class="big" data-v="'+(total||0)+'">'+fmt(total)+'</span><span class="of">of '+fmt(G.a_ballots)+' by Nov 3</span></div>'+
      '<div class="hbar"><i style="width:'+Math.min(100,100*total/G.a_ballots).toFixed(1)+'%"></i></div>'+
-     '<p>'+mixLine(ret,asOf,early,EV,eday)+' '+
+     '<p>'+mixLine(ret,asOf,early,EV,eday,MAIL)+' '+
      plural(daysUntil('2026-11-03'),'day')+' to Election Day.</p></div>';
   h+='<div class="grid">';
-  h+='<div class="card"><h3>Mail ballots</h3><p class="cap">Democrats, from the state file. Requests close 5 p.m. Oct 22.</p>'+
+  h+='<div class="card"><h3>Mail ballots</h3><p class="cap">Democrats. '+(MAIL.live?'Returned is live from the elections office; requests from the state file.':'From the state file.')+' Requests close 5 p.m. Oct 22.</p>'+
      meter('On file (requested and sent)', onfile, G.a_onfile, 'Need '+fmt(Math.max(0,G.a_onfile-onfile))+' more by Oct 22.', status(onfile,G.a_onfile,'2026-10-22'))+
-     meter('Returned and counted', ret, G.a_returned, (onfile?(100*ret/onfile).toFixed(1)+'% of ballots sent. ':'')+'Last day to return: Nov 3, 7 p.m.', status(ret,G.a_returned,'2026-11-03'))+
+     meter('Returned and counted', ret, G.a_returned, (onfile?(100*ret/onfile).toFixed(1)+'% of ballots sent. ':'')+(MAIL.live?fmt(MAIL.gain)+' logged by the elections office since the state report. ':'')+'Last day to return: Nov 3, 7 p.m.', status(ret,G.a_returned,'2026-11-03'))+
      '</div>';
   h+='<div class="card"><h3>Chase list</h3><p class="cap">Democratic mail ballots sent and not back yet'+
      (P&&P.county_dem?', minus anyone who already voted early':'')+'.</p>'+
      '<div class="mrow"><div class="top"><span class="lab">Ballots to chase</span><span class="val">'+fmt(chase)+'</span></div>'+
-     '<div class="sub">'+(P&&P.county_dem?'From the state\'s DS-DE 145/147 files of '+nice(fileDay(P))+'.'+(evNote()?' Today\'s early voters come off this list with tomorrow\'s file.':''):'From the state totals; refines once the daily files are counted.')+'</div></div>'+
+     '<div class="sub">'+(P&&P.county_dem?'From the state\'s DS-DE 145/147 files of '+nice(fileDay(P))+'.'+(evNote()?' Today\'s early voters come off this list with tomorrow\'s file.':'')+(MAIL.live?' The elections office has logged '+fmt(MAIL.gain)+' more Democratic mail ballots than this file shows, so about that many people on the list have likely already returned theirs. The file will show who once the state catches up.':''):'From the state totals; refines once the daily files are counted.')+'</div></div>'+
      cureMeter(S,'a_rejected','a_cured','Mail ballots needing a cure',P&&P.county_dem)+
      '</div>';
   h+='<div class="card"><h3>Early voting</h3><p class="cap">Oct 24 to 31, SOE office on US-19.</p>'+
@@ -768,7 +792,7 @@ function foot(L,P,S,pub){
     '<details><summary>Where these numbers come from</summary>'+
     '<p><b>County totals:</b> Florida Department of State, <a href="https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats">county vote-by-mail and early voting report</a> (election 49894). Published each morning and covers through the day before.</p>'+
     '<p><b>Precinct counts:</b> the state\'s daily mail-ballot and early-vote files for Taylor County, counted by the DEC. Only totals are published. A voter who appears in both files is counted once.</p>'+
-    '<p><b>Early votes and Election Day:</b> the Supervisor of Elections\' <a href="https://tqv.vrswebapps.com/?state=FL&amp;county=TAY&amp;election=85">live turnout feed</a>, which updates through the day. The state report counts early votes a day later, so this page uses the county\'s number whenever it is the more current one.</p>'+
+    '<p><b>Early votes, mail ballots returned, and Election Day:</b> the Supervisor of Elections\' <a href="https://tqv.vrswebapps.com/?state=FL&amp;county=TAY&amp;election=85">live turnout feed</a>, which updates through the day. The state report lags behind it, so this page uses the county\'s number whenever it is the more current one. When it does, mail ballots still out is an estimate: the state\'s count minus ballots the county has logged since.</p>'+
     (pub?'':'<p><b>Hand counts:</b> the DEC scoreboard sheet, entered by the chair.</p>')+
     '</details>';
 }
