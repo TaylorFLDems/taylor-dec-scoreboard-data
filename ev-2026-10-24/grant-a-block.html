@@ -556,7 +556,11 @@ function liveChip(EV, asOf){
   return '<span class="chip up">+'+fmt(d)+' early '+(asOf===isoDay(y)?'today':'since '+nice(asOf))+'</span>';
 }
 
-/* ---- daily turnout by party (County Chase only) ---- */
+/* ---- daily turnout by party (County Chase only) ----
+   Two panels on the same days, Oct 24 to Nov 3 (one y-axis each, never two on one chart):
+   1. In person: that day's in-person ballots as a share of each group's registration.
+   2. Mail: running return rate, returned / (returned + outstanding), from the state
+      report that covers through that day. Today's mail lands with tomorrow's report. */
 var DP_REG_FALLBACK={as_of:'2026-10-05',D:2826,R:7627,minor:314,NPA:982,T:11749};
 var DP_SER=[{k:'D',label:'Democrats',color:'var(--navy)',shape:'circle'},
             {k:'R',label:'Republicans',color:'var(--red)',shape:'diamond',dash:'6 4'},
@@ -567,11 +571,11 @@ function dpDays(L){
   var out=[], dd=ymd(EV_START), end=ymd(EDAY), today=isoDay(new Date()), D=L.days;
   var loc=null, ped=null; try{ loc=L.tqv.Turnout.LocationDay.EarlyVoting; ped=L.tqv.Turnout.PartyType; }catch(e){}
   function grp(t,f){ var x=t[f]||{}; return {D:x.D||0, R:x.R||0, O:(x.O||0)+(x.NPA||0)}; }
-  function diff(a,b){ return {D:Math.max(0,b.D-a.D), R:Math.max(0,b.R-a.R), O:Math.max(0,b.O-a.O)}; }
-  var mail={}, st={};
-  for(var i=1;i<D.length;i++){ var cov=prevDay(D[i].date);
-    mail[cov]=diff(grp(D[i-1].taylor,'vbm_returned'), grp(D[i].taylor,'vbm_returned'));
-    st[cov]=diff(grp(D[i-1].taylor,'early_voted'), grp(D[i].taylor,'early_voted')); }
+  var st={}, rate={};
+  for(var i=0;i<D.length;i++){ var cov=prevDay(D[i].date), ret=grp(D[i].taylor,'vbm_returned'), out_=grp(D[i].taylor,'vbm_outstanding');
+    rate[cov]={}; ['D','R','O'].forEach(function(k){ var t=ret[k]+out_[k]; rate[cov][k]=t?{pct:100*ret[k]/t, ret:ret[k], tot:t}:null; });
+    if(i){ var ea=grp(D[i-1].taylor,'early_voted'), eb=grp(D[i].taylor,'early_voted');
+      st[cov]={D:Math.max(0,eb.D-ea.D), R:Math.max(0,eb.R-ea.R), O:Math.max(0,eb.O-ea.O)}; } }
   for(; dd<=end; dd.setDate(dd.getDate()+1)){
     var iso=isoDay(dd), inp=null;
     if(iso<=today){
@@ -582,9 +586,10 @@ function dpDays(L){
       if(iso===EDAY && ped) Object.keys(ped).forEach(function(p){
         var v=+((ped[p]||{}).ElectionDay)||0, g=p==='DEM'?'D':p==='REP'?'R':'O'; inp[g]+=v; });
     }
-    var m=mail[iso]||null, r={d:iso, today:iso===today, future:iso>today, n:{}, pct:{}};
-    DP_SER.forEach(function(sr){ var n=inp?(inp[sr.k]+(m?m[sr.k]:0)):null;
-      r.n[sr.k]=n; r.pct[sr.k]=(n==null||!den[sr.k])?null:100*n/den[sr.k]; });
+    var r={d:iso, today:iso===today, future:iso>today, n:{}, pct:{}, mail:{}};
+    DP_SER.forEach(function(sr){ var n=inp?inp[sr.k]:null;
+      r.n[sr.k]=n; r.pct[sr.k]=(n==null||!den[sr.k])?null:100*n/den[sr.k];
+      r.mail[sr.k]=rate[iso]?rate[iso][sr.k]:null; });
     out.push(r); }
   return {days:out, den:den, reg:reg};
 }
@@ -601,28 +606,36 @@ function dpSwatch(sr){
   return '<svg viewBox="0 0 26 12" aria-hidden="true"><line x1="0" x2="26" y1="6" y2="6" stroke="'+sr.color+'" stroke-width="2.5"'+
     (sr.dash?' stroke-dasharray="'+sr.dash+'"':'')+'/>'+m+'</svg>';
 }
+function dpPct(v,dp){ return v==null?'&ndash;':v.toFixed(dp)+'%'; }
 function dayPartySection(L){
   var X=dpDays(L), done=X.days.filter(function(r){return !r.future;});
   var rows=done.slice().reverse().map(function(r){
-    return '<tr><td>'+nice(r.d)+(r.today?' (so far)':'')+'</td>'+DP_SER.map(function(sr){
-      return '<td>'+(r.pct[sr.k]==null?'&ndash;':r.pct[sr.k].toFixed(1)+'%')+' <small>('+fmt(r.n[sr.k])+')</small></td>'; }).join('')+'</tr>'; }).join('');
+    return '<tr><td>'+nice(r.d)+(r.today?' (so far)':'')+'</td>'+
+      DP_SER.map(function(sr){ return '<td>'+dpPct(r.pct[sr.k],1)+' <small>('+fmt(r.n[sr.k])+')</small></td>'; }).join('')+
+      DP_SER.map(function(sr){ var m=r.mail[sr.k]; return '<td>'+(m?m.pct.toFixed(1)+'%':'&ndash;')+'</td>'; }).join('')+'</tr>'; }).join('');
   return '<div class="sec">Turnout by party, day by day</div><div class="card">'+
-    '<p class="cap">Share of each group&rsquo;s registered voters who voted that day, in person or by a mail ballot received that day. '+
-    'Each party is divided by its own registration, so the lines compare fairly in a county registered '+(X.den.R/X.den.D).toFixed(1)+' Republicans to every Democrat.</p>'+
-    '<div class="dlg">'+DP_SER.map(function(sr){ return '<span>'+dpSwatch(sr)+esc(sr.label)+' ('+fmt(X.den[sr.k])+' registered)</span>'; }).join('')+'</div>'+
-    '<svg id="tdsb-a-days" role="img" aria-label="Share of Democrats, Republicans and everyone else voting each day, October 24 to November 3"></svg>'+
-    '<details><summary>Show as a table</summary><table><thead><tr><th>Day</th>'+
-    DP_SER.map(function(sr){return '<th>'+esc(sr.label)+'</th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></details>'+
-    '<div class="sub">In person from the elections office&rsquo;s running count, so today updates through the day. '+
-    'Mail ballots are added the next morning from the state report, so today&rsquo;s point is in person only (hollow marker). '+
+    '<div class="dlg">'+DP_SER.map(function(sr){ return '<span>'+dpSwatch(sr)+esc(sr.label)+'</span>'; }).join('')+'</div>'+
+    '<h3 style="margin-top:18px">Voting in person</h3>'+
+    '<p class="cap">Share of each group&rsquo;s registered voters who voted in person that day: early voting October 24 to 31, then Election Day. '+
+    'Each is divided by its own registration ('+fmt(X.den.D)+' Democrats, '+fmt(X.den.R)+' Republicans, '+fmt(X.den.O)+' everyone else), so the lines compare fairly.</p>'+
+    '<svg id="tdsb-a-days" role="img" aria-label="Share of Democrats, Republicans and everyone else voting in person each day, October 24 to November 3"></svg>'+
+    '<h3 style="margin-top:22px">Mail ballots returned, running total</h3>'+
+    '<p class="cap">Share of each group&rsquo;s mail ballots that are back, as of the end of each day (returned &divide; returned plus still out). Same days as the chart above.</p>'+
+    '<svg id="tdsb-a-mailrate" role="img" aria-label="Mail ballot return rate by party at the end of each day, October 24 to November 3"></svg>'+
+    '<details><summary>Show as a table</summary><table><thead><tr><th rowspan="2">Day</th><th colspan="3">In person that day</th><th colspan="3">Mail returned so far</th></tr><tr>'+
+    DP_SER.map(function(sr){return '<th>'+esc(sr.label.split(' ')[0])+'</th>';}).join('')+DP_SER.map(function(sr){return '<th>'+esc(sr.label.split(' ')[0])+'</th>';}).join('')+
+    '</tr></thead><tbody>'+rows+'</tbody></table></details>'+
+    '<div class="sub">In person comes from the elections office&rsquo;s running count, so today&rsquo;s point (hollow) updates through the day. '+
+    'Mail return rates come from the state&rsquo;s morning report, so each day&rsquo;s point appears the next morning. '+
     'Registration: Florida Department of State, active voters as of '+esc(nice(X.reg.as_of))+'. Everyone else is no party plus minor parties.</div></div>';
 }
-function dayPartyChart(id, L){
+/* one panel: shared x layout, its own single y-axis */
+function dpPanel(id, days, get, o){
   var svg=document.getElementById(id); if(!svg) return; svg.innerHTML='';
-  var X=dpDays(L), days=X.days, W=widthOf(svg), H=230, Lm=40, R=14, T=16, B=40, n=days.length;
+  var W=widthOf(svg), H=o.H||210, Lm=40, R=14, T=16, B=40, n=days.length;
   svg.setAttribute('viewBox','0 0 '+W+' '+H);
-  var top=0; days.forEach(function(r){ DP_SER.forEach(function(sr){ if(r.pct[sr.k]!=null) top=Math.max(top,r.pct[sr.k]); }); });
-  var step=top<=2?0.5:top<=5?1:top<=10?2:5, hi=Math.max(step*2, Math.ceil(top/step)*step);
+  var top=0; days.forEach(function(r){ DP_SER.forEach(function(sr){ var v=get(r,sr.k); if(v!=null) top=Math.max(top,v); }); });
+  var step=o.step(top), hi=Math.max(step*2, Math.ceil(top/step)*step);
   var Y=function(v){return T+(1-v/hi)*(H-T-B);}, slot=(W-Lm-R)/n, Xc=function(i){return Lm+i*slot+slot/2;};
   for(var v=0; v<=hi+1e-9; v+=step){ var y=Y(v);
     svg.appendChild(el('line',{x1:Lm,x2:W-R,y1:y,y2:y,stroke:'var(--line)','stroke-width':1}));
@@ -632,21 +645,30 @@ function dayPartyChart(id, L){
     svg.appendChild(txt(Xc(i),H-22,WD[dt.getDay()],{anchor:'middle',size:11,weight:w,fill:c}));
     svg.appendChild(txt(Xc(i),H-8,ed?'Nov 3':((dt.getDate()===1||i===0)?nice(r.d):String(dt.getDate())),{anchor:'middle',size:11,weight:w,fill:c})); });
   DP_SER.slice().reverse().forEach(function(sr){
-    var pts=[]; days.forEach(function(r,i){ if(r.pct[sr.k]!=null) pts.push({i:i,v:r.pct[sr.k],today:r.today}); });
+    var pts=[]; days.forEach(function(r,i){ var v=get(r,sr.k); if(v!=null) pts.push({i:i,v:v,today:r.today}); });
     if(!pts.length) return;
     var a={d:pts.map(function(p,j){return (j?'L':'M')+Xc(p.i).toFixed(1)+' '+Y(p.v).toFixed(1);}).join(' '),
            fill:'none',stroke:sr.color,'stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round'};
     if(sr.dash) a['stroke-dasharray']=sr.dash;
     svg.appendChild(el('path',a));
-    pts.forEach(function(p){ svg.appendChild(dpMark(sr, Xc(p.i), Y(p.v), p.today)); });
+    pts.forEach(function(p){ svg.appendChild(dpMark(sr, Xc(p.i), Y(p.v), o.hollowToday && p.today)); });
   });
   days.forEach(function(r,i){
     var hit=el('rect',{x:Lm+i*slot,y:T,width:slot,height:H-T-B,fill:'transparent'});
     hit.addEventListener('mousemove',function(e){
-      var lab='<b>'+(r.d===EDAY?'Election Day, ':'')+ymd(r.d).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+(r.today?' (so far)':'')+'</b>';
-      tipAt(svg, r.future ? lab+' &middot; still to come' :
-        lab+DP_SER.map(function(sr){ return ' &middot; '+sr.label.split(' ')[0]+' '+r.pct[sr.k].toFixed(1)+'% ('+fmt(r.n[sr.k])+')'; }).join(''), e); });
+      var lab='<b>'+(r.d===EDAY?'Election Day, ':'')+ymd(r.d).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+'</b>';
+      tipAt(svg, lab+o.tip(r), e); });
     hit.addEventListener('mouseleave',tipOff); svg.appendChild(hit); });
+}
+function dayPartyChart(id, L){
+  var days=dpDays(L).days;
+  dpPanel(id, days, function(r,k){ return r.pct[k]; }, {hollowToday:true,
+    step:function(t){ return t<=2?0.5:t<=5?1:t<=10?2:5; },
+    tip:function(r){ return r.future?' &middot; still to come':(r.today?' (so far)':'')+DP_SER.map(function(sr){ return ' &middot; '+sr.label.split(' ')[0]+' '+r.pct[sr.k].toFixed(1)+'% ('+fmt(r.n[sr.k])+')'; }).join(''); }});
+  dpPanel('tdsb-a-mailrate', days, function(r,k){ return r.mail[k]?r.mail[k].pct:null; }, {
+    step:function(t){ return t<=20?5:t<=50?10:20; },
+    tip:function(r){ return r.mail.D?DP_SER.map(function(sr){ var m=r.mail[sr.k]; return ' &middot; '+sr.label.split(' ')[0]+' '+(m?m.pct.toFixed(1)+'% ('+fmt(m.ret)+' of '+fmt(m.tot)+')':'&ndash;'); }).join('')
+      :(r.future?' &middot; still to come':' &middot; in tomorrow morning&rsquo;s report'); }});
 }
 /* ---- the three dashboards ---- */
 function grantA(L, P, S){
