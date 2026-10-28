@@ -3,10 +3,10 @@
 <rect id="ground" x="0" y="-100" width="720" height="700" fill="#D9D3C8"></rect>
 <g stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round">
 <path class="area" data-i="0" d="M210 349l0 -13l-5 0l0 3l-3 0l0 7l-8 1l0 2l-3 0l0 -8l-157 70l-12 13l-5 -6l-15 7l-13 2l-1 -3l8 -6l-1 -12l18 -3l2 -3l11 -3l2 -3l-2 -5l2 -5l6 0l4 -5l15 -1l10 -4l3 1l9 -7l25 -2l12 -13l0 -3l7 -3l0 -2l8 -1l5 -3l2 -3l0 -3l6 -6l0 -7l-2 -5l-4 -1l2 -9l3 -2l6 0l7 -6l7 -2l3 1l4 -3l7 -1l2 3l3 -1l-1 2l5 0l1 -2l8 3l-1 2l2 5l3 0l0 2l3 0l4 5l3 -4l6 1l5 -4l5 3l4 -6l6 0l10 -7l6 -7l0 13l-2 0l3 1l1 3l-2 0l0 9l-13 6l-1 4l-4 2l0 19l-19 7l0 -4z" vector-effect="non-scaling-stroke"></path>
+<path class="area" data-i="13" d="M291 124l-55 14l-4 -1l-40 -23l-10 -51l-46 -23l0 -18l12 -2l10 1l7 11l46 67l30 15l35 -57l-9 -36l20 -1l30 102l-25 4l-1 -2z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="21" d="M285 341l-1 -5l37 -1l1 30l-1 8l1 2l10 1l-2 3l1 11l8 0l-1 14l-1 22l-92 0l2 -48l22 1l4 -2l4 -7l3 2l5 -2l5 -14l-1 -5l-4 -3l0 -7z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="16" d="M308 227l12 -3l-10 -19l32 0l-10 -35l-1 -2l-30 0l-10 -44l-55 14l-3 -1l59 88l9 0l7 2z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="20" d="M350 376l4 -4l-15 -17l0 -2l40 -1l49 73l-27 0l9 12l13 28l-9 -19l-9 1l-2 1l0 6l-48 0l-6 -1l-14 -9l2 -18l63 -1l-34 -39l-4 3l-9 2l0 -11l-3 -4z" vector-effect="non-scaling-stroke"></path>
-<path class="area" data-i="13" d="M309 94l8 28l-4 -4l-77 20l-4 -1l-16 -23l-24 0l1 -7l5 0l0 -12l5 0l-48 -72l0 16l-5 1l-14 0l0 -18l12 -2l8 1l2 1l62 92l26 0l42 -1l-21 -92l20 -1l22 74z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="9" d="M474 383l9 0l1 -7l17 -1l1 -6l-55 -38l-34 -20l-3 7l7 6l6 9l9 3l-1 29l-4 -1l-7 -4l-4 1l-1 3l-8 -2l-1 4l-17 1l15 21l27 0l4 -2l2 2l12 1l0 36l15 -1l1 -41l9 0z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="18" d="M339 350l3 -19l6 0l1 -3l4 -1l0 -8l3 -3l28 -2l0 -5l8 -1l0 -4l-18 0l1 -18l38 25l-3 7l7 6l6 9l9 3l-1 29l-4 -1l-7 -4l-4 1l-1 3l-8 -2l-1 4l-17 1l-10 -15l-40 1l0 2l-4 -5l4 0z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="10" d="M373 204l38 0l0 -15l16 12l2 3l1 -24l-2 1l1 -14l-37 0l-61 1l11 37l31 -1z" vector-effect="non-scaling-stroke"></path>
