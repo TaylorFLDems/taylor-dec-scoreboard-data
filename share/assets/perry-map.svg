@@ -3,7 +3,7 @@
 <rect id="ground" x="0" y="-100" width="720" height="700" fill="#D9D3C8"></rect>
 <g stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round">
 <path class="area" data-i="0" d="M210 349l0 -13l-5 0l0 3l-3 0l0 7l-8 1l0 2l-3 0l0 -8l-157 70l-12 13l-5 -6l-15 7l-13 2l-1 -3l8 -6l-1 -12l18 -3l2 -3l11 -3l2 -3l-2 -5l2 -5l6 0l4 -5l15 -1l10 -4l3 1l9 -7l25 -2l12 -13l0 -3l7 -3l0 -2l8 -1l5 -3l2 -3l0 -3l6 -6l0 -7l-2 -5l-4 -1l2 -9l3 -2l6 0l7 -6l7 -2l3 1l4 -3l7 -1l2 3l3 -1l-1 2l5 0l1 -2l8 3l-1 2l2 5l3 0l0 2l3 0l4 5l3 -4l6 1l5 -4l5 3l4 -6l6 0l10 -7l6 -7l0 13l-2 0l3 1l1 3l-2 0l0 9l-13 6l-1 4l-4 2l0 19l-19 7l0 -4z" vector-effect="non-scaling-stroke"></path>
-<path class="area" data-i="21" d="M246 396l1 -28l3 0l0 3l15 -1l1 -15l19 -1l-1 -18l37 -1l2 31l2 3l9 0l4 0l1 17l-8 1l0 3l1 1l7 -1l-2 36l-92 0l1 -30z" vector-effect="non-scaling-stroke"></path>
+<path class="area" data-i="21" d="M285 341l-1 -5l37 -1l1 30l-1 8l1 2l10 1l-2 3l1 11l8 0l-1 14l-1 22l-92 0l2 -48l22 1l4 -2l4 -7l3 2l5 -2l5 -14l-1 -5l-4 -3l0 -7z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="16" d="M308 227l12 -3l-10 -19l32 0l-10 -35l-1 -2l-30 0l-10 -44l-55 14l-3 -1l59 88l9 0l7 2z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="20" d="M350 376l4 -4l-15 -17l0 -2l40 -1l49 73l-27 0l9 12l13 28l-9 -19l-9 1l-2 1l0 6l-48 0l-6 -1l-14 -9l2 -18l63 -1l-34 -39l-4 3l-9 2l0 -11l-3 -4z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="13" d="M309 94l8 28l-4 -4l-77 20l-4 -1l-16 -23l-24 0l1 -7l5 0l0 -12l5 0l-48 -72l0 16l-5 1l-14 0l0 -18l12 -2l8 1l2 1l62 92l26 0l42 -1l-21 -92l20 -1l22 74z" vector-effect="non-scaling-stroke"></path>
@@ -12,23 +12,23 @@
 <path class="area" data-i="10" d="M373 204l38 0l0 -15l16 12l2 3l1 -24l-2 1l1 -14l-37 0l-61 1l11 37l31 -1z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="7" d="M525 417l0 -12l13 0l0 -15l22 13l24 18l2 7l0 33l-2 2l-1 -1l-45 -1l0 -37l-13 1l0 -8z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="15" d="M393 245l0 -9l-18 0l0 -32l36 0l0 -2l0 -13l16 12l2 3l0 18l3 0l1 38l-37 1l0 -13l-3 -1l0 -2z" vector-effect="non-scaling-stroke"></path>
-<path class="area" data-i="5" d="M339 355l15 17l-4 4l3 4l0 11l9 -2l4 -3l34 39l-63 1l1 -25l1 -11l-7 1l-1 -3l8 -2l-1 -17l-12 1l-3 -3l-2 -32l18 20z" vector-effect="non-scaling-stroke"></path>
+<path class="area" data-i="5" d="M334 391l-3 -1l-1 -11l2 -3l-10 -1l-1 -2l1 -8l0 -16l5 0l3 -4l-8 -9l32 36l-4 4l3 4l0 11l6 -1l7 -4l34 39l-63 1l2 -36l-5 1z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="24" d="M423 260l10 0l0 64l-56 -38l-6 -6l0 -9l9 0l0 -6l10 0l0 -4l33 -1z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="12" d="M245 302l2 0l0 -13l9 -11l20 -2l11 -5l26 -1l0 5l-10 0l0 33l-4 0l-14 0l-1 16l-21 9l-1 -24l-15 6l0 -9l2 0l-1 -3l-3 -1z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="8" d="M228 214l18 -1l1 -53l-2 -4l47 69l9 15l-2 1l2 3l-1 5l-4 3l0 4l-11 0l0 -31l-26 1l-11 9l-20 -1l0 -20z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="26" d="M296 255l0 -3l5 -6l-2 -5l2 -1l12 16l0 4l31 0l0 25l4 0l0 4l-4 0l0 15l-8 0l-15 3l0 4l-8 3l0 -3l-6 0l0 -2l-4 0l0 -33l10 -1l0 -5l-23 1l4 -4l1 -9l3 -2l-2 -1z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="14" d="M356 257l1 4l19 0l0 -4l-6 0l2 -3l13 -8l8 -2l0 -8l-18 0l0 -12l0 -20l-33 1l3 10l-1 45l9 1l0 -4l3 0z" vector-effect="non-scaling-stroke"></path>
-<path class="area" data-i="6" d="M321 307l23 -3l-1 15l-7 0l0 12l6 0l-3 19l-4 0l-13 -14l-14 0l-24 0l0 -3l5 0l2 -2l0 -8l-7 2l1 -17l22 1l0 2l6 0l0 3l8 -3l0 -4z" vector-effect="non-scaling-stroke"></path>
+<path class="area" data-i="6" d="M324 349l-2 0l-1 -14l-37 1l0 -3l5 0l2 -2l0 -8l-7 2l1 -17l22 1l0 2l6 0l0 3l7 -3l1 -4l23 -3l-1 15l-7 0l0 12l6 0l-3 19l-4 0l-13 -14l8 9l-6 4z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="23" d="M404 388l27 0l4 -2l3 2l10 1l1 36l10 0l-8 4l-21 -1l-26 -40z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="11" d="M356 316l28 -2l0 -5l8 -1l0 -4l-18 0l1 -18l-6 -1l-25 4l0 12l-1 18l-7 0l0 12l12 0l1 -3l4 -1l0 -8l3 -3z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="3" d="M393 247l3 1l0 13l-6 0l0 4l-10 0l0 6l-9 0l0 9l6 5l-1 2l-7 -2l-21 4l0 -4l-4 0l0 -12l0 -13l9 1l0 -4l4 0l0 4l19 0l0 -4l-6 0l2 -3l14 -9l7 -1l0 3z" vector-effect="non-scaling-stroke"></path>
-<path class="area" data-i="1" d="M247 326l1 -11l2 19l13 -5l0 4l8 -3l0 6l12 -5l1 0l1 18l-29 0l0 6l10 0l0 11l-16 0l0 2l-3 0l0 -42z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="19" d="M311 205l31 0l3 8l0 14l-1 17l-8 0l0 -4l-4 0l0 -8l-8 0l-12 -20l-1 -7z" vector-effect="non-scaling-stroke"></path>
+<path class="area" data-i="25" d="M275 359l0 -4l-10 0l0 -6l4 -1l-5 -14l1 -2l21 -8l5 0l0 7l-7 2l1 15l5 5l0 6l-5 11l-5 2l-3 -2l-3 -7l1 -4z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="17" d="M324 241l4 -1l0 4l4 0l0 -12l-8 0l-4 -8l-11 4l-10 -3l-8 0l21 31l1 0l0 -8l11 0l0 -7z" vector-effect="non-scaling-stroke"></path>
+<path class="area" data-i="1" d="M266 364l-2 -3l-8 0l-4 3l-2 -2l-3 2l0 -22l6 -1l3 -4l5 0l3 -3l2 5l0 4l2 1l1 4l-4 1l0 6l10 0l1 4l-2 5l0 -2l-8 4l0 -2z" vector-effect="non-scaling-stroke"></path>
 <path class="area" data-i="4" d="M313 256l0 -8l11 0l0 -8l4 0l0 4l4 0l0 -4l4 1l0 3l8 0l0 16l-31 0l0 -4z" vector-effect="non-scaling-stroke"></path>
-<path class="area" data-i="25" d="M256 349l29 0l0 5l-29 1l0 -6zM271 334l0 -4l19 -7l1 1l0 7l-2 2l-5 0l0 -2l-13 5l0 -2z" vector-effect="non-scaling-stroke"></path>
-<path class="area" data-i="22" d="M259 310l4 -1l0 20l-13 5l0 -1l-2 -18l11 -5z" vector-effect="non-scaling-stroke"></path>
-<path class="area" data-i="2" d="M250 370l0 -4l16 0l0 3l-1 1l-15 0z" vector-effect="non-scaling-stroke"></path>
+<path class="area" data-i="2" d="M274 362l3 8l-6 8l-24 0l0 -14l3 -2l2 2l4 -3l8 0l2 2l0 4l8 -5z" vector-effect="non-scaling-stroke"></path>
+<path class="area" data-i="22" d="M264 334l-3 3l-5 0l-3 4l-6 1l0 -27l10 -4l5 -2l1 23l2 0l-1 2z" vector-effect="non-scaling-stroke"></path>
 </g>
 <g fill="none" stroke="#2D2926" stroke-linecap="round" stroke-linejoin="round">
 </g>
