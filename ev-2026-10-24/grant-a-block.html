@@ -586,6 +586,12 @@ function liveChip(EV, asOf){
    2. Mail: running return rate, returned / (returned + outstanding), from the state
       report that covers through that day. Today's mail lands with tomorrow's report. */
 var DP_REG_FALLBACK={as_of:'2026-10-05',D:2826,R:7627,minor:314,NPA:982,T:11749};
+/* No in-person voting Sun Nov 1 or Mon Nov 2 (same as Countywide's NOVOTE; that copy lives in COUNTY_JS). */
+var NOVOTE={'2026-11-01':1,'2026-11-02':1};
+function noVoteDivider(svg, days, x0, slot, top, bottom){
+  var i=days.findIndex(function(r){return r.d===EDAY;}); if(i<1) return;
+  svg.appendChild(el('line',{x1:x0+i*slot,x2:x0+i*slot,y1:top,y2:bottom,stroke:'var(--ink3)','stroke-width':1,'stroke-dasharray':'3 3',opacity:.6}));
+}
 var DP_SER=[{k:'D',label:'Democrats',color:'var(--navy)',shape:'circle'},
             {k:'R',label:'Republicans',color:'var(--red)',shape:'diamond',dash:'6 4'},
             {k:'O',label:'Everyone else',color:'var(--other)',shape:'square',dash:'2 3'}];
@@ -602,6 +608,7 @@ function dpDays(L){
       st[cov]={D:Math.max(0,eb.D-ea.D), R:Math.max(0,eb.R-ea.R), O:Math.max(0,eb.O-ea.O)}; } }
   for(; dd<=end; dd.setDate(dd.getDate()+1)){
     var iso=isoDay(dd), inp=null;
+    if(NOVOTE[iso]) continue;  /* no voting Nov 1 and 2 (Trey, Oct 28) */
     if(iso<=today){
       if(loc){ inp={D:0,R:0,O:0}; var k=dpKey(iso);
         Object.keys(loc).forEach(function(s){ var x=loc[s][k]||{};
@@ -665,6 +672,7 @@ function dpPanel(id, days, get, o){
     svg.appendChild(el('line',{x1:Lm,x2:W-R,y1:y,y2:y,stroke:'var(--line)','stroke-width':1}));
     svg.appendChild(txt(Lm-6,y+4,(Math.round(v*10)/10)+'%',{anchor:'end',size:11})); }
   var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  noVoteDivider(svg, days, Lm, slot, T, H-B);
   days.forEach(function(r,i){ var dt=ymd(r.d), ed=r.d===EDAY, c=ed?'var(--red)':r.today?'var(--ink)':'var(--ink3)', w=(ed||r.today)?700:500;
     svg.appendChild(txt(Xc(i),H-22,WD[dt.getDay()],{anchor:'middle',size:11,weight:w,fill:c}));
     svg.appendChild(txt(Xc(i),H-8,ed?'Nov 3':((dt.getDate()===1||i===0)?nice(r.d):String(dt.getDate())),{anchor:'middle',size:11,weight:w,fill:c})); });
