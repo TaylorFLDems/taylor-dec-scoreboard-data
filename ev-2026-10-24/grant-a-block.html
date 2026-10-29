@@ -560,14 +560,23 @@ function mailNow(L, t){
   var st={D:r.D||0,R:r.R||0,NPA:r.NPA||0,T:r.T||0}, out={D:o.D||0,R:o.R||0,NPA:o.NPA||0,T:o.T||0};
   var pt=null, at=null;
   try{ if(String(L.tqv.Summary.FvrsElectionNumber)===String(L.election_id)){ pt=L.tqv.Turnout.PartyType; at=new Date(L.tqv.Summary.LastUpdatedTime); } }catch(x){}
-  var no={live:false,n:st,st:st,out:out,gain:0};
+  var no={live:false,any:false,n:st,st:st,out:out,gain:0,src:{}};
   if(!pt) return no;
-  var n={D:0,R:0,NPA:0,T:0};
-  Object.keys(pt).forEach(function(k){ var v=+((pt[k]||{}).Mail)||0; n.T+=v;
-    if(k==='DEM') n.D=v; else if(k==='REP') n.R=v; else if(k==='NPA') n.NPA=v; });
-  if(n.T<st.T || n.D<st.D || (n.T===st.T && n.D===st.D)) return no;
-  var est={}; ['D','R','NPA','T'].forEach(function(k){ est[k]=Math.max(0,out[k]-(n[k]-st[k])); });
-  return {live:true,n:n,st:st,out:est,gain:n.D-st.D,at:(at&&!isNaN(at))?at:null};
+  var f={D:0,R:0,NPA:0,T:0};
+  Object.keys(pt).forEach(function(k){ var v=+((pt[k]||{}).Mail)||0; f.T+=v;
+    if(k==='DEM') f.D=v; else if(k==='REP') f.R=v; else if(k==='NPA') f.NPA=v; });
+  /* Party by party (Oct 29, Trey): each group uses the county's count only when it is
+     ahead of the state's for that group; otherwise that group keeps the state's.
+     Minor parties (O) are whatever the total holds beyond D, R and NPA. The total is
+     the sum of the four, so the parts always add up. */
+  f.O=f.T-f.D-f.R-f.NPA; st.O=st.T-st.D-st.R-st.NPA; out.O=out.T-out.D-out.R-out.NPA;
+  var n={T:0}, src={}, any=false;
+  ['D','R','NPA','O'].forEach(function(k){ var c=f[k]>st[k]; src[k]=c?'county':'state'; n[k]=c?f[k]:st[k]; n.T+=n[k]; if(c) any=true; });
+  if(!any) return no;
+  var est={T:0}; ['D','R','NPA','O'].forEach(function(k){ est[k]=Math.max(0,out[k]-(n[k]-st[k])); est.T+=est[k]; });
+  /* live = Democrats are on the county's count (all the Democratic copy keys off it);
+     any = at least one group is (footer and sources). */
+  return {live:src.D==='county',any:true,n:n,st:st,out:est,gain:n.D-st.D,src:src,at:(at&&!isNaN(at))?at:null};
 }
 /* Democratic mail returns by the day the office received them (Oct 29, 2026, Trey).
    The state report and the voter file pick up returns in batches every other day, so
@@ -839,7 +848,7 @@ function foot(L,P,S,pub){
     '<details><summary>Where these numbers come from</summary>'+
     '<p><b>County totals:</b> Florida Department of State, <a href="https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats">county vote-by-mail and early voting report</a> (election 49894). Published each morning and covers through the day before.</p>'+
     '<p><b>Precinct counts:</b> the state\'s daily mail-ballot and early-vote files for Taylor County, counted by the DEC. Only totals are published. A voter who appears in both files is counted once.</p>'+
-    '<p><b>Early votes, mail ballots returned, and Election Day:</b> the Supervisor of Elections\' <a href="https://tqv.vrswebapps.com/?state=FL&amp;county=TAY&amp;election=85">live turnout feed</a>, which updates through the day. The state report lags behind it, so this page uses the county\'s number whenever it is the more current one. When it does, mail ballots still out is an estimate: the state\'s count minus ballots the county has logged since.</p>'+
+    '<p><b>Early votes, mail ballots returned, and Election Day:</b> the Supervisor of Elections\' <a href="https://tqv.vrswebapps.com/?state=FL&amp;county=TAY&amp;election=85">live turnout feed</a>, which updates through the day. The state report lags behind it, so this page uses the county\'s number whenever it is the more current one (for mail ballots, checked party by party). When it does, mail ballots still out is an estimate: the state\'s count minus ballots the county has logged since.</p>'+
     (pub?'':'<p><b>Hand counts:</b> the DEC scoreboard sheet, entered by the chair.</p>')+
     '</details>';
 }
