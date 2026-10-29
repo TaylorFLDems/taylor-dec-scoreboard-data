@@ -33,6 +33,21 @@ def plural(n, word):
     return f"{n} {word}{'' if n == 1 else 's'}"
 
 
+def covered(h):
+    """The day a daily file's ballots are from: the state posts each file the next morning."""
+    if h.get("file_date"):
+        return dt.date.fromisoformat(h["file_date"]) - dt.timedelta(days=1)
+    return dt.date.fromisoformat(h["date"])
+
+
+def gain_day(prev, last):
+    """Name the day the gain is from (Oct 29, Trey: "since the Oct 28 file" didn't say).
+    A dated image gets shared later, so it names the date rather than saying "yesterday",
+    which the scoreboard pages use."""
+    a, b = covered(prev), covered(last)
+    return f"on {nice(b)}" if (b - a).days == 1 else f"since {nice(a)}"
+
+
 def chip_text(today):
     if today < EV_START:
         n = (EV_START - today).days
@@ -57,10 +72,7 @@ def build(p, today):
     delta_html = ""
     if len(hist) >= 2 and hist[-1]["p13"] > hist[-2]["p13"]:
         d = hist[-1]["p13"] - hist[-2]["p13"]
-        prev = hist[-2]
-        since = (f'the {nice(dt.date.fromisoformat(prev["file_date"]))} file' if prev.get("file_date")
-                 else nice(dt.date.fromisoformat(prev["date"])))
-        delta_html = f'<span class="delta">+{d:,} since {since}</span>'
+        delta_html = f'<span class="delta">+{d:,} {gain_day(hist[-2], hist[-1])}</span>'
 
     if count > 0:
         hero = (f'<div class="big">{count:,}</div>'

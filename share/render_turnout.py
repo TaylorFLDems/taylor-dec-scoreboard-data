@@ -45,14 +45,17 @@ def chip_text(today):
 
 
 def gain(hist, key):
-    """Points gained since the previous file, or None. History rows are keyed by the
-    file's last activity date; the state posts each file the next morning."""
+    """Points gained on the day the newest file covers, or None. History rows are keyed
+    by the file's last activity date; the state posts each file the next morning."""
     h = [x for x in hist if isinstance(x.get(key), (int, float))]
     if len(h) < 2 or h[-1][key] <= h[-2][key]:
         return None
-    prev_file = dt.date.fromisoformat(h[-2]["date"]) + dt.timedelta(days=1)
     d = h[-1][key] - h[-2][key]
-    return f"+{d:g} {'point' if d == 1 else 'points'} since the {nice(prev_file)} file"
+    # Name the day (Oct 29, Trey). Rows are keyed by the day the file covers. A dated
+    # image gets shared later, so name the date rather than saying "yesterday".
+    a, b = dt.date.fromisoformat(h[-2]["date"]), dt.date.fromisoformat(h[-1]["date"])
+    when = f"on {nice(b)}" if (b - a).days == 1 else f"since {nice(a)}"
+    return f"+{d:g} {'point' if d == 1 else 'points'} {when}"
 
 
 def top_rows(areas, limit=10, keep=6):
