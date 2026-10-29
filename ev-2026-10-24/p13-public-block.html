@@ -248,8 +248,14 @@ var EV_START='2026-10-24', EV_END='2026-10-31', EDAY='2026-11-03', MILES=[100,25
 function plural(n,w){ return n+' '+w+(n===1?'':'s'); }
 function chips(P){
   var c=[], hs=(P&&P.history)||[];
+  /* Gain between the two newest daily files = ballots from the day the newer file
+     covers (the state posts each file the next morning). Oct 29, Trey: "since the
+     Oct 28 file" didn't say which day; name it, like Countywide's chip. */
   if(hs.length>1){ var a=hs[hs.length-2], b=hs[hs.length-1], d=(b.p13||0)-(a.p13||0);
-    if(d>0) c.push('<span class="chip up">+'+fmt(d)+' since '+(a.file_date?'the '+nice(a.file_date)+' file':nice(a.date))+'</span>'); }
+    if(d>0){ var cov=function(x){ return x.file_date?prevDay(x.file_date):x.date; }, day=cov(b),
+        span=Math.round((ymd(day)-ymd(cov(a)))/864e5), yd=new Date(); yd.setDate(yd.getDate()-1);
+      var yiso=yd.getFullYear()+'-'+('0'+(yd.getMonth()+1)).slice(-2)+'-'+('0'+yd.getDate()).slice(-2);
+      c.push('<span class="chip up">+'+fmt(d)+' '+(span!==1?'since '+nice(cov(a)):day===yiso?'yesterday':'on '+nice(day))+'</span>'); } }
   var ev=daysUntil(EV_START), evEnd=daysUntil(EV_END), ed=daysUntil(EDAY);
   if(ev>1) c.push('<span class="chip">'+plural(ev,'day')+' to early voting</span>');
   else if(ev===1) c.push('<span class="chip">Early voting starts tomorrow</span>');
