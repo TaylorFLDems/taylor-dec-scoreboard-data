@@ -260,8 +260,14 @@ var EV_START='2026-10-24', EV_END='2026-10-31', EDAY='2026-11-03', MILES=[100,25
 function plural(n,w){ return n+' '+w+(n===1?'':'s'); }
 function chips(P){
   var c=[], hs=(P&&P.history)||[];
+  /* Gain between the two newest daily files = ballots from the day the newer file
+     covers (the state posts each file the next morning). Oct 29, Trey: "since the
+     Oct 28 file" didn't say which day; name it, like Countywide's chip. */
   if(hs.length>1){ var a=hs[hs.length-2], b=hs[hs.length-1], d=(b.p13||0)-(a.p13||0);
-    if(d>0) c.push('<span class="chip up">+'+fmt(d)+' since '+(a.file_date?'the '+nice(a.file_date)+' file':nice(a.date))+'</span>'); }
+    if(d>0){ var cov=function(x){ return x.file_date?prevDay(x.file_date):x.date; }, day=cov(b),
+        span=Math.round((ymd(day)-ymd(cov(a)))/864e5), yd=new Date(); yd.setDate(yd.getDate()-1);
+      var yiso=yd.getFullYear()+'-'+('0'+(yd.getMonth()+1)).slice(-2)+'-'+('0'+yd.getDate()).slice(-2);
+      c.push('<span class="chip up">+'+fmt(d)+' '+(span!==1?'since '+nice(cov(a)):day===yiso?'yesterday':'on '+nice(day))+'</span>'); } }
   var ev=daysUntil(EV_START), evEnd=daysUntil(EV_END), ed=daysUntil(EDAY);
   if(ev>1) c.push('<span class="chip">'+plural(ev,'day')+' to early voting</span>');
   else if(ev===1) c.push('<span class="chip">Early voting starts tomorrow</span>');
@@ -563,6 +569,32 @@ function mailNow(L, t){
   var est={}; ['D','R','NPA','T'].forEach(function(k){ est[k]=Math.max(0,out[k]-(n[k]-st[k])); });
   return {live:true,n:n,st:st,out:est,gain:n.D-st.D,at:(at&&!isNaN(at))?at:null};
 }
+/* Democratic mail returns by the day the office received them (Oct 29, 2026, Trey).
+   The state report and the voter file pick up returns in batches every other day, so
+   dating them by report put Monday's 24 and Tuesday's 10 on Tuesday as 39. Days the
+   voter file covers come from its BallotReturnDate counts (p13.json mail_by_day).
+   Ballots the county has logged beyond the file go on the days after it, split by the
+   county feed's all-party mail counts for those days (today if it has none).
+   Returns {by:{iso:n}, thru, pending} or null when p13.json has no day counts. */
+function demMailByDay(L, P){
+  var c=P&&P.county_dem; if(!c||!c.mail_by_day) return null;
+  var by={}, filed=0; c.mail_by_day.forEach(function(x){ by[x.date]=x.dem; filed+=x.dem; });
+  var t=L.days[L.days.length-1].taylor, M=mailNow(L,t), target=Math.max(M.n.D||0, t.vbm_returned.D||0), extra=target-filed;
+  var thru=c.returns_through||'', today=isoDay(new Date());
+  if(extra>0){
+    var dt={}; try{ dt=L.tqv.Turnout.DateType||{}; }catch(e){}
+    var days=[], w=0;
+    Object.keys(dt).forEach(function(k){ var p=k.split('/'), iso=p[2]+'-'+p[0]+'-'+p[1], m=+((dt[k]||{}).Mail)||0;
+      if(iso>thru && iso<=today && m>0){ days.push({d:iso,m:m}); w+=m; } });
+    if(!days.length){ by[today]=(by[today]||0)+extra; }
+    else { days.sort(function(a,b){return a.d<b.d?-1:1;});
+      var given=0, parts=days.map(function(x){ var e=extra*x.m/w; return {d:x.d, n:Math.floor(e), r:e-Math.floor(e)}; });
+      parts.forEach(function(x){ given+=x.n; });
+      parts.slice().sort(function(a,b){return b.r-a.r;}).slice(0,extra-given).forEach(function(x){ x.n++; });
+      parts.forEach(function(x){ by[x.d]=(by[x.d]||0)+x.n; }); }
+  }
+  return {by:by, thru:thru, pending:Math.max(0,extra)};
+}
 function liveNote(EV, MAIL){ var on=daysUntil('2026-10-24')<=0 && daysUntil('2026-11-03')>=0;
   if(MAIL && MAIL.live) return ' Both come from the elections office\'s running count, which updates through the day.';
   return (EV.live && on) ? ' In-person votes come from the elections office\'s running count, which updates through the day.' : ''; }
@@ -596,7 +628,7 @@ var DP_SER=[{k:'D',label:'Democrats',color:'var(--navy)',shape:'circle'},
             {k:'R',label:'Republicans',color:'var(--red)',shape:'diamond',dash:'6 4'},
             {k:'O',label:'Everyone else',color:'var(--other)',shape:'square',dash:'2 3'}];
 function dpKey(iso){ var p=iso.split('-'); return p[1]+'/'+p[2]+'/'+p[0]; }
-function dpDays(L){
+function dpDays(L, P){
   var reg=L.registration||DP_REG_FALLBACK, den={D:reg.D, R:reg.R, O:(reg.minor||0)+(reg.NPA||0)};
   var out=[], dd=ymd(EV_START), end=ymd(EDAY), today=isoDay(new Date()), D=L.days;
   var loc=null, ped=null; try{ loc=L.tqv.Turnout.LocationDay.EarlyVoting; ped=L.tqv.Turnout.PartyType; }catch(e){}
@@ -606,6 +638,13 @@ function dpDays(L){
     rate[cov]={}; ['D','R','O'].forEach(function(k){ var t=ret[k]+out_[k]; rate[cov][k]=t?{pct:100*ret[k]/t, ret:ret[k], tot:t}:null; });
     if(i){ var ea=grp(D[i-1].taylor,'early_voted'), eb=grp(D[i].taylor,'early_voted');
       st[cov]={D:Math.max(0,eb.D-ea.D), R:Math.max(0,eb.R-ea.R), O:Math.max(0,eb.O-ea.O)}; } }
+  /* Democratic line: running returns by received date over ballots issued (the state
+     report covering that day, else the newest), so it climbs on the right days and
+     reaches today from the county's live count. Others stay on the state report. */
+  var DM=demMailByDay(L, P), lastT=D[D.length-1].taylor, issuedNow=(lastT.vbm_returned.D||0)+(lastT.vbm_outstanding.D||0);
+  var dmDays=DM?Object.keys(DM.by).sort():[];
+  function demRate(iso){ if(!DM||iso>today) return null; var cum=0; dmDays.forEach(function(k){ if(k<=iso) cum+=DM.by[k]; });
+    var tot=(rate[iso]&&rate[iso].D)?rate[iso].D.tot:issuedNow; return tot?{pct:100*cum/tot, ret:cum, tot:tot}:null; }
   for(; dd<=end; dd.setDate(dd.getDate()+1)){
     var iso=isoDay(dd), inp=null;
     if(NOVOTE[iso]) continue;  /* no voting Nov 1 and 2 (Trey, Oct 28) */
@@ -620,7 +659,7 @@ function dpDays(L){
     var r={d:iso, today:iso===today, future:iso>today, n:{}, pct:{}, mail:{}};
     DP_SER.forEach(function(sr){ var n=inp?inp[sr.k]:null;
       r.n[sr.k]=n; r.pct[sr.k]=(n==null||!den[sr.k])?null:100*n/den[sr.k];
-      r.mail[sr.k]=rate[iso]?rate[iso][sr.k]:null; });
+      r.mail[sr.k]=(sr.k==='D'&&DM)?demRate(iso):(rate[iso]?rate[iso][sr.k]:null); });
     out.push(r); }
   return {days:out, den:den, reg:reg};
 }
@@ -638,8 +677,8 @@ function dpSwatch(sr){
     (sr.dash?' stroke-dasharray="'+sr.dash+'"':'')+'/>'+m+'</svg>';
 }
 function dpPct(v,dp){ return v==null?'&ndash;':v.toFixed(dp)+'%'; }
-function dayPartySection(L){
-  var X=dpDays(L), done=X.days.filter(function(r){return !r.future;});
+function dayPartySection(L, P){
+  var X=dpDays(L, P), done=X.days.filter(function(r){return !r.future;});
   var rows=done.slice().reverse().map(function(r){
     return '<tr><td>'+nice(r.d)+(r.today?' (so far)':'')+'</td>'+
       DP_SER.map(function(sr){ return '<td>'+dpPct(r.pct[sr.k],1)+' <small>('+fmt(r.n[sr.k])+')</small></td>'; }).join('')+
@@ -657,7 +696,7 @@ function dayPartySection(L){
     DP_SER.map(function(sr){return '<th>'+esc(sr.label.split(' ')[0])+'</th>';}).join('')+DP_SER.map(function(sr){return '<th>'+esc(sr.label.split(' ')[0])+'</th>';}).join('')+
     '</tr></thead><tbody>'+rows+'</tbody></table></details>'+
     '<div class="sub">In person comes from the elections office&rsquo;s running count, so today&rsquo;s point (hollow) updates through the day. '+
-    'Mail return rates come from the state&rsquo;s morning report, so each day&rsquo;s point appears the next morning. '+
+    'Democratic mail returns are dated by the day the office received them, from the state&rsquo;s voter file plus the office&rsquo;s running count for the newest days. Republican and other return rates come from the state&rsquo;s morning report, so they can trail a day or two. '+
     'Registration: Florida Department of State, active voters as of '+esc(nice(X.reg.as_of))+'. Everyone else is no party plus minor parties.</div></div>';
 }
 /* one panel: shared x layout, its own single y-axis */
@@ -692,12 +731,12 @@ function dpPanel(id, days, get, o){
       tipAt(svg, lab+o.tip(r), e); });
     hit.addEventListener('mouseleave',tipOff); svg.appendChild(hit); });
 }
-function dayPartyChart(id, L){
-  var days=dpDays(L).days;
+function dayPartyChart(id, L, P){
+  var days=dpDays(L, P).days;
   dpPanel(id, days, function(r,k){ return r.pct[k]; }, {hollowToday:true,
     step:function(t){ return t<=2?0.5:t<=5?1:t<=10?2:5; },
     tip:function(r){ return r.future?' &middot; still to come':(r.today?' (so far)':'')+DP_SER.map(function(sr){ return ' &middot; '+sr.label.split(' ')[0]+' '+r.pct[sr.k].toFixed(1)+'% ('+fmt(r.n[sr.k])+')'; }).join(''); }});
-  dpPanel('tdsb-a-mailrate', days, function(r,k){ return r.mail[k]?r.mail[k].pct:null; }, {
+  dpPanel('tdsb-a-mailrate', days, function(r,k){ return r.mail[k]?r.mail[k].pct:null; }, {hollowToday:true,
     step:function(t){ return t<=20?5:t<=50?10:20; },
     tip:function(r){ return r.mail.D?DP_SER.map(function(sr){ var m=r.mail[sr.k]; return ' &middot; '+sr.label.split(' ')[0]+' '+(m?m.pct.toFixed(1)+'% ('+fmt(m.ret)+' of '+fmt(m.tot)+')':'&ndash;'); }).join('')
       :(r.future?' &middot; still to come':' &middot; in tomorrow morning&rsquo;s report'); }});
@@ -736,7 +775,7 @@ function grantA(L, P, S){
      (S? sheetMeter(S,'a_mailer')+sheetMeter(S,'a_dropoff')+sheetMeter(S,'a_regs')+sheetMeter(S,'a_contacts')
        : '<div class="sub">Hand counts are not connected yet.</div>')+'</div>';
   h+='</div>';
-  h+=dayPartySection(L);
+  h+=dayPartySection(L,P);
   h+='<div class="sec">Mail ballots on file, day by day</div><div class="card"><p class="cap">Democratic ballots on file against a straight path to '+fmt(G.a_onfile)+' by Oct 22.</p><svg id="tdsb-a-pace" role="img" aria-label="Mail ballots on file over time"></svg></div>';
   h+=cardSection(P);
   h+=foot(L,P,S);
@@ -744,7 +783,7 @@ function grantA(L, P, S){
   paceChart('tdsb-a-pace', hist, G.a_onfile, hist[0].d, '2026-10-22', 'on file');
   cardChart(P);
   partyChart(P);
-  dayPartyChart('tdsb-a-days', L);
+  dayPartyChart('tdsb-a-days', L, P);
   animateIn();
 }
 
