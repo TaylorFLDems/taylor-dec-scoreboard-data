@@ -1,35 +1,35 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-29T13:57:29-04:00",
- "through": "2026-10-28",
+ "updated_at": "2026-10-30T08:17:26-04:00",
+ "through": "2026-10-29",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
-  "md5": "f0646eb28726ffa20b2f56cf323db471",
-  "rows": 1129,
-  "dem_rows": 403,
-  "through": "2026-10-28",
-  "file_date": "2026-10-29"
+  "md5": "c32c2ee2a2b3ae98e31cdb4fa19695a2",
+  "rows": 1132,
+  "dem_rows": 405,
+  "through": "2026-10-29",
+  "file_date": "2026-10-30"
  },
  "evl_file": {
   "file": "TAY_EVL_49894.txt",
-  "md5": "d0bd4bc6bb06ce27a9e7f276bdaf0967",
-  "rows": 1575,
-  "dem_rows": 374,
-  "blank_precinct": 45,
-  "through": "2026-10-28",
-  "file_date": "2026-10-29"
+  "md5": "b597a7105fec96c1216c104e6316a05e",
+  "rows": 1922,
+  "dem_rows": 458,
+  "blank_precinct": 53,
+  "through": "2026-10-29",
+  "file_date": "2026-10-30"
  },
  "county_dem": {
-  "mail_active": 400,
+  "mail_active": 402,
   "mail_cancelled": 3,
-  "mail_returned": 245,
-  "mail_outstanding": 152,
+  "mail_returned": 272,
+  "mail_outstanding": 125,
   "mail_outstanding_already_voted_early": 6,
-  "chase": 146,
-  "status_unconfirmed": 2,
-  "early_voted": 374,
+  "chase": 119,
+  "status_unconfirmed": 3,
+  "early_voted": 458,
   "double_votes": 0,
-  "cast_before_eday": 619,
+  "cast_before_eday": 730,
   "mail_by_day": [
    {
     "date": "2026-09-28",
@@ -126,32 +126,40 @@
    {
     "date": "2026-10-27",
     "dem": 10
+   },
+   {
+    "date": "2026-10-28",
+    "dem": 14
+   },
+   {
+    "date": "2026-10-29",
+    "dem": 13
    }
   ],
-  "returns_through": "2026-10-27",
-  "cure_flagged": 6,
+  "returns_through": "2026-10-29",
+  "cure_flagged": 7,
   "cure_cured": 5,
-  "cure_open": 1
+  "cure_open": 2
  },
  "precincts": {
   "013": {
    "mail_active": 107,
-   "mail_returned": 70,
-   "mail_outstanding_chase": 35,
-   "early_voted": 140,
-   "cast_before_eday": 210,
+   "mail_returned": 75,
+   "mail_outstanding_chase": 29,
+   "early_voted": 164,
+   "cast_before_eday": 239,
    "dem_active": 878,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
-   "cure_flagged": 4,
+   "cure_flagged": 5,
    "cure_cured": 4,
-   "cure_open": 0
+   "cure_open": 1
   },
   "014": {
    "mail_active": 50,
-   "mail_returned": 27,
-   "mail_outstanding_chase": 22,
-   "early_voted": 35,
-   "cast_before_eday": 62,
+   "mail_returned": 31,
+   "mail_outstanding_chase": 18,
+   "early_voted": 42,
+   "cast_before_eday": 73,
    "dem_active": 291,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -160,10 +168,10 @@
   },
   "001": {
    "mail_active": 49,
-   "mail_returned": 31,
-   "mail_outstanding_chase": 18,
-   "early_voted": 40,
-   "cast_before_eday": 71,
+   "mail_returned": 37,
+   "mail_outstanding_chase": 12,
+   "early_voted": 52,
+   "cast_before_eday": 89,
    "dem_active": 267,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 1,
@@ -172,10 +180,10 @@
   },
   "002": {
    "mail_active": 45,
-   "mail_returned": 25,
-   "mail_outstanding_chase": 15,
-   "early_voted": 25,
-   "cast_before_eday": 50,
+   "mail_returned": 26,
+   "mail_outstanding_chase": 14,
+   "early_voted": 28,
+   "cast_before_eday": 54,
    "dem_active": 247,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 1,
@@ -186,8 +194,8 @@
    "mail_active": 27,
    "mail_returned": 17,
    "mail_outstanding_chase": 10,
-   "early_voted": 29,
-   "cast_before_eday": 46,
+   "early_voted": 44,
+   "cast_before_eday": 61,
    "dem_active": 237,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -285,10 +293,15 @@
     "date": "2026-10-23",
     "card": 1,
     "other": 1
+   },
+   {
+    "date": "2026-10-29",
+    "card": 1,
+    "other": 0
    }
   ],
-  "card_since_delivery": 48,
-  "card_households_since_delivery": 40,
+  "card_since_delivery": 49,
+  "card_households_since_delivery": 41,
   "party_daily": [
    {
     "date": "2026-10-03",
@@ -379,6 +392,11 @@
     "date": "2026-10-27",
     "dem": 0,
     "rep": 0
+   },
+   {
+    "date": "2026-10-29",
+    "dem": 1,
+    "rep": 0
    }
   ],
   "reg": {
@@ -387,7 +405,7 @@
   },
   "reg_source": "DOS book closing, Oct 5, 2026"
  },
- "file_date": "2026-10-29",
+ "file_date": "2026-10-30",
  "history": [
   {
    "date": "2026-10-03",
@@ -552,6 +570,14 @@
    "mail_active": 400,
    "chase": 146,
    "file_date": "2026-10-29"
+  },
+  {
+   "date": "2026-10-29",
+   "p13": 239,
+   "county": 730,
+   "mail_active": 402,
+   "chase": 119,
+   "file_date": "2026-10-30"
   }
  ],
  "note": "Aggregate counts from the DS-DE 145/147 files, which are confidential under s.101.62(2), F.S. No voter-level data is published."
