@@ -44,6 +44,18 @@ def chip_text(today):
     return "Election Day: polls open 7 AM to 7 PM"
 
 
+EV_WHERE = "8 AM to 5 PM \u00b7 Elections office, 433 N. US Hwy 19"
+
+
+def chip_html(today):
+    """Chip markup. During early voting it carries the hours and place on a second line
+    (Oct 30, Trey). Hours and place: taylorelectionsfl.gov/early-voting, checked Oct 23, 2026."""
+    top = html.escape(chip_text(today))
+    if EV_START <= today <= EV_END:
+        return f'{top}<small>{html.escape(EV_WHERE)}</small>'
+    return top
+
+
 def gain(hist, key):
     """Points gained on the day the newest file covers, or None. History rows are keyed
     by the file's last activity date; the state posts each file the next morning."""
@@ -131,7 +143,8 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 .c{{position:relative;width:1080px;height:1080px;padding:64px 72px 0;color:#fff}}
 .top{{display:flex;justify-content:space-between;align-items:center}}
 .logo{{height:84px;display:block}}
-.chip{{font:800 21px Archivo;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:#0A3161;padding:14px 22px;border-radius:999px}}
+.chip{{font:800 21px Archivo;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:#0A3161;padding:14px 24px;border-radius:26px;text-align:center}}
+.chip small{{display:block;margin-top:5px;font:700 19px Archivo;letter-spacing:.02em;text-transform:none;color:#0A3161}}
 .kick{{display:flex;align-items:center;gap:14px;margin-top:44px;font:700 22px Archivo;letter-spacing:.14em;text-transform:uppercase}}
 .kick:before{{content:"";width:38px;height:4px;background:#fff}}
 .hero{{display:flex;align-items:center;gap:30px;margin-top:14px}}
@@ -159,7 +172,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 .asof{{font:500 20px 'Libre Franklin';color:rgba(255,255,255,.7);text-align:right}}
 .stripe{{position:absolute;left:0;right:0;bottom:0;height:20px;background-image:repeating-linear-gradient(120deg,#061f3e 0,#061f3e 14px,#B31942 14px,#B31942 28px,#fff 28px,#fff 42px)}}
 </style></head><body><div class="c">
-<div class="top"><img class="logo" src="logo-white.png" alt=""><div class="chip">{html.escape(chip_text(today))}</div></div>
+<div class="top"><img class="logo" src="logo-white.png" alt=""><div class="chip">{chip_html(today)}</div></div>
 <div class="kick">Perry Neighborhood Scoreboard</div>
 <div class="hero"><div class="big">{perry:g}<i>%</i></div><div><div class="lab">of Perry Democrats have voted</div>{delta}</div></div>
 <div class="main"><div class="map">{svg}<div class="leg"><span class="t">Share who have voted</span>{legend}</div></div>
@@ -208,7 +221,8 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 .c{{position:relative;width:1080px;height:1080px;padding:64px 72px 0;color:#fff}}
 .top{{display:flex;justify-content:space-between;align-items:center}}
 .logo{{height:84px;display:block}}
-.chip{{font:800 21px Archivo;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:#0A3161;padding:14px 22px;border-radius:999px}}
+.chip{{font:800 21px Archivo;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:#0A3161;padding:14px 24px;border-radius:26px;text-align:center}}
+.chip small{{display:block;margin-top:5px;font:700 19px Archivo;letter-spacing:.02em;text-transform:none;color:#0A3161}}
 .kick{{display:flex;align-items:center;gap:14px;margin-top:56px;font:700 22px Archivo;letter-spacing:.14em;text-transform:uppercase}}
 .kick:before{{content:"";width:38px;height:4px;background:#fff}}
 .stats{{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:22px}}
@@ -231,7 +245,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 .asof{{font:500 20px 'Libre Franklin';color:rgba(255,255,255,.7);text-align:right}}
 .stripe{{position:absolute;left:0;right:0;bottom:0;height:20px;background-image:repeating-linear-gradient(120deg,#061f3e 0,#061f3e 14px,#B31942 14px,#B31942 28px,#fff 28px,#fff 42px)}}
 </style></head><body><div class="c">
-<div class="top"><img class="logo" src="logo-white.png" alt=""><div class="chip">{html.escape(chip_text(today))}</div></div>
+<div class="top"><img class="logo" src="logo-white.png" alt=""><div class="chip">{chip_html(today)}</div></div>
 <div class="kick">{kick}</div>
 {stats}
 <div class="sec">{sec}</div>
