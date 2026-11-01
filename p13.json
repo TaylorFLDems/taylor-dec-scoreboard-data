@@ -1,35 +1,35 @@
 {
  "election_id": "49894",
- "updated_at": "2026-10-31T08:14:33-04:00",
- "through": "2026-10-30",
+ "updated_at": "2026-11-01T08:12:25-05:00",
+ "through": "2026-10-31",
  "vbm_file": {
   "file": "TAY_VBM_49894.txt",
-  "md5": "0248e8631691a2c6701e4aa8573efbdd",
-  "rows": 1134,
+  "md5": "1e2ca92ffa86848ae6004c4bdc7f6257",
+  "rows": 1135,
   "dem_rows": 405,
-  "through": "2026-10-30",
-  "file_date": "2026-10-31"
+  "through": "2026-10-31",
+  "file_date": "2026-11-01"
  },
  "evl_file": {
   "file": "TAY_EVL_49894.txt",
-  "md5": "450ca41a07d1df7123a89ab9957c8b1f",
-  "rows": 2412,
-  "dem_rows": 574,
-  "blank_precinct": 67,
-  "through": "2026-10-30",
-  "file_date": "2026-10-31"
+  "md5": "97335421b1ef85be54565a3363f53252",
+  "rows": 2840,
+  "dem_rows": 685,
+  "blank_precinct": 75,
+  "through": "2026-10-31",
+  "file_date": "2026-11-01"
  },
  "county_dem": {
   "mail_active": 402,
   "mail_cancelled": 3,
-  "mail_returned": 272,
-  "mail_outstanding": 125,
+  "mail_returned": 296,
+  "mail_outstanding": 101,
   "mail_outstanding_already_voted_early": 6,
-  "chase": 119,
+  "chase": 95,
   "status_unconfirmed": 3,
-  "early_voted": 574,
+  "early_voted": 685,
   "double_votes": 0,
-  "cast_before_eday": 846,
+  "cast_before_eday": 981,
   "mail_by_day": [
    {
     "date": "2026-09-28",
@@ -134,9 +134,13 @@
    {
     "date": "2026-10-29",
     "dem": 13
+   },
+   {
+    "date": "2026-10-30",
+    "dem": 24
    }
   ],
-  "returns_through": "2026-10-29",
+  "returns_through": "2026-10-30",
   "cure_flagged": 7,
   "cure_cured": 5,
   "cure_open": 2
@@ -144,10 +148,10 @@
  "precincts": {
   "013": {
    "mail_active": 107,
-   "mail_returned": 75,
-   "mail_outstanding_chase": 29,
-   "early_voted": 202,
-   "cast_before_eday": 277,
+   "mail_returned": 88,
+   "mail_outstanding_chase": 16,
+   "early_voted": 246,
+   "cast_before_eday": 334,
    "dem_active": 878,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 5,
@@ -158,8 +162,8 @@
    "mail_active": 50,
    "mail_returned": 31,
    "mail_outstanding_chase": 18,
-   "early_voted": 54,
-   "cast_before_eday": 85,
+   "early_voted": 68,
+   "cast_before_eday": 99,
    "dem_active": 291,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -170,8 +174,8 @@
    "mail_active": 49,
    "mail_returned": 37,
    "mail_outstanding_chase": 12,
-   "early_voted": 70,
-   "cast_before_eday": 107,
+   "early_voted": 83,
+   "cast_before_eday": 120,
    "dem_active": 267,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 1,
@@ -180,10 +184,10 @@
   },
   "002": {
    "mail_active": 45,
-   "mail_returned": 26,
-   "mail_outstanding_chase": 14,
-   "early_voted": 31,
-   "cast_before_eday": 57,
+   "mail_returned": 27,
+   "mail_outstanding_chase": 13,
+   "early_voted": 37,
+   "cast_before_eday": 64,
    "dem_active": 247,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 1,
@@ -192,10 +196,10 @@
   },
   "007": {
    "mail_active": 27,
-   "mail_returned": 17,
-   "mail_outstanding_chase": 10,
-   "early_voted": 56,
-   "cast_before_eday": 73,
+   "mail_returned": 19,
+   "mail_outstanding_chase": 8,
+   "early_voted": 62,
+   "cast_before_eday": 81,
    "dem_active": 237,
    "dem_active_source": "Book closing, Oct 5, 2026 (Taylor SOE)",
    "cure_flagged": 0,
@@ -402,6 +406,11 @@
     "date": "2026-10-30",
     "dem": 0,
     "rep": 2
+   },
+   {
+    "date": "2026-10-31",
+    "dem": 0,
+    "rep": 1
    }
   ],
   "reg": {
@@ -410,7 +419,7 @@
   },
   "reg_source": "DOS book closing, Oct 5, 2026"
  },
- "file_date": "2026-10-31",
+ "file_date": "2026-11-01",
  "history": [
   {
    "date": "2026-10-03",
@@ -591,6 +600,14 @@
    "mail_active": 402,
    "chase": 119,
    "file_date": "2026-10-31"
+  },
+  {
+   "date": "2026-10-31",
+   "p13": 334,
+   "county": 981,
+   "mail_active": 402,
+   "chase": 95,
+   "file_date": "2026-11-01"
   }
  ],
  "note": "Aggregate counts from the DS-DE 145/147 files, which are confidential under s.101.62(2), F.S. No voter-level data is published."
