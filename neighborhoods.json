@@ -1,27 +1,27 @@
 {
  "election_id": "49894",
- "updated_at": "2026-11-01T08:14:15-05:00",
- "through": "2026-10-31",
- "file_date": "2026-11-01",
+ "updated_at": "2026-11-03T08:28:15-05:00",
+ "through": "2026-11-02",
+ "file_date": "2026-11-03",
  "areas": {
   "98 West": 11,
   "Belair": 44,
   "Beverly Estates": 33,
-  "Blair-Hine, Eastwood & Fairlawn": 41,
+  "Blair-Hine, Eastwood & Fairlawn": 43,
   "Calhoun & Hendry": 41,
   "Colonial Heights & Puckett": 43,
   "Dreamland": 31,
   "East Perry": 38,
   "El Rancho": 42,
-  "Glenridge & Pine Ridge": 41,
+  "Glenridge & Pine Ridge": 42,
   "Green Acres": 44,
   "Homehaven & Milldale": 15,
   "Jerkins Heights & Westwood": 38,
-  "North Perry (US 221)": 19,
+  "North Perry (US 221)": 24,
   "Original Town (East)": 37,
-  "Parkview & Myrtle": 46,
+  "Parkview & Myrtle": 48,
   "Perry Heights & Forest Heights": 29,
-  "Perry Park & Wilcox": 50,
+  "Perry Park & Wilcox": 60,
   "Pineland & Tippett": 36,
   "Quinndale & Brobston": 45,
   "South Perry": 29,
@@ -29,16 +29,16 @@
   "Spring Lake": 38,
   "Taco Heights": 36,
   "The Clark": 55,
-  "Warner, Walnut & Folsom": 29,
-  "West Brook & Curls": 47
+  "Warner, Walnut & Folsom": 30,
+  "West Brook & Curls": 49
  },
- "perry": 38,
+ "perry": 39,
  "buckets": {
-  "perry": 39,
+  "perry": 40,
   "north": 33,
-  "southwest": 27,
-  "east": 23,
-  "coast": 33,
+  "southwest": 28,
+  "east": 24,
+  "coast": 34,
   "south": 24
  },
  "county": 35,
@@ -96,6 +96,11 @@
   {
    "date": "2026-10-31",
    "perry": 38,
+   "county": 35
+  },
+  {
+   "date": "2026-11-02",
+   "perry": 39,
    "county": 35
   }
  ],
