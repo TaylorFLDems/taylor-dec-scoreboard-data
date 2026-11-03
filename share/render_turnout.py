@@ -33,6 +33,14 @@ def nice(d):
     return f"{d:%b} {d.day}"
 
 
+def asof_text(n, file_day):
+    """Footer date line. On Election Day (Nov 3, 2026) the shares come from the Elections Office voted list, not the
+    state file, and neighborhoods.json says so with "eday_as_of"."""
+    if n.get("eday_as_of"):
+        return html.escape(f"Includes Election Day, list as of {n['eday_as_of']}")
+    return f"State file of {nice(file_day)}"
+
+
 def chip_text(today):
     if today < EV_START:
         n = (EV_START - today).days
@@ -180,7 +188,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 <p class="note">Letters match the map and the scoreboard page, where you can find all 27 neighborhoods.</p></div></div>
 </div>
 <div class="foot"><div class="url"><small>Find your neighborhood</small>{PAGE}</div>
-<div class="asof">State file of {nice(file_day)}</div></div>
+<div class="asof">{asof_text(n, file_day)}</div></div>
 <div class="stripe"></div></body></html>"""
 
 
@@ -252,7 +260,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 <div class="rows">{bars}</div>
 </div>
 <div class="foot"><div class="url"><small>Find your neighborhood</small>{PAGE}</div>
-<div class="asof">State file of {nice(file_day)}</div></div>
+<div class="asof">{asof_text(n, file_day)}</div></div>
 <div class="stripe"></div></body></html>"""
 
 
