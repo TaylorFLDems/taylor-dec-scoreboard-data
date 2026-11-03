@@ -12,6 +12,11 @@ on:
     # 14:41 UTC = 10:41 a.m. EDT (9:41 a.m. EST after Nov 1). Odd minute on
     # purpose: GitHub drops scheduled runs at :00/:30 under load.
     - cron: '41 14 * * *'
+    # Election Day, Nov 3, 2026: re-render about every 30 minutes until the polls close (7 PM ET =
+    # 00:00 UTC Nov 4) so the P13 image picks up Jerkins' live Election Day count from the county feed.
+    # render_daily.py stops itself after Nov 3 (Eastern).
+    - cron: '17,47 20-23 3 11 *'
+    - cron: '17,47 0 4 11 *'
   workflow_dispatch:
 
 permissions:

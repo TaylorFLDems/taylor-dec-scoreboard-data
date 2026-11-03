@@ -9,7 +9,7 @@ the 600 goal with milestones, and the countdown. Aggregates only.
 
 Usage:  python share/render_daily.py [--date YYYY-MM-DD]   (--date is for testing)
 """
-import argparse, datetime as dt, html, json, os, shutil, sys
+import argparse, datetime as dt, html, json, os, re, shutil, sys
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -59,6 +59,32 @@ def chip_text(today):
     return "Election Day: polls open 7 AM to 7 PM"
 
 
+FEED = "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json"
+
+
+def eday_jerkins(today):
+    """Election Day only (Nov 3, 2026, Trey: keep every public stat current): Precinct 13 Democrats who have
+    voted at Jerkins today, from the county's live turnout feed. The scoreboard page adds the same number
+    to the state file's count, so the image matches the page. Returns (count, "3:20 PM") or (None, None);
+    any trouble reading the feed falls back to the state count alone. TQV_FILE=path reads a saved copy (testing)."""
+    if today != EDAY:
+        return None, None
+    try:
+        if os.environ.get("TQV_FILE"):
+            j = json.loads(Path(os.environ["TQV_FILE"]).read_text())
+        else:
+            import time, urllib.request
+            with urllib.request.urlopen(f"{FEED}?cb={int(time.time())}", timeout=20) as r:
+                j = json.load(r)
+        n = int(j["Turnout"]["LocationParty"]["ElectionDay"]["013"]["DEM"])
+        stamp = re.sub(r"\.\d+", "", j["Summary"]["LastUpdatedTime"]).replace("Z", "+00:00")
+        t = dt.datetime.fromisoformat(stamp).astimezone(ZoneInfo("America/New_York"))
+        return (n, f"{t:%I:%M %p}".lstrip("0")) if n > 0 else (None, None)
+    except Exception as e:  # noqa: BLE001 - never fail the render over the live feed
+        print(f"county feed not used: {e}")
+        return None, None
+
+
 def build(p, today):
     me = (p.get("precincts") or {}).get("013") or {}
     count = me.get("cast_before_eday")
@@ -67,12 +93,18 @@ def build(p, today):
     # Label by the day the state posted the file, not its last activity date, which
     # lags on days the county logs no returns.
     file_day = dt.date.fromisoformat(p.get("file_date") or p["through"])
+    asof = f"State file of {nice(file_day)}"
 
     hist = [h for h in p.get("history", []) if h.get("p13") is not None]
     delta_html = ""
     if len(hist) >= 2 and hist[-1]["p13"] > hist[-2]["p13"]:
         d = hist[-1]["p13"] - hist[-2]["p13"]
         delta_html = f'<span class="delta">+{d:,} {gain_day(hist[-2], hist[-1])}</span>'
+    ed, ed_time = eday_jerkins(today)
+    if ed:
+        count += ed
+        delta_html = f'<span class="delta">+{ed:,} at Jerkins today</span>'
+        asof = f"State file of {nice(file_day)},<br>plus Election Day as of {ed_time}"
 
     if count > 0:
         hero = (f'<div class="big">{count:,}</div>'
@@ -141,7 +173,7 @@ html,body{{width:1080px;height:1080px;background:#0A3161;color:#fff;overflow:hid
 <div class="next">{html.escape(next_line)}</div>
 </div>
 <div class="foot"><div class="url"><small>Make your plan to vote</small>{PAGE}</div>
-<div class="asof">State file of {nice(file_day)}</div></div>
+<div class="asof">{asof}</div></div>
 <div class="stripe"></div></body></html>"""
 
 
