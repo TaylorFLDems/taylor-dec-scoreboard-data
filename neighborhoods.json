@@ -1,47 +1,47 @@
 {
  "election_id": "49894",
- "updated_at": "2026-11-03T14:49:51-05:00",
+ "updated_at": "2026-11-03T15:00:11-05:00",
  "through": "2026-11-02",
  "file_date": "2026-11-03",
  "areas": {
   "98 West": 44,
-  "Belair": 58,
+  "Belair": 59,
   "Beverly Estates": 51,
-  "Blair-Hine, Eastwood & Fairlawn": 54,
+  "Blair-Hine, Eastwood & Fairlawn": 57,
   "Calhoun & Hendry": 52,
-  "Colonial Heights & Puckett": 50,
-  "Dreamland": 44,
+  "Colonial Heights & Puckett": 52,
+  "Dreamland": 46,
   "East Perry": 44,
-  "El Rancho": 52,
-  "Glenridge & Pine Ridge": 45,
+  "El Rancho": 54,
+  "Glenridge & Pine Ridge": 51,
   "Green Acres": 54,
   "Homehaven & Milldale": 30,
-  "Jerkins Heights & Westwood": 49,
+  "Jerkins Heights & Westwood": 50,
   "North Perry (US 221)": 29,
-  "Original Town (East)": 54,
-  "Parkview & Myrtle": 65,
+  "Original Town (East)": 56,
+  "Parkview & Myrtle": 66,
   "Perry Heights & Forest Heights": 38,
   "Perry Park & Wilcox": 67,
-  "Pineland & Tippett": 46,
-  "Quinndale & Brobston": 47,
-  "South Perry": 39,
-  "Southwood & Quail Point": 50,
-  "Spring Lake": 51,
+  "Pineland & Tippett": 57,
+  "Quinndale & Brobston": 49,
+  "South Perry": 45,
+  "Southwood & Quail Point": 52,
+  "Spring Lake": 54,
   "Taco Heights": 36,
-  "The Clark": 71,
-  "Warner, Walnut & Folsom": 43,
-  "West Brook & Curls": 56
+  "The Clark": 77,
+  "Warner, Walnut & Folsom": 44,
+  "West Brook & Curls": 58
  },
- "perry": 50,
+ "perry": 52,
  "buckets": {
-  "perry": 51,
-  "north": 44,
-  "southwest": 37,
-  "east": 33,
-  "coast": 43,
-  "south": 52
+  "perry": 52,
+  "north": 46,
+  "southwest": 41,
+  "east": 35,
+  "coast": 47,
+  "south": 58
  },
- "county": 46,
+ "county": 49,
  "history": [
   {
    "date": "2026-10-21",
@@ -105,11 +105,11 @@
   },
   {
    "date": "2026-11-03",
-   "perry": 50,
-   "county": 46
+   "perry": 52,
+   "county": 49
   }
  ],
- "eday_as_of": "1:20 PM",
+ "eday_as_of": "2:43 PM",
  "method": "Share of Democrats who have voted early, by mail or on Election Day, from the Taylor County Elections Office list of who has voted. Neighborhoods: over active Democrats living there (SOE voter extract, Oct 16, 2026). County buckets: over active Democrats in those precincts at the Oct 5, 2026 book closing.",
  "note": "Percentages only. No voter-level data is published."
 }
