@@ -1,16 +1,16 @@
 {
- "checked_at": "2026-11-03T19:36:37-05:00",
+ "checked_at": "2026-11-04T14:45:33-05:00",
  "ok": true,
  "error": null,
- "last_ok_at": "2026-11-03T19:36:37-05:00",
+ "last_ok_at": "2026-11-04T14:45:33-05:00",
  "state": {
-  "county_compiled": "11/03/2026 8:09AM",
-  "statewide_compiled": "11/03/2026 11:02AM"
+  "county_compiled": "11/04/2026 8:04AM",
+  "statewide_compiled": "11/04/2026 11:01AM"
  },
  "source_url": "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats",
  "ours": {
-  "county_compiled": "11/03/2026 8:09AM",
-  "statewide_compiled": "11/03/2026 11:02AM"
+  "county_compiled": "11/04/2026 8:04AM",
+  "statewide_compiled": "11/04/2026 11:01AM"
  },
  "behind": {
   "county": false,
