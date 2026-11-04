@@ -1640,7 +1640,7 @@
    }
   }
  ],
- "updated_at": "2026-11-04T14:45:35-05:00",
+ "updated_at": "2026-11-04T15:32:38-05:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -1649,7 +1649,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-11-04T19:40:01.8595705+00:00",
+   "LastUpdatedTime": "2026-11-04T20:30:01.8808904+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
@@ -1924,7 +1924,7 @@
     },
     "11/03/2026": {
      "ElectionDay": 3163,
-     "Mail": 110,
+     "Mail": 113,
      "Provisional": 18
     }
    },
@@ -1969,7 +1969,7 @@
     "REP": {
      "EarlyVoting": 1993,
      "ElectionDay": 2208,
-     "Mail": 580,
+     "Mail": 583,
      "Provisional": 13
     },
     "CPP": {
@@ -2224,7 +2224,7 @@
      "BallotTypeTotals": {
       "EarlyVoting": 87,
       "ElectionDay": 149,
-      "Mail": 35
+      "Mail": 37
      },
      "EligibleVoters": 466
     },
@@ -2283,7 +2283,7 @@
      "BallotTypeTotals": {
       "EarlyVoting": 469,
       "ElectionDay": 407,
-      "Mail": 145,
+      "Mail": 146,
       "Provisional": 2
      },
      "EligibleVoters": 1702
