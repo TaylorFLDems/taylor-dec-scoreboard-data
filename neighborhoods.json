@@ -1,47 +1,47 @@
 {
  "election_id": "49894",
- "updated_at": "2026-11-03T18:48:10-05:00",
+ "updated_at": "2026-11-03T19:50:16-05:00",
  "through": "2026-11-02",
  "file_date": "2026-11-03",
  "areas": {
   "98 West": 56,
   "Belair": 73,
   "Beverly Estates": 76,
-  "Blair-Hine, Eastwood & Fairlawn": 66,
+  "Blair-Hine, Eastwood & Fairlawn": 67,
   "Calhoun & Hendry": 55,
   "Colonial Heights & Puckett": 54,
   "Dreamland": 68,
-  "East Perry": 56,
-  "El Rancho": 70,
+  "East Perry": 69,
+  "El Rancho": 75,
   "Glenridge & Pine Ridge": 67,
   "Green Acres": 65,
   "Homehaven & Milldale": 52,
-  "Jerkins Heights & Westwood": 64,
+  "Jerkins Heights & Westwood": 65,
   "North Perry (US 221)": 48,
-  "Original Town (East)": 63,
+  "Original Town (East)": 68,
   "Parkview & Myrtle": 78,
   "Perry Heights & Forest Heights": 52,
   "Perry Park & Wilcox": 73,
   "Pineland & Tippett": 57,
-  "Quinndale & Brobston": 64,
-  "South Perry": 58,
+  "Quinndale & Brobston": 65,
+  "South Perry": 61,
   "Southwood & Quail Point": 62,
   "Spring Lake": 74,
   "Taco Heights": 43,
   "The Clark": 90,
-  "Warner, Walnut & Folsom": 62,
+  "Warner, Walnut & Folsom": 63,
   "West Brook & Curls": 65
  },
  "perry": 65,
  "buckets": {
-  "perry": 65,
-  "north": 57,
-  "southwest": 53,
-  "east": 47,
+  "perry": 66,
+  "north": 58,
+  "southwest": 54,
+  "east": 49,
   "coast": 52,
   "south": 63
  },
- "county": 60,
+ "county": 61,
  "history": [
   {
    "date": "2026-10-21",
@@ -106,10 +106,10 @@
   {
    "date": "2026-11-03",
    "perry": 65,
-   "county": 60
+   "county": 61
   }
  ],
- "eday_as_of": "6:43 PM",
+ "eday_as_of": "7:43 PM",
  "method": "Share of Democrats who have voted early, by mail or on Election Day, from the Taylor County Elections Office list of who has voted. Neighborhoods: over active Democrats living there (SOE voter extract, Oct 16, 2026). County buckets: over active Democrats in those precincts at the Oct 5, 2026 book closing.",
  "note": "Percentages only. No voter-level data is published."
 }
