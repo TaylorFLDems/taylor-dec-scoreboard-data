@@ -1689,9 +1689,60 @@
      "T": 3467306
     }
    }
+  },
+  {
+   "date": "2026-11-06",
+   "compiled": "11/06/2026 8:04AM",
+   "compiled_state": "11/06/2026 2:01PM",
+   "taylor": {
+    "vbm_outstanding": {
+     "R": 59,
+     "D": 46,
+     "O": 7,
+     "NPA": 16,
+     "T": 128
+    },
+    "vbm_returned": {
+     "R": 583,
+     "D": 352,
+     "O": 10,
+     "NPA": 50,
+     "T": 995
+    },
+    "early_voted": {
+     "R": 1993,
+     "D": 685,
+     "O": 36,
+     "NPA": 126,
+     "T": 2840
+    }
+   },
+   "statewide": {
+    "vbm_outstanding": {
+     "R": 128309,
+     "D": 155322,
+     "O": 11937,
+     "NPA": 92609,
+     "T": 388177
+    },
+    "vbm_returned": {
+     "R": 724781,
+     "D": 884935,
+     "O": 51771,
+     "NPA": 417317,
+     "T": 2078804
+    },
+    "early_voted": {
+     "R": 1497468,
+     "D": 1210445,
+     "O": 90996,
+     "NPA": 668397,
+     "T": 3467306
+    }
+   }
   }
  ],
- "updated_at": "2026-11-05T16:58:49-05:00",
+ "updated_at": "2026-11-06T14:24:39-05:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -1700,7 +1751,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-11-05T22:00:01.5276877+00:00",
+   "LastUpdatedTime": "2026-11-06T19:20:01.8532962+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
@@ -1977,6 +2028,9 @@
      "ElectionDay": 3163,
      "Mail": 113,
      "Provisional": 18
+    },
+    "11/06/2026": {
+     "Provisional": 5
     }
    },
    "PartyType": {
@@ -2021,7 +2075,7 @@
      "EarlyVoting": 1993,
      "ElectionDay": 2208,
      "Mail": 583,
-     "Provisional": 13
+     "Provisional": 17
     },
     "CPP": {
      "EarlyVoting": 3,
@@ -2032,6 +2086,9 @@
      "ElectionDay": 199,
      "Mail": 50,
      "Provisional": 3
+    },
+    "OTH": {
+     "Provisional": 1
     },
     "GRE": {
      "ElectionDay": 1
@@ -2059,7 +2116,7 @@
       "DEM": 69,
       "GRE": 1,
       "NPA": 19,
-      "REP": 105
+      "REP": 107
      },
      "002": {
       "AMF": 2,
@@ -2092,7 +2149,7 @@
       "IND": 4,
       "LPF": 1,
       "NPA": 28,
-      "REP": 350
+      "REP": 351
      },
      "006": {
       "DEM": 22,
@@ -2120,10 +2177,10 @@
      "010": {
       "ASP": 1,
       "CSV": 3,
-      "DEM": 28,
+      "DEM": 27,
       "IND": 2,
       "NPA": 11,
-      "REP": 132
+      "REP": 133
      },
      "011": {
       "CPF": 1,
@@ -2143,10 +2200,11 @@
       "ASP": 1,
       "CPP": 1,
       "CSV": 1,
-      "DEM": 241,
+      "DEM": 242,
       "IND": 4,
       "LPF": 1,
       "NPA": 24,
+      "OTH": 1,
       "REP": 56
      },
      "014": {
@@ -2190,7 +2248,7 @@
       "EarlyVoting": 170,
       "ElectionDay": 230,
       "Mail": 60,
-      "Provisional": 1
+      "Provisional": 3
      },
      "EligibleVoters": 734
     },
@@ -2207,7 +2265,7 @@
       "EarlyVoting": 107,
       "ElectionDay": 424,
       "Mail": 78,
-      "Provisional": 2
+      "Provisional": 3
      },
      "EligibleVoters": 997
     },
@@ -2310,7 +2368,7 @@
       "EarlyVoting": 103,
       "ElectionDay": 80,
       "Mail": 46,
-      "Provisional": 1
+      "Provisional": 3
      },
      "EligibleVoters": 378
     },
@@ -2412,6 +2470,9 @@
        "GRE": 1,
        "NPA": 19,
        "REP": 105
+      },
+      "11/06/2026": {
+       "REP": 2
       }
      },
      "002": {
@@ -2453,6 +2514,9 @@
        "LPF": 1,
        "NPA": 28,
        "REP": 350
+      },
+      "11/06/2026": {
+       "REP": 1
       }
      },
      "006": {
@@ -2490,10 +2554,10 @@
       "11/03/2026": {
        "ASP": 1,
        "CSV": 3,
-       "DEM": 28,
+       "DEM": 27,
        "IND": 2,
        "NPA": 11,
-       "REP": 132
+       "REP": 133
       }
      },
      "011": {
@@ -2524,6 +2588,10 @@
        "LPF": 1,
        "NPA": 24,
        "REP": 56
+      },
+      "11/06/2026": {
+       "DEM": 1,
+       "OTH": 1
       }
      },
      "014": {
