@@ -1944,9 +1944,60 @@
      "T": 3467306
     }
    }
+  },
+  {
+   "date": "2026-11-11",
+   "compiled": "11/11/2026 8:04AM",
+   "compiled_state": "11/11/2026 8:04AM",
+   "taylor": {
+    "vbm_outstanding": {
+     "R": 59,
+     "D": 46,
+     "O": 7,
+     "NPA": 16,
+     "T": 128
+    },
+    "vbm_returned": {
+     "R": 583,
+     "D": 352,
+     "O": 10,
+     "NPA": 50,
+     "T": 995
+    },
+    "early_voted": {
+     "R": 1993,
+     "D": 685,
+     "O": 36,
+     "NPA": 126,
+     "T": 2840
+    }
+   },
+   "statewide": {
+    "vbm_outstanding": {
+     "R": 126481,
+     "D": 152966,
+     "O": 11741,
+     "NPA": 91083,
+     "T": 382271
+    },
+    "vbm_returned": {
+     "R": 725054,
+     "D": 885531,
+     "O": 51809,
+     "NPA": 417661,
+     "T": 2080055
+    },
+    "early_voted": {
+     "R": 1497468,
+     "D": 1210445,
+     "O": 90996,
+     "NPA": 668397,
+     "T": 3467306
+    }
+   }
   }
  ],
- "updated_at": "2026-11-10T16:48:26-05:00",
+ "updated_at": "2026-11-11T14:36:03-05:00",
  "note": "Seeded by hand from the state page compiled 10/04/2026 8:04AM; the Action takes over from its first run.",
  "tqv_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/data.json",
  "tqv_overrides_url": "https://s3.amazonaws.com/turnoutquickview.electionsfl.org/data/FL/TAY/85/overrides.json",
@@ -1955,7 +2006,7 @@
    "TotalRegisteredVoters": 11743,
    "ElectionName": "2026 General Election",
    "ElectionDate": "11/03/2026",
-   "LastUpdatedTime": "2026-11-10T21:50:02.1090028+00:00",
+   "LastUpdatedTime": "2026-11-11T19:30:01.8113827+00:00",
    "CountyName": "TAYLOR",
    "FvrsElectionNumber": 49894
   },
@@ -2238,52 +2289,49 @@
     }
    },
    "PartyType": {
-    "ASP": {
-     "ElectionDay": 2,
-     "EarlyVoting": 1
+    "AMF": {
+     "EarlyVoting": 4,
+     "ElectionDay": 8
     },
-    "IND": {
-     "Mail": 7,
-     "EarlyVoting": 21,
-     "ElectionDay": 22
+    "ASP": {
+     "EarlyVoting": 1,
+     "ElectionDay": 2
     },
     "CPF": {
-     "Mail": 1,
+     "EarlyVoting": 1,
      "ElectionDay": 3,
-     "EarlyVoting": 1
+     "Mail": 1
+    },
+    "CPP": {
+     "EarlyVoting": 3,
+     "ElectionDay": 1
+    },
+    "CSV": {
+     "EarlyVoting": 2,
+     "ElectionDay": 8,
+     "Mail": 1
     },
     "DEM": {
      "EarlyVoting": 685,
-     "Mail": 352,
      "ElectionDay": 704,
+     "Mail": 352,
      "Provisional": 9
     },
     "ECO": {
      "EarlyVoting": 1
     },
-    "CSV": {
-     "EarlyVoting": 2,
-     "Mail": 1,
-     "ElectionDay": 8
+    "GRE": {
+     "ElectionDay": 1
     },
-    "AMF": {
-     "EarlyVoting": 4,
-     "ElectionDay": 8
+    "IND": {
+     "EarlyVoting": 21,
+     "ElectionDay": 22,
+     "Mail": 7
     },
     "LPF": {
-     "Mail": 1,
      "EarlyVoting": 3,
-     "ElectionDay": 7
-    },
-    "REP": {
-     "EarlyVoting": 1993,
-     "ElectionDay": 2208,
-     "Mail": 583,
-     "Provisional": 17
-    },
-    "CPP": {
-     "EarlyVoting": 3,
-     "ElectionDay": 1
+     "ElectionDay": 7,
+     "Mail": 1
     },
     "NPA": {
      "EarlyVoting": 126,
@@ -2294,8 +2342,11 @@
     "OTH": {
      "Provisional": 1
     },
-    "GRE": {
-     "ElectionDay": 1
+    "REP": {
+     "EarlyVoting": 1993,
+     "ElectionDay": 2208,
+     "Mail": 583,
+     "Provisional": 17
     }
    },
    "LocationParty": {
